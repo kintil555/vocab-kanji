@@ -226,6 +226,27 @@ header{
 }
 .furi-toggle .ft-label{ display:flex; align-items:center; gap:8px; }
 .furi-toggle .ft-label small{ display:block; font-weight:400; color: rgba(28,28,26,0.5); font-size:10.5px; margin-top:1px; }
+
+.font-setting{
+  background:#fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.font-setting .ft-label{ display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:12.5px; font-weight:600; }
+.font-setting .ft-label small{ display:block; font-weight:400; color: rgba(28,28,26,0.5); font-size:10.5px; margin-top:1px; }
+.font-setting select{
+  width:100%;
+  font-family: inherit;
+  font-size: 13.5px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  background: var(--washi);
+  color: var(--sumi);
+  cursor:pointer;
+}
 .switch{
   position:relative;
   width: 40px; height: 22px;
@@ -491,6 +512,26 @@ header{
   gap: 10px;
   margin-top: 22px;
 }
+.option-group{ margin-top: 18px; }
+.option-group:first-child{ margin-top: 0; }
+.option-group-label{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color: var(--ai);
+  margin-bottom: 8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.option-group-label .og-status{
+  font-size: 12px;
+  display:none;
+}
+.option-group-label.locked-ok .og-status{ display:inline; color: var(--matcha); }
+.option-group-label.locked-bad .og-status{ display:inline; color: var(--shu); }
 .option{
   background:#fff;
   border: 1.5px solid var(--line);
@@ -722,9 +763,113 @@ footer{
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ===== Welcome Overlay ===== */
+#welcomeOverlay{
+  position:fixed; inset:0;
+  z-index: 999;
+  background: rgba(28,28,26,0.55);
+  backdrop-filter: blur(3px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 20px;
+  animation: fadeUp 0.25s ease;
+}
+#welcomeOverlay.hidden{ display:none; }
+.wo-card{
+  background: var(--washi);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  max-width: 380px;
+  width: 100%;
+  padding: 26px 22px 22px;
+  box-shadow: 4px 6px 0 var(--shadow);
+  position:relative;
+}
+.wo-close{
+  position:absolute; top:12px; right:12px;
+  width:28px; height:28px;
+  border-radius:8px;
+  border:1.5px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+  font-size:14px;
+  line-height:1;
+  color: var(--sumi);
+  display:flex; align-items:center; justify-content:center;
+}
+.wo-close:hover{ background: var(--washi-deep); }
+.wo-title{
+  font-family:'Shippori Mincho', serif;
+  font-weight:800;
+  font-size: 19px;
+  margin-bottom:8px;
+  padding-right: 30px;
+}
+.wo-body{
+  font-size: 13.5px;
+  color: rgba(28,28,26,0.7);
+  margin-bottom: 18px;
+  line-height:1.5;
+}
+.wo-font-label{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color: var(--ai);
+  margin-bottom: 8px;
+  display:block;
+}
+.wo-font-select{
+  width:100%;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background:#fff;
+  color: var(--sumi);
+  cursor:pointer;
+  margin-bottom: 16px;
+}
+.wo-actions{ display:flex; gap:8px; }
+.wo-actions button{
+  flex:1;
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-weight:700;
+  font-size: 13px;
+  padding: 11px;
+  border-radius: 10px;
+  cursor:pointer;
+  border: 1.5px solid var(--shu);
+}
+.wo-start{ background: var(--shu); color:#fff; }
+.wo-start:hover{ background:#a3390b; }
 </style>
-</head>
 <body>
+
+<div id="welcomeOverlay">
+  <div class="wo-card">
+    <button class="wo-close" id="woClose" aria-label="Tutup">✕</button>
+    <div class="wo-title">bjir mau belajar jepang nih</div>
+    <div class="wo-body">Selamat datang di 漢字道. Pilih font tampilan yang paling nyaman buat kamu di bawah ini, terus langsung gas belajar kanji.</div>
+    <label class="wo-font-label" for="woFontSelect">Font Tampilan</label>
+    <select class="wo-font-select" id="woFontSelect">
+      <option value="'Zen Kaku Gothic New', sans-serif">Zen Kaku Gothic New (default)</option>
+      <option value="'Shippori Mincho', serif">Shippori Mincho</option>
+      <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+      <option value="system-ui, -apple-system, sans-serif">System UI</option>
+      <option value="Georgia, serif">Georgia</option>
+    </select>
+    <div class="wo-actions">
+      <button class="wo-start" id="woStart">Gas Belajar →</button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
 
   <header>
@@ -798,6 +943,19 @@ footer{
     </div>
 
     <div class="section-label">Pengaturan</div>
+    <div class="font-setting">
+      <label class="ft-label" for="startFontSelect">
+        <span>あ</span>
+        <span>Font tampilan<small>Ganti gaya huruf di seluruh halaman</small></span>
+      </label>
+      <select id="startFontSelect">
+        <option value="'Zen Kaku Gothic New', sans-serif">Zen Kaku Gothic New (default)</option>
+        <option value="'Shippori Mincho', serif">Shippori Mincho</option>
+        <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+        <option value="system-ui, -apple-system, sans-serif">System UI</option>
+        <option value="Georgia, serif">Georgia</option>
+      </select>
+    </div>
     <label class="furi-toggle">
       <span class="ft-label">
         <span>あ</span>
@@ -1031,33 +1189,73 @@ const KANJI_DATA = [
     return KANJI_DATA.filter(d => pageSet.has(d.p));
   }
 
+  function pickDistinctBy(pool, keyFn, excludeItem, n){
+    const seen = new Set([keyFn(excludeItem)]);
+    const result = [];
+    for(const d of shuffle(pool)){
+      if(d === excludeItem) continue;
+      const key = keyFn(d);
+      if(seen.has(key)) continue;
+      seen.add(key);
+      result.push(d);
+      if(result.length >= n) break;
+    }
+    // fallback: kalau kurang dari n karena banyak duplikat kunci, isi dari KANJI_DATA penuh
+    if(result.length < n){
+      for(const d of shuffle(KANJI_DATA)){
+        if(result.length >= n) break;
+        if(d === excludeItem) continue;
+        const key = keyFn(d);
+        if(seen.has(key)) continue;
+        seen.add(key);
+        result.push(d);
+      }
+    }
+    return result;
+  }
+
   function buildQuestion(item, direction, wholePool){
-    let correctOption, optionPool, questionMain, questionSub, qType;
-    const distractors = pickN(wholePool.length >= 5 ? wholePool : KANJI_DATA, 4, item);
+    const basePool = wholePool.length >= 5 ? wholePool : KANJI_DATA;
+    let questionMain, questionSub, qType, groupALabel, groupBLabel, groupACorrect, groupBCorrect, groupAOptions, groupBOptions;
 
     if(direction === 'k2m'){
       qType = 'KANJI → ARTI';
       questionMain = item.k;
       questionSub = item.r;
-      correctOption = { text: item.m, isJp: false };
-      optionPool = distractors.map(d => ({ text: d.m, isJp: false }));
+
+      groupALabel = 'Pilih cara baca (hiragana)';
+      groupACorrect = { text: item.r, isJp: true };
+      const hiraganaDistractors = pickDistinctBy(basePool, d => d.r, item, 4);
+      groupAOptions = shuffle([groupACorrect, ...hiraganaDistractors.map(d => ({ text: d.r, isJp: true }))]);
+
+      groupBLabel = 'Pilih arti';
+      groupBCorrect = { text: item.m, isJp: false };
+      const meaningDistractors = pickDistinctBy(basePool, d => d.m, item, 4);
+      groupBOptions = shuffle([groupBCorrect, ...meaningDistractors.map(d => ({ text: d.m, isJp: false }))]);
     } else {
       qType = 'ARTI → KANJI';
       questionMain = item.m;
       questionSub = '';
-      correctOption = { text: item.k, sub: item.r, isJp: true };
-      optionPool = distractors.map(d => ({ text: d.k, sub: d.r, isJp: true }));
+
+      groupALabel = 'Pilih kanji';
+      groupACorrect = { text: item.k, isJp: true };
+      const kanjiDistractors = pickDistinctBy(basePool, d => d.k, item, 4);
+      groupAOptions = shuffle([groupACorrect, ...kanjiDistractors.map(d => ({ text: d.k, isJp: true }))]);
+
+      groupBLabel = 'Pilih cara baca (hiragana)';
+      groupBCorrect = { text: item.r, isJp: true };
+      const hiraganaDistractors = pickDistinctBy(basePool, d => d.r, item, 4);
+      groupBOptions = shuffle([groupBCorrect, ...hiraganaDistractors.map(d => ({ text: d.r, isJp: true }))]);
     }
 
-    const allOptions = shuffle([correctOption, ...optionPool]);
     return {
       item,
       direction,
       qType,
       questionMain,
       questionSub,
-      options: allOptions,
-      correctText: correctOption.text
+      groupA: { label: groupALabel, options: groupAOptions, correctText: groupACorrect.text },
+      groupB: { label: groupBLabel, options: groupBOptions, correctText: groupBCorrect.text }
     };
   }
 
@@ -1322,6 +1520,8 @@ const KANJI_DATA = [
     state.answered = false;
     const total = state.questions.length;
     const q = state.questions[state.current];
+    q.groupAChoice = null;
+    q.groupBChoice = null;
 
     progressLabel.textContent = `${state.current + 1} / ${total}`;
     progressFill.style.width = `${((state.current) / total) * 100}%`;
@@ -1342,9 +1542,28 @@ const KANJI_DATA = [
     nextBtn.classList.remove('show');
 
     optionsWrap.innerHTML = '';
+    renderOptionGroup(q, 'groupA');
+    renderOptionGroup(q, 'groupB');
+  }
+
+  function renderOptionGroup(q, groupKey){
+    const group = q[groupKey];
     const letters = ['A', 'B', 'C', 'D', 'E'];
 
-    q.options.forEach((opt, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'option-group';
+    wrap.id = 'og-' + groupKey;
+
+    const label = document.createElement('div');
+    label.className = 'option-group-label';
+    label.id = 'ogl-' + groupKey;
+    label.innerHTML = `<span>${group.label}</span><span class="og-status"></span>`;
+    wrap.appendChild(label);
+
+    const list = document.createElement('div');
+    list.className = 'options';
+
+    group.options.forEach((opt, i) => {
       const btn = document.createElement('button');
       btn.className = 'option';
       btn.setAttribute('data-text', opt.text);
@@ -1357,16 +1576,8 @@ const KANJI_DATA = [
       textSpan.className = 'opt-text';
       if(opt.isJp){
         const jpDiv = document.createElement('div');
-        jpDiv.className = 'opt-jp' + (showFurigana ? '' : ' hide-furi');
-        if(opt.sub){
-          const furiDiv = document.createElement('div');
-          furiDiv.className = 'furi';
-          furiDiv.textContent = opt.sub;
-          jpDiv.appendChild(furiDiv);
-        }
-        const kjDiv = document.createElement('div');
-        kjDiv.textContent = opt.text;
-        jpDiv.appendChild(kjDiv);
+        jpDiv.className = 'opt-jp';
+        jpDiv.textContent = opt.text;
         textSpan.appendChild(jpDiv);
       } else {
         textSpan.textContent = opt.text;
@@ -1375,21 +1586,29 @@ const KANJI_DATA = [
       btn.appendChild(letterSpan);
       btn.appendChild(textSpan);
 
-      btn.addEventListener('click', () => handleAnswer(btn, opt, q));
-      optionsWrap.appendChild(btn);
+      btn.addEventListener('click', () => handleGroupAnswer(btn, opt, q, groupKey));
+      list.appendChild(btn);
     });
+
+    wrap.appendChild(list);
+    optionsWrap.appendChild(wrap);
   }
 
-  function handleAnswer(btn, opt, q){
+  function handleGroupAnswer(btn, opt, q, groupKey){
     if(state.answered) return;
-    state.answered = true;
+    if(q[groupKey + 'Choice']) return; // grup ini sudah dikunci
 
-    const isCorrect = opt.text === q.correctText;
-    const allOptionBtns = optionsWrap.querySelectorAll('.option');
+    const group = q[groupKey];
+    const isCorrect = opt.text === group.correctText;
+    q[groupKey + 'Choice'] = { text: opt.text, correct: isCorrect };
+
+    const groupWrap = document.getElementById('og-' + groupKey);
+    const groupLabel = document.getElementById('ogl-' + groupKey);
+    const allOptionBtns = groupWrap.querySelectorAll('.option');
 
     allOptionBtns.forEach(b => {
       b.disabled = true;
-      if(b.getAttribute('data-text') === q.correctText){
+      if(b.getAttribute('data-text') === group.correctText){
         b.classList.add('correct');
       } else if(b === btn && !isCorrect){
         b.classList.add('wrong');
@@ -1397,6 +1616,18 @@ const KANJI_DATA = [
         b.classList.add('dim');
       }
     });
+
+    groupLabel.classList.add(isCorrect ? 'locked-ok' : 'locked-bad');
+    groupLabel.querySelector('.og-status').textContent = isCorrect ? '✓ benar' : '✕ kurang tepat';
+
+    if(q.groupAChoice && q.groupBChoice){
+      finalizeAnswer(q);
+    }
+  }
+
+  function finalizeAnswer(q){
+    state.answered = true;
+    const isCorrect = q.groupAChoice.correct && q.groupBChoice.correct;
 
     if(isCorrect){
       state.correctCount++;
@@ -1526,6 +1757,64 @@ const KANJI_DATA = [
 
 })();
 
+</script>
+
+<script>
+(function(){
+  const FONT_KEY = 'kanjiQuizFont_v1';
+  const WELCOME_SEEN_KEY = 'kanjiQuizWelcomeSeen_v1';
+
+  const overlay = document.getElementById('welcomeOverlay');
+  const closeBtn = document.getElementById('woClose');
+  const startBtn = document.getElementById('woStart');
+  const woFontSelect = document.getElementById('woFontSelect');
+  const startFontSelect = document.getElementById('startFontSelect');
+
+  function applyFont(fontValue){
+    document.body.style.fontFamily = fontValue;
+    woFontSelect.value = fontValue;
+    startFontSelect.value = fontValue;
+  }
+
+  function loadFont(){
+    try{
+      const saved = localStorage.getItem(FONT_KEY);
+      if(saved) applyFont(saved);
+    }catch(e){ /* storage unavailable */ }
+  }
+
+  function saveFont(fontValue){
+    try{ localStorage.setItem(FONT_KEY, fontValue); }catch(e){ /* ignore */ }
+  }
+
+  function closeOverlay(){
+    overlay.classList.add('hidden');
+    try{ localStorage.setItem(WELCOME_SEEN_KEY, '1'); }catch(e){ /* ignore */ }
+  }
+
+  woFontSelect.addEventListener('change', () => {
+    applyFont(woFontSelect.value);
+    saveFont(woFontSelect.value);
+  });
+  startFontSelect.addEventListener('change', () => {
+    applyFont(startFontSelect.value);
+    saveFont(startFontSelect.value);
+  });
+
+  closeBtn.addEventListener('click', closeOverlay);
+  startBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) closeOverlay();
+  });
+
+  loadFont();
+
+  try{
+    if(localStorage.getItem(WELCOME_SEEN_KEY) === '1'){
+      overlay.classList.add('hidden');
+    }
+  }catch(e){ /* ignore, overlay stays visible */ }
+})();
 </script>
 </body>
 </html>
