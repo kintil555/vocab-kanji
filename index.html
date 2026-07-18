@@ -118,6 +118,171 @@ header{
   to{ opacity:1; transform: translateY(0); }
 }
 
+/* ===== Saved progress banner ===== */
+.saved-banner{
+  background: #fff;
+  border: 1.5px solid var(--ai);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  flex-wrap:wrap;
+  box-shadow: 2px 3px 0 rgba(36,67,92,0.1);
+}
+.saved-banner-text{ flex:1; min-width:180px; }
+.saved-banner-text b{ display:block; font-size:13.5px; margin-bottom:2px; }
+.saved-banner-text span{ font-size: 12px; color: rgba(28,28,26,0.55); font-family:'JetBrains Mono', monospace; }
+.saved-banner-actions{ display:flex; gap:8px; }
+.sb-btn{
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-weight:700;
+  font-size: 12.5px;
+  padding: 9px 14px;
+  border-radius: 9px;
+  cursor:pointer;
+  border: 1.5px solid var(--ai);
+}
+.sb-primary{ background: var(--ai); color:#fff; }
+.sb-primary:hover{ background:#1a3245; }
+.sb-ghost{ background:transparent; color: var(--ai); border-color: rgba(36,67,92,0.3); }
+.sb-ghost:hover{ background: rgba(36,67,92,0.06); }
+
+/* ===== Page select ===== */
+.page-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+.page-chip{
+  position:relative;
+  background:#fff;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 6px 8px;
+  text-align:center;
+  cursor:pointer;
+  font-family:'JetBrains Mono', monospace;
+  transition: all 0.12s ease;
+}
+.page-chip b{ display:block; font-size: 16px; font-weight:700; color: var(--sumi); }
+.page-chip span{ display:block; font-size: 9px; color: rgba(28,28,26,0.45); margin-top:2px; }
+.page-chip.selected{
+  border-color: var(--shu);
+  background: rgba(193,68,14,0.06);
+}
+.page-chip.selected b{ color: var(--shu); }
+.page-chip .pc-check{
+  position:absolute; top:4px; right:4px;
+  width:14px; height:14px;
+  border-radius:4px;
+  border: 1.5px solid var(--line);
+  background:#fff;
+}
+.page-chip.selected .pc-check{
+  background: var(--shu);
+  border-color: var(--shu);
+}
+.page-chip.selected .pc-check::after{
+  content:"✓";
+  color:#fff;
+  font-size: 9px;
+  display:flex; align-items:center; justify-content:center;
+  width:100%; height:100%;
+}
+.page-actions{
+  display:flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.page-actions button{
+  flex:1;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight:600;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+  color: var(--sumi);
+}
+.page-actions button:hover{ background: var(--washi-deep); }
+
+/* ===== Furigana toggle ===== */
+.furi-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  font-weight:600;
+}
+.furi-toggle .ft-label{ display:flex; align-items:center; gap:8px; }
+.furi-toggle .ft-label small{ display:block; font-weight:400; color: rgba(28,28,26,0.5); font-size:10.5px; margin-top:1px; }
+.switch{
+  position:relative;
+  width: 40px; height: 22px;
+  flex-shrink:0;
+}
+.switch input{ opacity:0; width:0; height:0; }
+.switch-track{
+  position:absolute; inset:0;
+  background: var(--washi-deep);
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  cursor:pointer;
+  transition: background 0.15s ease;
+}
+.switch-track::before{
+  content:"";
+  position:absolute;
+  width: 16px; height:16px;
+  left: 2px; top: 2px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease;
+}
+.switch input:checked + .switch-track{ background: var(--matcha); border-color: var(--matcha); }
+.switch input:checked + .switch-track::before{ transform: translateX(18px); }
+.switch.small{ width:32px; height:18px; }
+.switch.small .switch-track::before{ width:12px; height:12px; }
+.switch.small input:checked + .switch-track::before{ transform: translateX(14px); }
+
+.furigana-wrap{ display:inline-flex; flex-direction:column; align-items:center; line-height:1.1; }
+.furigana-wrap .furi{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 0.22em;
+  font-weight:600;
+  color: var(--ai);
+  letter-spacing:0.02em;
+  margin-bottom: 4px;
+  opacity: 1;
+  transition: opacity 0.15s ease, max-height 0.15s ease;
+}
+.furigana-wrap.hide-furi .furi{
+  opacity: 0;
+  max-height:0;
+  margin-bottom:0;
+  overflow:hidden;
+}
+.opt-jp .furi{
+  font-size: 10px;
+  color: var(--ai);
+  font-family:'JetBrains Mono', monospace;
+  font-weight:600;
+  margin-bottom:2px;
+  transition: opacity 0.15s ease;
+}
+.opt-jp.hide-furi .furi{ opacity:0; height:0; overflow:hidden; margin:0; }
+
 /* ===== Start Screen ===== */
 .hero{
   text-align:center;
@@ -310,6 +475,9 @@ header{
   word-break: keep-all;
 }
 .question-main.jp{ font-size: clamp(40px, 12vw, 64px); }
+.question-main.jp .furigana-wrap{ line-height:1.2; }
+.question-main.jp .furigana-wrap .furi{ font-size: 0.24em; }
+.question-main.jp .furigana-wrap .kj{ display:block; }
 .question-main.id{ font-size: clamp(24px, 7vw, 34px); font-weight:700; padding: 0 4px;}
 .question-sub{
   margin-top:12px;
@@ -567,6 +735,17 @@ footer{
     <div class="stat-pill" id="headerStat"><span class="dot"></span><span id="headerStatText">611 kosakata</span></div>
   </header>
 
+  <div class="saved-banner" id="savedBanner" style="display:none;">
+    <div class="saved-banner-text">
+      <b>Progres tersimpan ditemukan</b>
+      <span id="savedBannerDetail"></span>
+    </div>
+    <div class="saved-banner-actions">
+      <button id="resumeBtn" class="sb-btn sb-primary">Lanjutkan</button>
+      <button id="dismissSavedBtn" class="sb-btn sb-ghost">Hapus</button>
+    </div>
+  </div>
+
   <!-- START SCREEN -->
   <section class="screen active" id="screen-start">
     <div class="hero">
@@ -602,6 +781,13 @@ footer{
       </button>
     </div>
 
+    <div class="section-label">Pilih lembar (bab)</div>
+    <div class="page-grid" id="pageGrid"></div>
+    <div class="page-actions">
+      <button id="selectAllPagesBtn">Pilih semua</button>
+      <button id="clearPagesBtn">Kosongkan</button>
+    </div>
+
     <div class="section-label">Jumlah soal</div>
     <div class="length-select" id="lengthSelect">
       <button data-len="10">10</button>
@@ -610,6 +796,18 @@ footer{
       <button data-len="50">50</button>
       <button data-len="all">Semua</button>
     </div>
+
+    <div class="section-label">Pengaturan</div>
+    <label class="furi-toggle">
+      <span class="ft-label">
+        <span>あ</span>
+        <span>Tampilkan furigana<small>Bacaan cara baca di atas kanji</small></span>
+      </span>
+      <span class="switch">
+        <input type="checkbox" id="furiToggle" checked>
+        <span class="switch-track"></span>
+      </span>
+    </label>
   </section>
 
   <!-- QUIZ SCREEN -->
@@ -617,6 +815,13 @@ footer{
     <div class="score-row">
       <div class="score-chip correct">✓ <b id="scoreOk">0</b></div>
       <div class="score-chip wrong">✕ <b id="scoreBad">0</b></div>
+      <label class="score-chip" style="margin-left:auto; cursor:pointer;">
+        <span class="switch small">
+          <input type="checkbox" id="furiToggleQuiz" checked>
+          <span class="switch-track"></span>
+        </span>
+        <span style="margin-left:6px;">furigana</span>
+      </label>
     </div>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -670,205 +875,120 @@ footer{
 
 <script>
 const KANJI_DATA = [
-{k:"魚",r:"さかな",m:"Ikan"},{k:"肉",r:"にく",m:"Daging"},{k:"卵",r:"たまご",m:"Telur"},
-{k:"水",r:"みず",m:"Air"},{k:"食べます",r:"たべます",m:"Makan"},{k:"飲みます",r:"のみます",m:"Minum"},
-{k:"大きい",r:"おおきい",m:"Besar"},{k:"小さい",r:"ちいさい",m:"Kecil"},{k:"新しい",r:"あたらしい",m:"Baru"},
-{k:"古い",r:"ふるい",m:"Lama, usang"},{k:"～時",r:"～じ",m:"~ jam"},{k:"～分",r:"～ふん、ぷん、ぶん",m:"~ menit"},
-{k:"～半",r:"～はん",m:"~ setengah"},{k:"月曜日",r:"げつようび",m:"Senin"},{k:"火曜日",r:"かようび",m:"Selasa"},
-{k:"水曜日",r:"すいようび",m:"Rabu"},{k:"木曜日",r:"もくようび",m:"Kamis"},{k:"金曜日",r:"きんようび",m:"Jumat"},
-{k:"土曜日",r:"どようび",m:"Sabtu"},{k:"日曜日",r:"にちようび",m:"Minggu"},{k:"言います",r:"いいます",m:"Berkata"},
-{k:"話します",r:"はなします",m:"Berbicara"},{k:"読みます",r:"よみます",m:"Membaca"},{k:"見ます",r:"みます",m:"Melihat"},
-{k:"聞きます",r:"ききます",m:"Mendengarkan"},{k:"書きます",r:"かきます",m:"Menulis"},{k:"一",r:"いち",m:"Satu"},
-{k:"二",r:"に",m:"Dua"},{k:"三",r:"さん",m:"Tiga"},{k:"四",r:"よん、し",m:"Empat"},{k:"五",r:"ご",m:"Lima"},
-{k:"六",r:"ろく",m:"Enam"},{k:"七",r:"なな、しち",m:"Tujuh"},{k:"八",r:"はち",m:"Delapan"},
-{k:"九",r:"きゅう",m:"Sembilan"},{k:"十",r:"じゅう",m:"Sepuluh"},{k:"～年",r:"～ねん",m:"~ tahun"},
-{k:"～月",r:"～がつ",m:"~ bulan"},{k:"～日",r:"～にち",m:"~ tanggal"},{k:"東",r:"ひがし",m:"Timur"},
-{k:"西",r:"にし",m:"Barat"},{k:"南",r:"みなみ",m:"Selatan"},{k:"北",r:"きた",m:"Utara"},
-{k:"～口",r:"～ぐち",m:"~ pintu"},{k:"東口",r:"ひがしぐち",m:"Pintu timur"},{k:"西口",r:"にしぐち",m:"Pintu barat"},
-{k:"南口",r:"みなみぐち",m:"Pintu selatan"},{k:"北口",r:"きたぐち",m:"Pintu utara"},{k:"買います",r:"かいます",m:"Membeli"},
-{k:"買い物",r:"かいもの",m:"Belanja"},{k:"お金",r:"おかね",m:"Uang"},{k:"～円",r:"～えん",m:"~ yen"},
-{k:"百",r:"ひゃく",m:"100"},{k:"千",r:"せん",m:"1000"},{k:"万",r:"まん",m:"10000"},
-{k:"百円",r:"ひゃくえん",m:"100 yen"},{k:"千円",r:"せんえん",m:"1000 yen"},{k:"一万円",r:"いちまんえん",m:"10000 yen"},
-{k:"行きます",r:"いきます",m:"Pergi"},{k:"来ます",r:"きます",m:"Datang"},{k:"会います",r:"あいます",m:"Bertemu"},
-{k:"休みます",r:"やすみます",m:"Libur, istirahat"},{k:"日本",r:"にほん",m:"Jepang"},{k:"東京",r:"とうきょう",m:"Tokyo"},
-{k:"私",r:"わたし",m:"Saya"},{k:"父",r:"ちち",m:"Ayah"},{k:"母",r:"はは",m:"Ibu"},{k:"子供",r:"こども",m:"Anak"},
-{k:"男",r:"おとこ",m:"Laki-laki"},{k:"女",r:"おんな",m:"Perempuan"},{k:"人",r:"ひと",m:"Orang"},
-{k:"お父さん",r:"おとうさん",m:"Ayah (orang lain)"},{k:"お母さん",r:"おかあさん",m:"Ibu (orang lain)"},
-{k:"何人",r:"なんにん",m:"Berapa orang?"},{k:"国",r:"くに",m:"Negara"},{k:"外国",r:"がいこく",m:"Luar negeri"},
-{k:"～語",r:"～ご",m:"~ Bahasa"},{k:"日本語",r:"にほんご",m:"Bahasa Jepang"},{k:"英語",r:"えいご",m:"Bahasa Inggris"},
-{k:"中国語",r:"ちゅうごくご",m:"Bahasa China"},{k:"～人",r:"～じん／～にん",m:"~ orang"},{k:"日本人",r:"にほんじん",m:"Orang Jepang"},
-{k:"好き",r:"すき",m:"Suka"},{k:"本",r:"ほん",m:"Buku"},{k:"読書",r:"どくしょ",m:"Bacaan"},{k:"何",r:"なに",m:"Apa?"},
-{k:"春",r:"はる",m:"Musim semi"},{k:"夏",r:"なつ",m:"Musim panas"},{k:"秋",r:"あき",m:"Musim gugur"},
-{k:"冬",r:"ふゆ",m:"Musim dingin"},{k:"今",r:"いま",m:"Sekarang"},{k:"花",r:"はな",m:"Bunga"},{k:"海",r:"うみ",m:"Laut"},
-{k:"山",r:"やま",m:"Gunung"},{k:"川",r:"かわ",m:"Sungai"},{k:"今日",r:"きょう",m:"Hari ini"},{k:"天気",r:"てんき",m:"Cuaca"},
-{k:"晴れ",r:"はれ",m:"Cerah"},{k:"雨",r:"あめ",m:"Hujan"},{k:"雪",r:"ゆき",m:"Salju"},{k:"雲",r:"くも",m:"Mendung"},
-{k:"風",r:"かぜ",m:"Angin"},{k:"空",r:"そら",m:"Langit"},{k:"町",r:"まち",m:"Kota"},{k:"店",r:"みせ",m:"Toko"},
-{k:"人気",r:"にんき",m:"Popularitas, ketenaran"},{k:"多い",r:"おおい",m:"Banyak"},{k:"少ない",r:"すくない",m:"Sedikit"},
-{k:"高い",r:"たかい",m:"Mahal"},{k:"安い",r:"やすい",m:"Murah"},{k:"広い",r:"ひろい",m:"Luas"},{k:"道",r:"みち",m:"Jalan"},
-{k:"通り",r:"とおり",m:"Jalan"},{k:"右",r:"みぎ",m:"Kanan"},{k:"左",r:"ひだり",m:"Kiri"},{k:"一つ",r:"ひとつ",m:"Satu buah"},
-{k:"二つ",r:"ふたつ",m:"Dua buah"},{k:"赤い",r:"あかい",m:"Merah"},{k:"青い",r:"あおい",m:"Biru"},{k:"黒い",r:"くろい",m:"Hitam"},
-{k:"白い",r:"しろい",m:"Putih"},{k:"時間",r:"じかん",m:"Waktu"},{k:"場所",r:"ばしょ",m:"Tempat"},{k:"駅",r:"えき",m:"Stasiun"},
-{k:"日",r:"ひ",m:"Matahari"},{k:"出かけます",r:"でかけます",m:"Meninggalkan rumah"},{k:"待ちます",r:"まちます",m:"Menunggu"},
-{k:"止まります",r:"とまります",m:"Berhenti"},{k:"食事",r:"しょくじ",m:"Makan bersama"},{k:"仕事",r:"しごと",m:"Pekerjaan"},
-{k:"前",r:"まえ",m:"Sebelum"},{k:"後",r:"あと",m:"Setelah"},{k:"朝",r:"あさ",m:"Pagi"},{k:"昼",r:"ひる",m:"Siang"},
-{k:"夜",r:"よる",m:"Malam"},{k:"乗ります",r:"のります",m:"Naik"},{k:"学校",r:"がっこう",m:"Sekolahan"},
-{k:"小学校",r:"しょうがっこう",m:"SD"},{k:"中学校",r:"ちゅうがっこう",m:"SMP"},{k:"高校",r:"こうこう",m:"SMA"},
-{k:"大学",r:"だいがく",m:"Universitas"},{k:"先生",r:"せんせい",m:"Guru"},{k:"学生",r:"がくせい",m:"Murid, siswa"},
-{k:"～年生",r:"～ねんせい",m:"Kelas ~"},{k:"勉強",r:"べんきょう",m:"Pelajaran"},{k:"文化",r:"ぶんか",m:"Kebudayaan"},
-{k:"音楽",r:"おんがく",m:"Musik"},{k:"旅行",r:"りょこう",m:"Wisata"},{k:"留学",r:"りゅうがく",m:"Belajar di luar negeri"},
-{k:"友達",r:"ともだち",m:"Teman"},{k:"楽しい",r:"たのしい",m:"Gembira"},{k:"週",r:"しゅう",m:"Minggu"},
-{k:"～回",r:"～かい",m:"~kali"},{k:"食べ物",r:"たべもの",m:"Makanan"},{k:"飲物",r:"のみもの",m:"Minuman"},
-{k:"お茶",r:"おちゃ",m:"Teh hijau"},{k:"お酒",r:"おさけ",m:"Sake"},{k:"作ります",r:"つくります",m:"Membuat"},
-{k:"持っていきます",r:"もっていきます",m:"Membawa pergi"},{k:"お願いします",r:"おねがいします",m:"Tolong"},
-{k:"料理",r:"りょうり",m:"Masakan"},{k:"味",r:"あじ",m:"Rasa"},{k:"色",r:"いろ",m:"Warna"},{k:"野菜",r:"やさい",m:"Sayuran"},
-{k:"少し",r:"すこし",m:"Sedikit"},{k:"中",r:"なか",m:"Dalam"},{k:"入っています",r:"はいっています",m:"Masuk"},
-{k:"会社",r:"かいしゃ",m:"Perusahaan"},{k:"本社",r:"ほんしゃ",m:"Kantor pusat"},{k:"支社",r:"ししゃ",m:"Kantor cabang"},
-{k:"出張",r:"しゅっちょう",m:"Dinas luar kota"},{k:"空港",r:"くうこう",m:"Bandara"},{k:"出発",r:"しゅっぱつ",m:"Keberangkatan"},
-{k:"到着",r:"とうちゃく",m:"Kedatangan"},{k:"午前",r:"ごぜん",m:"AM"},{k:"午後",r:"ごご",m:"PM"},{k:"自分",r:"じぶん",m:"Sendiri"},
-{k:"電話",r:"でんわ",m:"Telepon"},{k:"電気",r:"でんき",m:"Listrik"},{k:"電車",r:"でんしゃ",m:"Kereta"},
-{k:"車",r:"くるま",m:"Mobil"},{k:"送ります",r:"おくります",m:"Mengirim"},{k:"使います",r:"つかいます",m:"Menggunakan"},
-{k:"借ります",r:"かります",m:"Meminjam"},{k:"体",r:"からだ",m:"Badan"},{k:"頭",r:"あたま",m:"Kepala"},{k:"目",r:"め",m:"Mata"},
-{k:"口",r:"くち",m:"Mulut"},{k:"耳",r:"みみ",m:"Telinga"},{k:"手",r:"て",m:"Tangan"},{k:"足",r:"あし",m:"Kaki"},
-{k:"上",r:"うえ",m:"Atas"},{k:"下",r:"した",m:"Bawah"},{k:"毎～",r:"まい～",m:"~ setiap"},{k:"毎朝",r:"まいあさ",m:"Setiap pagi"},
-{k:"毎日",r:"まいにち",m:"Setiap hari"},{k:"週末",r:"しゅうまつ",m:"Akhir pekan"},{k:"元気",r:"げんき",m:"Sehat"},
-{k:"外",r:"そと",m:"Luar"},{k:"起きます",r:"おきます",m:"Bangun tidur"},{k:"歩きます",r:"あるきます",m:"Berjalan"},
-{k:"走ります",r:"はしります",m:"Berlari"},{k:"泳ぎます",r:"およぎます",m:"Berenang"},{k:"お祝い",r:"おいわい",m:"Perayaan"},
-{k:"誕生日",r:"たんじょうび",m:"Ulang tahun"},{k:"結婚",r:"けっこん",m:"Pernikahan"},{k:"絵",r:"え",m:"Gambar, lukisan"},
-{k:"写真",r:"しゃしん",m:"Foto"},{k:"時計",r:"とけい",m:"Jam"},{k:"着ます",r:"きます",m:"Memakai pakaian"},
-{k:"先～",r:"せん～",m:"~lalu"},{k:"先週",r:"せんしゅう",m:"Minggu lalu"},{k:"今月",r:"こんげつ",m:"Bulan ini"},
-{k:"来年",r:"らいねん",m:"Tahun depan"},{k:"今年",r:"ことし",m:"Tahun ini"},{k:"去年",r:"きょねん",m:"Tahun lalu"},
-{k:"家",r:"いえ",m:"Rumah"},{k:"思います",r:"おもいます",m:"Mengira"},{k:"自己紹介",r:"じこしょうかい",m:"Perkenalan"},
-{k:"名前",r:"なまえ",m:"Nama"},{k:"意味",r:"いみ",m:"Arti"},{k:"本屋",r:"ほんや",m:"Toko buku"},{k:"近く",r:"ちかく",m:"Dekat"},
-{k:"住みます",r:"すみます",m:"Tinggal"},{k:"働きます",r:"はたらきます",m:"Bekerja"},{k:"～番目",r:"～ばんめ",m:"Urutan yang ~"},
-{k:"兄",r:"あに",m:"Kakak laki-laki (sendiri)"},{k:"兄いさん",r:"おにいさん",m:"Kakak laki-laki (orang lain)"},
-{k:"姉",r:"あね",m:"Kakak perempuan (sendiri)"},{k:"お姉さん",r:"おねえさん",m:"Kakak perempuan (orang lain)"},
-{k:"弟",r:"おとうと",m:"Adik laki-laki (sendiri)"},{k:"妹",r:"いもうと",m:"Adik perempuan (sendiri)"},
-{k:"家族",r:"かぞく",m:"Keluarga"},{k:"長い",r:"ながい",m:"Panjang"},{k:"短い",r:"みじかい",m:"Pendek"},
-{k:"低い",r:"ひくい",m:"Rendah"},{k:"上手",r:"じょうず",m:"Pandai"},{k:"歌",r:"うた",m:"Lagu"},{k:"歌います",r:"うたいます",m:"Menyanyi"},
-{k:"客",r:"きゃく",m:"Tamu"},{k:"注文",r:"ちゅうもん",m:"Pesanan"},{k:"洋食",r:"ようしょく",m:"Makanan barat"},
-{k:"和食",r:"わしょく",m:"Makanan Jepang"},{k:"牛肉",r:"ぎゅうにく",m:"Daging sapi"},{k:"地方",r:"ちほう",m:"Daerah, wilayah"},
-{k:"有名",r:"ゆうめい",m:"Terkenal"},{k:"生",r:"なま",m:"Mentah"},{k:"冷たい",r:"つめたい",m:"Dingin (benda)"},
-{k:"ご飯",r:"ごはん",m:"Nasi"},{k:"塩",r:"しお",m:"Garam"},{k:"全部",r:"ぜんぶ",m:"Semua"},{k:"～方",r:"～かた",m:"Cara~"},
-{k:"食べ方",r:"たべかた",m:"Cara makan"},{k:"熱い",r:"あつい",m:"Panas"},{k:"苦手",r:"にがて",m:"Susah, tidak begitu suka"},
-{k:"入れます",r:"いれます",m:"Memasukkan"},{k:"木",r:"き",m:"Pohon"},{k:"森",r:"もり",m:"Hutan"},{k:"島",r:"しま",m:"Pulau"},
-{k:"自然",r:"しぜん",m:"Alam"},{k:"船",r:"ふね",m:"Kapal"},{k:"暑い",r:"あつい",m:"Panas (cuaca)"},{k:"帰ります",r:"かえります",m:"Pulang"},
-{k:"予約します",r:"よやくします",m:"Memesan"},{k:"運転します",r:"うんてんします",m:"Menyetir"},{k:"～中",r:"～ちゅう／～じゅう",m:"Sedang/dalam ~"},
-{k:"旅行中",r:"りょこうちゅう",m:"Sedang wisata"},{k:"観光地",r:"かんこうち",m:"Tempat wisata"},{k:"女性",r:"じょせい",m:"Wanita"},
-{k:"男性",r:"だんせい",m:"Pria"},{k:"動物",r:"どうぶつ",m:"Hewan"},{k:"空気",r:"くうき",m:"Udara"},{k:"料金",r:"りょうきん",m:"Biaya/tarif"},
-{k:"無料",r:"むりょう",m:"Gratis"},{k:"明るい",r:"あかるい",m:"Terang"},{k:"便利",r:"べんり",m:"Praktis"},
-{k:"一年中",r:"いちねんじゅう",m:"Dalam satu tahun"},{k:"受付",r:"うけつけ",m:"Penerima tamu"},{k:"広場",r:"ひろば",m:"Lapangan"},
-{k:"問題",r:"もんだい",m:"Soal, masalah"},{k:"同じ",r:"おなじ",m:"Sama"},{k:"集まります",r:"あつまります",m:"Berkumpul"},
-{k:"始まります",r:"はじまります",m:"Mulai"},{k:"終わります",r:"おわります",m:"Selesai"},{k:"中止します",r:"ちゅうしします",m:"Membatalkan"},
-{k:"教えます",r:"おしえます",m:"Memberitahu"},{k:"祭り",r:"まつり",m:"Perayaan"},{k:"日本祭り",r:"にほんまつり",m:"Perayaan Jepang"},
-{k:"会場",r:"かいじょう",m:"Ruang pertemuan"},{k:"入場料",r:"にゅうじょうりょう",m:"Tarif masuk"},{k:"参加者",r:"さんかしゃ",m:"Peserta"},
-{k:"急ぎます",r:"いそぎます",m:"Buru-buru"},{k:"決めます",r:"きめます",m:"Menentukan"},{k:"知ります",r:"しります",m:"Kenal, tahu"},
-{k:"正月",r:"しょうがつ",m:"Tahun baru"},{k:"年末",r:"ねんまつ",m:"Akhir tahun"},{k:"年始",r:"ねんし",m:"Awal tahun"},
-{k:"親",r:"おや",m:"Orang tua"},{k:"忙しい",r:"いそがしい",m:"Sibuk"},{k:"特別",r:"とくべつ",m:"Istimewa, spesial"},
-{k:"帰国",r:"きこく",m:"Pulang ke negara"},{k:"喜びます",r:"よろこびます",m:"Merasa senang/gembira"},{k:"幸せ",r:"しあわせ",m:"Bahagia"},
-{k:"成長",r:"せいちょう",m:"Pertumbuhan"},{k:"長生き",r:"ながいき",m:"Umur panjang"},{k:"願い事",r:"ねがいこと",m:"Keinginan, harapan"},
-{k:"合格",r:"ごうかく",m:"Lulus"},{k:"試験",r:"しけん",m:"Ujian"},{k:"大人",r:"おとな",m:"Orang dewasa"},
-{k:"～式",r:"～しき",m:"Upacara ~"},{k:"～市",r:"～し",m:"Kota~"},{k:"商品",r:"しょうひん",m:"Barang dagangan"},
-{k:"電気製品",r:"でんきせいひん",m:"Peralatan listrik"},{k:"電子レンジ",r:"でんしレンジ",m:"Oven"},{k:"～機",r:"～き",m:"Mesin~"},
-{k:"店員",r:"てんいん",m:"Penjaga toko"},{k:"調子",r:"ちょうし",m:"Keadaan, kondisi"},{k:"悪い",r:"わるい",m:"Jelek"},
-{k:"動きます",r:"うごきます",m:"Bergerak"},{k:"考えます",r:"かんがえます",m:"Berfikir"},{k:"音",r:"おと",m:"Suara"},
-{k:"出ます",r:"でます",m:"Keluar"},{k:"機能",r:"きのう",m:"Fungsi"},{k:"省エネ",r:"しょうエネ",m:"Penghematan energi"},
-{k:"日本製",r:"にほんせい",m:"Produk buatan Jepang"},{k:"重い",r:"おもい",m:"Berat"},{k:"軽い",r:"かるい",m:"Ringan"},
-{k:"静か",r:"しずか",m:"Tenang"},{k:"早く",r:"はやく",m:"Cepat"},{k:"方",r:"ほう",m:"Arah"},{k:"洗います",r:"あらいます",m:"Mencuci"},
-{k:"満足します",r:"まんぞくします",m:"Puas, merasa puas"},{k:"京都",r:"きょうと",m:"Kyoto"},{k:"神社",r:"じんじゃ",m:"Kuil Shinto"},
-{k:"お寺",r:"おてら",m:"Kuil"},{k:"仏教",r:"ぶっきょう",m:"Agama Budha"},{k:"歴史",r:"れきし",m:"Sejarah"},{k:"世界",r:"せかい",m:"Dunia"},
-{k:"中心",r:"ちゅうしん",m:"Pusat"},{k:"～世紀",r:"～せいき",m:"Abad~"},{k:"～的",r:"～てき",m:"Berbau~/ke~an"},
-{k:"日本的",r:"にほんてき",m:"Berbau Jepang"},{k:"歴史的",r:"れきしてき",m:"Bersejarah"},{k:"飲食",r:"いんしょく",m:"Makan minum"},
-{k:"禁止",r:"きんし",m:"Larangan"},{k:"説明",r:"せつめい",m:"Penjelasan"},{k:"道具",r:"どうぐ",m:"Peralatan"},
-{k:"博物館",r:"はくぶつかん",m:"Museum"},{k:"必要",r:"ひつよう",m:"Keperluan, kebutuhan"},{k:"～階",r:"～かい",m:"Lantai ~"},
-{k:"油",r:"あぶら",m:"Minyak, oli"},{k:"紙",r:"かみ",m:"Kertas"},{k:"温度",r:"おんど",m:"Suhu, derajat"},
-{k:"活動",r:"かつどう",m:"Kegiatan, aktivitas"},{k:"会議室",r:"かいぎしつ",m:"Ruang rapat"},{k:"寒い",r:"さむい",m:"Dingin (suhu)"},
-{k:"出します",r:"だします",m:"Mengeluarkan, mengirim"},{k:"～度",r:"～ど",m:"~derajat"},{k:"～点",r:"～てん",m:"Nilai ~"},
-{k:"服",r:"ふく",m:"Baju, pakaian"},{k:"自転車",r:"じてんしゃ",m:"Sepeda"},{k:"自動車",r:"じどうしゃ",m:"Mobil"},
-{k:"売ります",r:"うります",m:"Menjual"},{k:"貸します",r:"かします",m:"Meminjamkan"},{k:"返します",r:"かえします",m:"Mengembalikan"},
-{k:"変わります",r:"かわります",m:"Mengganti"},{k:"～用",r:"～よう",m:"Urusan, keperluan ~"},{k:"子供用",r:"こどもよう",m:"Urusan anak"},
-{k:"人生",r:"じんせい",m:"Kehidupan"},{k:"歌手",r:"かしゅ",m:"Penyanyi"},{k:"選手",r:"せんしゅ",m:"Atlit, pemain"},
-{k:"画家",r:"がか",m:"Pelukis"},{k:"作家",r:"さっか",m:"Pengarang"},{k:"入学",r:"にゅうがく",m:"Masuk sekolah"},
-{k:"卒業",r:"そつぎょう",m:"Lulus"},{k:"病気",r:"びょうき",m:"Sakit"},{k:"若い",r:"わかい",m:"Muda"},{k:"生まれます",r:"うまれます",m:"Lahir"},
-{k:"思い出",r:"おもいで",m:"Kenang-kenangan"},{k:"生活",r:"せいかつ",m:"Kehidupan"},{k:"映画",r:"えいが",m:"Film"},
-{k:"夫",r:"おっと",m:"Suami (sendiri)"},{k:"妻",r:"つま",m:"Istri (sendiri)"},{k:"両親",r:"りょうしん",m:"Orang tua"},
-{k:"不便",r:"ふべん",m:"Tidak praktis"},{k:"選びます",r:"えらびます",m:"Memilih"},{k:"寝ます",r:"ねます",m:"Tidur"},
-{k:"サッカー場",r:"サッカーじょう",m:"Lapangan sepak bola"},{k:"試合",r:"しあい",m:"Pertandingan"},{k:"強い",r:"つよい",m:"Kuat"},
-{k:"弱い",r:"よわい",m:"Lemah"},{k:"勝ちます",r:"かちます",m:"Menang"},{k:"負けます",r:"まけます",m:"Kalah"},
-{k:"～対～",r:"～たい～",m:"~lawan~"},{k:"庭",r:"にわ",m:"Halaman"},{k:"公園",r:"こうえん",m:"Taman"},{k:"病院",r:"びょういん",m:"Rumah sakit"},
-{k:"交通",r:"こうつう",m:"Lalu lintas"},{k:"通勤",r:"つうきん",m:"Perjalanan ke kantor"},{k:"安全",r:"あんぜん",m:"Keselamatan"},
-{k:"危ない",r:"あぶない",m:"Bahaya"},{k:"遠い",r:"とおい",m:"Jauh"},{k:"努めます",r:"つとめます",m:"Bekerja"},
-{k:"～以上",r:"～いじょう",m:"~ lebih"},{k:"～以下",r:"～いか",m:"~kurang"},{k:"海外",r:"かいがい",m:"Luar negeri"},
-{k:"食生活",r:"しょくせいかつ",m:"Susunan makanan"},{k:"健康",r:"けんこう",m:"Kesehatan"},{k:"家庭料理",r:"かていりょうり",m:"Masakan rumah tangga"},
-{k:"材料",r:"ざいりょう",m:"Bahan"},{k:"量",r:"りょう",m:"Jumlah, kuantitas"},{k:"米",r:"こめ",m:"Beras"},{k:"～食",r:"～しょく",m:"Makan ~"},
-{k:"朝食",r:"ちょうしょく",m:"Makan pagi"},{k:"昼食",r:"ちゅうしょく",m:"Makan siang"},{k:"夕食",r:"ゆうしょく",m:"Makan malam"},
-{k:"外食",r:"がいしょく",m:"Makan di luar"},{k:"定食",r:"ていしょく",m:"Makanan dengan menu tetap"},{k:"住所",r:"じゅうしょ",m:"Alamat"},
-{k:"訪問",r:"ほうもん",m:"Kunjungan"},{k:"経験",r:"けいけん",m:"Pengalaman"},{k:"親切",r:"しんせつ",m:"Ramah"},
-{k:"座ります",r:"すわります",m:"Duduk"},{k:"立ちます",r:"たちます",m:"Berdiri"},{k:"～観",r:"～かん",m:"Pandangan ~"},
-{k:"約～",r:"やく～",m:"Kira-kira, sekitar"},{k:"計画",r:"けいかく",m:"Rencana, program"},{k:"自信",r:"じしん",m:"Percaya diri"},
-{k:"方法",r:"ほうほう",m:"Cara"},{k:"目的",r:"もくてき",m:"Tujuan"},{k:"難しい",r:"むずかしい",m:"Sulit"},
-{k:"通じます",r:"つうじます",m:"Mengalirkan, menguasai"},{k:"習います",r:"ならいます",m:"Belajar kepada"},{k:"学びます",r:"まなびます",m:"Belajar"},
-{k:"～級",r:"～きゅう",m:"Kelas, tingkat ~"},{k:"初級",r:"しょきゅう",m:"Kelas dasar"},{k:"中級",r:"ちゅうきゅう",m:"Kelas menengah"},
-{k:"上級",r:"じょうきゅう",m:"Kelas atas"},{k:"相手",r:"あいて",m:"Pasangan, lawan"},{k:"気持ち",r:"きもち",m:"Perasaan"},
-{k:"恋人",r:"こいびと",m:"Pacar"},{k:"出会い",r:"であい",m:"Pertemuan"},{k:"最近",r:"さいきん",m:"Akhir-akhir ini"},
-{k:"最高",r:"さいこう",m:"Teratas, tertinggi"},{k:"出席",r:"しゅっせき",m:"Kehadiran"},{k:"招待",r:"しょうたい",m:"Undangan"},
-{k:"～合う",r:"～あう",m:"Cocok ~"},{k:"社会人",r:"しゃかいじん",m:"Anggota masyarakat"},{k:"職場",r:"しょくば",m:"Tempat kerja"},
-{k:"給料",r:"きゅうりょう",m:"Gaji"},{k:"人間関係",r:"にんげんかんけい",m:"Hubungan antar manusia"},{k:"親友",r:"しんゆう",m:"Teman karib"},
-{k:"恋愛",r:"れんあい",m:"Percintaan, asmara"},{k:"相談",r:"そうだん",m:"Musyawarah"},{k:"心",r:"こころ",m:"Hati"},
-{k:"心配",r:"しんぱい",m:"Khawatir"},{k:"不安",r:"ふあん",m:"Kegelisahan"},{k:"お客様",r:"おきゃくさま",m:"Tamu"},
-{k:"手続き",r:"てつづき",m:"Prosedur"},{k:"飛行機",r:"ひこうき",m:"Pesawat terbang"},{k:"変更",r:"へんこう",m:"Perubahan"},
-{k:"予定",r:"よてい",m:"Rencana"},{k:"利用",r:"りよう",m:"Penggunaan"},{k:"忘れ物",r:"わすれもの",m:"Benda yang tertinggal"},
-{k:"助けます",r:"たすけます",m:"Menolong"},{k:"～航空",r:"～こうくう",m:"Penerbangan ~"},{k:"～便",r:"～びん",m:"Penerbangan, pos"},
-{k:"体力",r:"たいりょく",m:"Kekuatan"},{k:"協力",r:"きょうりょく",m:"Kerjasama"},{k:"担当",r:"たんとう",m:"Petugas"},
-{k:"報告",r:"ほうこく",m:"Melapor"},{k:"連絡",r:"れんらく",m:"Menghubungi"},{k:"募集",r:"ぼしゅう",m:"Penerimaan, perekrutan"},
-{k:"輸出",r:"ゆしゅつ",m:"Ekspor"},{k:"輸入",r:"ゆにゅう",m:"Impor"},{k:"会話",r:"かいわ",m:"Percakapan"},{k:"形",r:"かたち",m:"Bentuk"},
-{k:"漢字",r:"かんじ",m:"Kanji"},{k:"答え",r:"こたえ",m:"Jawaban"},{k:"質問",r:"しつもん",m:"Pertanyaan"},{k:"正しい",r:"ただしい",m:"Benar"},
-{k:"読解",r:"どっかい",m:"Bacaan"},{k:"表現",r:"ひょうげん",m:"Pengucapan"},{k:"文",r:"ぶん",m:"Kalimat"},{k:"文型",r:"ぶんけい",m:"Pola kalimat"},
-{k:"文法",r:"ぶんぽう",m:"Tata bahasa"},{k:"もう一度",r:"もういちど",m:"Sekali lagi"},{k:"例",r:"れい",m:"Contoh"},{k:"練習",r:"れんしゅう",m:"Latihan"},
-{k:"～枚",r:"～まい",m:"~lembar"},{k:"今週",r:"こんしゅう",m:"Minggu ini"},{k:"今度",r:"こんど",m:"Lain kali"},{k:"横",r:"よこ",m:"Sebelah"},
-{k:"押します",r:"おします",m:"Menekan, mendorong"},{k:"引きます",r:"ひきます",m:"Menarik"},{k:"温泉",r:"おんせん",m:"Pemandian air panas"},
-{k:"来週",r:"らいしゅう",m:"Minggu depan"},{k:"犬",r:"いぬ",m:"Anjing"},{k:"夕方",r:"ゆうがた",m:"Sore"},{k:"季節",r:"きせつ",m:"Musim"},
-{k:"昨日",r:"きのう",m:"Kemarin"},{k:"明日",r:"あした",m:"Besok"},{k:"食堂",r:"しょくどう",m:"Kantin"},{k:"銀行",r:"ぎんこう",m:"Bank"},
-{k:"受付",r:"うけつけ",m:"Resepsionis"},{k:"門",r:"もん",m:"Pintu gerbang"},{k:"登ります",r:"のぼります",m:"Mendaki"},
-{k:"教科書",r:"きょうかしょ",m:"Buku panduan"},{k:"教室",r:"きょうしつ",m:"Ruang kelas"},{k:"参加します",r:"さんかします",m:"Berpartisipasi"},
-{k:"用意します",r:"よういします",m:"Menyiapkan"},{k:"豚肉",r:"ぶたにく",m:"Daging babi"},{k:"皿",r:"さら",m:"Piring"},
-{k:"お湯",r:"おゆ",m:"Air panas"},{k:"調理方法",r:"ちょうりほうほう",m:"Cara memasak"},{k:"甘い",r:"あまい",m:"Manis"},{k:"辛い",r:"からい",m:"Pedas"},
-{k:"数字",r:"すうじ",m:"Angka, bilangan"},{k:"机",r:"つくえ",m:"Meja"},{k:"都合",r:"つごう",m:"Keadaan"},{k:"用事",r:"ようじ",m:"Keperluan"},
-{k:"氏名",r:"しめい",m:"Nama lengkap"},{k:"理由",r:"りゆう",m:"Alasan"},{k:"別に",r:"べつに",m:"Beda-beda"},{k:"連絡先",r:"れんらくさき",m:"Alamat yang dapat dihubungi"},
-{k:"吸います",r:"すいます",m:"Menghisap"},{k:"取ります",r:"とります",m:"Mengambil"},{k:"伝えます",r:"つたえます",m:"Menyampaikan"},
-{k:"熱",r:"ねつ",m:"Demam"},{k:"薬",r:"くすり",m:"Obat"},{k:"医者",r:"いしゃ",m:"Dokter"},{k:"～才",r:"～さい",m:"Bakat/umur ~"},
-{k:"眠い",r:"ねむい",m:"Ngantuk"},{k:"記入します",r:"きにゅうします",m:"Mengisi di kertas"},{k:"顔",r:"かお",m:"Wajah"},{k:"泣きます",r:"なきます",m:"Menangis"},
-{k:"会計",r:"かいけい",m:"Pembayaran"},{k:"電話番号",r:"でんわばんごう",m:"Nomor telepon"},{k:"牛乳",r:"ぎゅうにゅう",m:"Susu sapi"},
-{k:"禁煙",r:"きんえん",m:"Larangan merokok"},{k:"自由",r:"じゆう",m:"Bebas"},{k:"切ります",r:"きります",m:"Memotong"},{k:"焼きます",r:"やきます",m:"Memanggang"},
-{k:"旅館",r:"りょかん",m:"Penginapan"},{k:"遊びます",r:"あそびます",m:"Bermain"},{k:"調べます",r:"しらべます",m:"Memeriksa"},
-{k:"事故",r:"じこ",m:"Kecelakaan"},{k:"故障",r:"こしょう",m:"Kerusakan"},{k:"指定席",r:"していせき",m:"Tempat duduk yang ditetapkan"},
-{k:"光ります",r:"ひかります",m:"Bercahaya, bersinar"},{k:"お知らせ",r:"おしらせ",m:"Pengumuman"},{k:"水道",r:"すいどう",m:"Ledeng"},
-{k:"工事",r:"こうじ",m:"Konstruksi"},{k:"場合",r:"ばあい",m:"Kesempatan"},{k:"条件",r:"じょうけん",m:"Syarat-syarat"},
-{k:"開きます",r:"ひらきます",m:"Membuka"},{k:"生産します",r:"せいさんします",m:"Memproduksi"},{k:"体験",r:"たいけん",m:"Percobaan"},
-{k:"国際交流",r:"こくさいこうりゅう",m:"Pertukaran budaya internasional"},{k:"申し込みます",r:"もうしこみます",m:"Melamar (pekerjaan)"},
-{k:"昨年",r:"さくねん",m:"Tahun lalu"},{k:"毎年",r:"まいとし",m:"Setiap tahun"},{k:"袋",r:"ふくろ",m:"Kantong plastik"},
-{k:"店長",r:"てんちょう",m:"Manajer toko"},{k:"全員",r:"ぜんいん",m:"Semuanya"},{k:"習慣",r:"しゅうかん",m:"Kebiasaan"},{k:"普通",r:"ふつう",m:"Biasa"},
-{k:"暗い",r:"くらい",m:"Gelap"},{k:"怒ります",r:"おこります",m:"Marah"},{k:"入院します",r:"にゅういんします",m:"Masuk rumah sakit"},
-{k:"退院します",r:"たいいんします",m:"Keluar rumah sakit"},{k:"急に",r:"きゅうに",m:"Tiba-tiba"},{k:"営業します",r:"えいぎょうします",m:"Buka"},
-{k:"案内します",r:"あんないします",m:"Memandu"},{k:"値段",r:"ねだん",m:"Harga"},{k:"価格",r:"かかく",m:"Harga"},{k:"消費税",r:"しょうひぜい",m:"Pajak konsumen"},
-{k:"税別",r:"ぜいべつ",m:"Harga belum termasuk pajak"},{k:"図書館",r:"としょかん",m:"Perpustakaan"},{k:"開きます",r:"あきます",m:"Terbuka"},
-{k:"閉まります",r:"しまります",m:"Tertutup"},{k:"利用します",r:"りようします",m:"Menggunakan"},{k:"窓口",r:"まどぐち",m:"Konter, loket"},
-{k:"郵便局",r:"ゆうびんきょく",m:"Kantor pos"},{k:"近所",r:"きんじょ",m:"Tetangga"},{k:"自動",r:"じどう",m:"Otomatis"},{k:"危険",r:"きけん",m:"Bahaya"},
-{k:"～種類",r:"～しゅるい",m:"~macam, jenis"},{k:"消します",r:"けします",m:"Memadamkan"},{k:"捨てます",r:"すてます",m:"Membuang"},
-{k:"分けます",r:"わけます",m:"Membagi"},{k:"燃えます",r:"もえます",m:"Terbakar"},{k:"設定します",r:"せっていします",m:"Mengeset, menyeting"},
-{k:"地震",r:"じしん",m:"Gempa"},{k:"台風",r:"たいふう",m:"Angin topan"},{k:"声",r:"こえ",m:"Suara (makhluk hidup)"},
-{k:"大切な",r:"たいせつな",m:"Penting"},{k:"進みます",r:"すすみます",m:"Maju, rekomendasi"},{k:"授業",r:"じゅぎょう",m:"Pelajaran"},
-{k:"大変な",r:"たいへんな",m:"Berat (perasaan)"},{k:"困ります",r:"こまります",m:"Susah"},{k:"違います",r:"ちがいます",m:"Salah, berbeda"},
-{k:"慣れます",r:"なれます",m:"Terbiasa"},{k:"増えます",r:"ふえます",m:"Bertambah"},{k:"笑います",r:"わらいます",m:"Tertawa"},
-{k:"苦労します",r:"くろうします",m:"Bersakit-sakit (dalam usaha)"},{k:"希望",r:"きぼう",m:"Harapan, keinginan"},{k:"特に",r:"とくに",m:"Terutama"},
-{k:"建てます",r:"たてます",m:"Mendirikan"},{k:"続けます",r:"つづけます",m:"Melanjutkan"},{k:"役に立ちます",r:"やくにたちます",m:"Bermanfaat"}
+{k:'魚',r:'さかな',m:'Ikan',p:1},{k:'肉',r:'にく',m:'Daging',p:1},{k:'卵',r:'たまご',m:'Telur',p:1},{k:'水',r:'みず',m:'Air',p:1},{k:'食べます',r:'たべます',m:'Makan',p:1},{k:'飲みます',r:'のみます',m:'Minum',p:1},
+{k:'大きい',r:'おおきい',m:'Besar',p:1},{k:'小さい',r:'ちいさい',m:'Kecil',p:1},{k:'新しい',r:'あたらしい',m:'Baru',p:1},{k:'古い',r:'ふるい',m:'Lama, usang',p:1},{k:'～時',r:'～じ',m:'~ jam',p:1},{k:'～分',r:'～ふん、ぷん、ぶん',m:'~ menit',p:1},
+{k:'～半',r:'～はん',m:'~ setengah',p:1},{k:'月曜日',r:'げつようび',m:'Senin',p:1},{k:'火曜日',r:'かようび',m:'Selasa',p:1},{k:'水曜日',r:'すいようび',m:'Rabu',p:1},{k:'木曜日',r:'もくようび',m:'Kamis',p:1},{k:'金曜日',r:'きんようび',m:'Jumat',p:1},
+{k:'土曜日',r:'どようび',m:'Sabtu',p:1},{k:'日曜日',r:'にちようび',m:'Minggu',p:1},{k:'言います',r:'いいます',m:'Berkata',p:1},{k:'話します',r:'はなします',m:'Berbicara',p:1},{k:'読みます',r:'よみます',m:'Membaca',p:1},{k:'見ます',r:'みます',m:'Melihat',p:1},
+{k:'聞きます',r:'ききます',m:'Mendengarkan',p:1},{k:'書きます',r:'かきます',m:'Menulis',p:1},{k:'一',r:'いち',m:'Satu',p:1},{k:'二',r:'に',m:'Dua',p:1},{k:'三',r:'さん',m:'Tiga',p:1},{k:'四',r:'よん、し',m:'Empat',p:1},
+{k:'五',r:'ご',m:'Lima',p:1},{k:'六',r:'ろく',m:'Enam',p:1},{k:'七',r:'なな、しち',m:'Tujuh',p:1},{k:'八',r:'はち',m:'Delapan',p:1},{k:'九',r:'きゅう',m:'Sembilan',p:1},{k:'十',r:'じゅう',m:'Sepuluh',p:1},
+{k:'～年',r:'～ねん',m:'~ tahun',p:1},{k:'～月',r:'～がつ',m:'~ bulan',p:1},{k:'～日',r:'～にち',m:'~ tanggal',p:1},{k:'東',r:'ひがし',m:'Timur',p:1},{k:'西',r:'にし',m:'Barat',p:1},{k:'南',r:'みなみ',m:'Selatan',p:1},
+{k:'北',r:'きた',m:'Utara',p:1},{k:'～口',r:'～ぐち',m:'~ pintu',p:1},{k:'東口',r:'ひがしぐち',m:'Pintu timur',p:1},{k:'西口',r:'にしぐち',m:'Pintu barat',p:1},{k:'南口',r:'みなみぐち',m:'Pintu selatan',p:1},{k:'北口',r:'きたぐち',m:'Pintu utara',p:1},
+{k:'買います',r:'かいます',m:'Membeli',p:1},{k:'買い物',r:'かいもの',m:'Belanja',p:1},{k:'お金',r:'おかね',m:'Uang',p:1},{k:'～円',r:'～えん',m:'~ yen',p:1},{k:'百',r:'ひゃく',m:'100',p:1},{k:'千',r:'せん',m:'1000',p:1},
+{k:'万',r:'まん',m:'10000',p:1},{k:'百円',r:'ひゃくえん',m:'100 yen',p:1},{k:'千円',r:'せんえん',m:'1000 yen',p:2},{k:'一万円',r:'いちまんえん',m:'10000 yen',p:2},{k:'行きます',r:'いきます',m:'Pergi',p:2},{k:'来ます',r:'きます',m:'Datang',p:2},
+{k:'会います',r:'あいます',m:'Bertemu',p:2},{k:'休みます',r:'やすみます',m:'Libur, istirahat',p:2},{k:'日本',r:'にほん',m:'Jepang',p:2},{k:'東京',r:'とうきょう',m:'Tokyo',p:2},{k:'私',r:'わたし',m:'Saya',p:2},{k:'父',r:'ちち',m:'Ayah',p:2},
+{k:'母',r:'はは',m:'Ibu',p:2},{k:'子供',r:'こども',m:'Anak',p:2},{k:'男',r:'おとこ',m:'Laki-laki',p:2},{k:'女',r:'おんな',m:'Perempuan',p:2},{k:'人',r:'ひと',m:'Orang',p:2},{k:'お父さん',r:'おとうさん',m:'Ayah (orang lain)',p:2},
+{k:'お母さん',r:'おかあさん',m:'Ibu (orang lain)',p:2},{k:'何人',r:'なんにん',m:'Berapa orang?',p:2},{k:'国',r:'くに',m:'Negara',p:2},{k:'外国',r:'がいこく',m:'Luar negeri',p:2},{k:'～語',r:'～ご',m:'~ Bahasa',p:2},{k:'日本語',r:'にほんご',m:'Bahasa Jepang',p:2},
+{k:'英語',r:'えいご',m:'Bahasa Inggris',p:2},{k:'中国語',r:'ちゅうごくご',m:'Bahasa China',p:2},{k:'～人',r:'～じん／～にん',m:'~ orang',p:2},{k:'日本人',r:'にほんじん',m:'Orang Jepang',p:2},{k:'好き',r:'すき',m:'Suka',p:2},{k:'本',r:'ほん',m:'Buku',p:2},
+{k:'読書',r:'どくしょ',m:'Bacaan',p:2},{k:'何',r:'なに',m:'Apa?',p:2},{k:'春',r:'はる',m:'Musim semi',p:2},{k:'夏',r:'なつ',m:'Musim panas',p:2},{k:'秋',r:'あき',m:'Musim gugur',p:2},{k:'冬',r:'ふゆ',m:'Musim dingin',p:2},
+{k:'今',r:'いま',m:'Sekarang',p:2},{k:'花',r:'はな',m:'Bunga',p:2},{k:'海',r:'うみ',m:'Laut',p:2},{k:'山',r:'やま',m:'Gunung',p:2},{k:'川',r:'かわ',m:'Sungai',p:2},{k:'今日',r:'きょう',m:'Hari ini',p:2},
+{k:'天気',r:'てんき',m:'Cuaca',p:2},{k:'晴れ',r:'はれ',m:'Cerah',p:2},{k:'雨',r:'あめ',m:'Hujan',p:2},{k:'雪',r:'ゆき',m:'Salju',p:2},{k:'雲',r:'くも',m:'Mendung',p:2},{k:'風',r:'かぜ',m:'Angin',p:2},
+{k:'空',r:'そら',m:'Langit',p:2},{k:'町',r:'まち',m:'Kota',p:2},{k:'店',r:'みせ',m:'Toko',p:2},{k:'人気',r:'にんき',m:'Popularitas, ketenaran',p:2},{k:'多い',r:'おおい',m:'Banyak',p:2},{k:'少ない',r:'すくない',m:'Sedikit',p:2},
+{k:'高い',r:'たかい',m:'Mahal',p:2},{k:'安い',r:'やすい',m:'Murah',p:2},{k:'広い',r:'ひろい',m:'Luas',p:2},{k:'道',r:'みち',m:'Jalan',p:2},{k:'通り',r:'とおり',m:'Jalan',p:3},{k:'右',r:'みぎ',m:'Kanan',p:3},
+{k:'左',r:'ひだり',m:'Kiri',p:3},{k:'一つ',r:'ひとつ',m:'Satu buah',p:3},{k:'二つ',r:'ふたつ',m:'Dua buah',p:3},{k:'赤い',r:'あかい',m:'Merah',p:3},{k:'青い',r:'あおい',m:'Biru',p:3},{k:'黒い',r:'くろい',m:'Hitam',p:3},
+{k:'白い',r:'しろい',m:'Putih',p:3},{k:'時間',r:'じかん',m:'Waktu',p:3},{k:'場所',r:'ばしょ',m:'Tempat',p:3},{k:'駅',r:'えき',m:'Stasiun',p:3},{k:'日',r:'ひ',m:'Matahari',p:3},{k:'出かけます',r:'でかけます',m:'Meninggalkan rumah',p:3},
+{k:'待ちます',r:'まちます',m:'Menunggu',p:3},{k:'止まります',r:'とまります',m:'Berhenti',p:3},{k:'食事',r:'しょくじ',m:'Makan bersama',p:3},{k:'仕事',r:'しごと',m:'Pekerjaan',p:3},{k:'前',r:'まえ',m:'Sebelum',p:3},{k:'後',r:'あと',m:'Setelah',p:3},
+{k:'朝',r:'あさ',m:'Pagi',p:3},{k:'昼',r:'ひる',m:'Siang',p:3},{k:'夜',r:'よる',m:'Malam',p:3},{k:'乗ります',r:'のります',m:'Naik',p:3},{k:'学校',r:'がっこう',m:'Sekolahan',p:3},{k:'小学校',r:'しょうがっこう',m:'SD',p:3},
+{k:'中学校',r:'ちゅうがっこう',m:'SMP',p:3},{k:'高校',r:'こうこう',m:'SMA',p:3},{k:'大学',r:'だいがく',m:'Universitas',p:3},{k:'先生',r:'せんせい',m:'Guru',p:3},{k:'学生',r:'がくせい',m:'Murid, siswa',p:3},{k:'～年生',r:'～ねんせい',m:'Kelas ~',p:3},
+{k:'勉強',r:'べんきょう',m:'Pelajaran',p:3},{k:'文化',r:'ぶんか',m:'Kebudayaan',p:3},{k:'音楽',r:'おんがく',m:'Musik',p:3},{k:'旅行',r:'りょこう',m:'Wisata',p:3},{k:'留学',r:'りゅうがく',m:'Belajar di luar negeri',p:3},{k:'友達',r:'ともだち',m:'Teman',p:3},
+{k:'楽しい',r:'たのしい',m:'Gembira',p:3},{k:'週',r:'しゅう',m:'Minggu',p:3},{k:'～回',r:'～かい',m:'~kali',p:3},{k:'食べ物',r:'たべもの',m:'Makanan',p:3},{k:'飲物',r:'のみもの',m:'Minuman',p:3},{k:'お茶',r:'おちゃ',m:'Teh hijau',p:3},
+{k:'お酒',r:'おさけ',m:'Sake',p:3},{k:'作ります',r:'つくります',m:'Membuat',p:3},{k:'持っていきます',r:'もっていきます',m:'Membawa pergi',p:3},{k:'お願いします',r:'おねがいします',m:'Tolong',p:3},{k:'料理',r:'りょうり',m:'Masakan',p:3},{k:'味',r:'あじ',m:'Rasa',p:3},
+{k:'色',r:'いろ',m:'Warna',p:3},{k:'野菜',r:'やさい',m:'Sayuran',p:3},{k:'少し',r:'すこし',m:'Sedikit',p:3},{k:'中',r:'なか',m:'Dalam',p:3},{k:'入っています',r:'はいっています',m:'Masuk',p:3},{k:'会社',r:'かいしゃ',m:'Perusahaan',p:3},
+{k:'本社',r:'ほんしゃ',m:'Kantor pusat',p:4},{k:'支社',r:'ししゃ',m:'Kantor cabang',p:4},{k:'出張',r:'しゅっちょう',m:'Dinas luar kota',p:4},{k:'空港',r:'くうこう',m:'Bandara',p:4},{k:'出発',r:'しゅっぱつ',m:'Keberangkatan',p:4},{k:'到着',r:'とうちゃく',m:'Kedatangan',p:4},
+{k:'午前',r:'ごぜん',m:'AM',p:4},{k:'午後',r:'ごご',m:'PM',p:4},{k:'自分',r:'じぶん',m:'Sendiri',p:4},{k:'電話',r:'でんわ',m:'Telepon',p:4},{k:'電気',r:'でんき',m:'Listrik',p:4},{k:'電車',r:'でんしゃ',m:'Kereta',p:4},
+{k:'車',r:'くるま',m:'Mobil',p:4},{k:'送ります',r:'おくります',m:'Mengirim',p:4},{k:'使います',r:'つかいます',m:'Menggunakan',p:4},{k:'借ります',r:'かります',m:'Meminjam',p:4},{k:'体',r:'からだ',m:'Badan',p:4},{k:'頭',r:'あたま',m:'Kepala',p:4},
+{k:'目',r:'め',m:'Mata',p:4},{k:'口',r:'くち',m:'Mulut',p:4},{k:'耳',r:'みみ',m:'Telinga',p:4},{k:'手',r:'て',m:'Tangan',p:4},{k:'足',r:'あし',m:'Kaki',p:4},{k:'上',r:'うえ',m:'Atas',p:4},
+{k:'下',r:'した',m:'Bawah',p:4},{k:'毎～',r:'まい～',m:'~ setiap',p:4},{k:'毎朝',r:'まいあさ',m:'Setiap pagi',p:4},{k:'毎日',r:'まいにち',m:'Setiap hari',p:4},{k:'週末',r:'しゅうまつ',m:'Akhir pekan',p:4},{k:'元気',r:'げんき',m:'Sehat',p:4},
+{k:'外',r:'そと',m:'Luar',p:4},{k:'起きます',r:'おきます',m:'Bangun tidur',p:4},{k:'歩きます',r:'あるきます',m:'Berjalan',p:4},{k:'走ります',r:'はしります',m:'Berlari',p:4},{k:'泳ぎます',r:'およぎます',m:'Berenang',p:4},{k:'お祝い',r:'おいわい',m:'Perayaan',p:4},
+{k:'誕生日',r:'たんじょうび',m:'Ulang tahun',p:4},{k:'結婚',r:'けっこん',m:'Pernikahan',p:4},{k:'絵',r:'え',m:'Gambar, lukisan',p:4},{k:'写真',r:'しゃしん',m:'Foto',p:4},{k:'時計',r:'とけい',m:'Jam',p:4},{k:'着ます',r:'きます',m:'Memakai pakaian',p:4},
+{k:'先～',r:'せん～',m:'~lalu',p:4},{k:'先週',r:'せんしゅう',m:'Minggu lalu',p:4},{k:'今月',r:'こんげつ',m:'Bulan ini',p:4},{k:'来年',r:'らいねん',m:'Tahun depan',p:4},{k:'今年',r:'ことし',m:'Tahun ini',p:4},{k:'去年',r:'きょねん',m:'Tahun lalu',p:4},
+{k:'家',r:'いえ',m:'Rumah',p:4},{k:'思います',r:'おもいます',m:'Mengira',p:4},{k:'自己紹介',r:'じこしょうかい',m:'Perkenalan',p:4},{k:'名前',r:'なまえ',m:'Nama',p:4},{k:'意味',r:'いみ',m:'Arti',p:4},{k:'本屋',r:'ほんや',m:'Toko buku',p:4},
+{k:'近く',r:'ちかく',m:'Dekat',p:4},{k:'住みます',r:'すみます',m:'Tinggal',p:4},{k:'働きます',r:'はたらきます',m:'Bekerja',p:5},{k:'～番目',r:'～ばんめ',m:'Urutan yang ~',p:5},{k:'兄',r:'あに',m:'Kakak laki-laki (sendiri)',p:5},{k:'兄いさん',r:'おにいさん',m:'Kakak laki-laki (orang lain)',p:5},
+{k:'姉',r:'あね',m:'Kakak perempuan (sendiri)',p:5},{k:'お姉さん',r:'おねえさん',m:'Kakak perempuan (orang lain)',p:5},{k:'弟',r:'おとうと',m:'Adik laki-laki (sendiri)',p:5},{k:'妹',r:'いもうと',m:'Adik perempuan (sendiri)',p:5},{k:'家族',r:'かぞく',m:'Keluarga',p:5},{k:'長い',r:'ながい',m:'Panjang',p:5},
+{k:'短い',r:'みじかい',m:'Pendek',p:5},{k:'低い',r:'ひくい',m:'Rendah',p:5},{k:'上手',r:'じょうず',m:'Pandai',p:5},{k:'歌',r:'うた',m:'Lagu',p:5},{k:'歌います',r:'うたいます',m:'Menyanyi',p:5},{k:'客',r:'きゃく',m:'Tamu',p:5},
+{k:'注文',r:'ちゅうもん',m:'Pesanan',p:5},{k:'洋食',r:'ようしょく',m:'Makanan barat',p:5},{k:'和食',r:'わしょく',m:'Makanan Jepang',p:5},{k:'牛肉',r:'ぎゅうにく',m:'Daging sapi',p:5},{k:'地方',r:'ちほう',m:'Daerah, wilayah',p:5},{k:'有名',r:'ゆうめい',m:'Terkenal',p:5},
+{k:'生',r:'なま',m:'Mentah',p:5},{k:'冷たい',r:'つめたい',m:'Dingin (benda)',p:5},{k:'ご飯',r:'ごはん',m:'Nasi',p:5},{k:'塩',r:'しお',m:'Garam',p:5},{k:'全部',r:'ぜんぶ',m:'Semua',p:5},{k:'～方',r:'～かた',m:'Cara~',p:5},
+{k:'食べ方',r:'たべかた',m:'Cara makan',p:5},{k:'熱い',r:'あつい',m:'Panas',p:5},{k:'苦手',r:'にがて',m:'Susah, tidak begitu suka',p:5},{k:'入れます',r:'いれます',m:'Memasukkan',p:5},{k:'木',r:'き',m:'Pohon',p:5},{k:'森',r:'もり',m:'Hutan',p:5},
+{k:'島',r:'しま',m:'Pulau',p:5},{k:'自然',r:'しぜん',m:'Alam',p:5},{k:'船',r:'ふね',m:'Kapal',p:5},{k:'暑い',r:'あつい',m:'Panas (cuaca)',p:5},{k:'帰ります',r:'かえります',m:'Pulang',p:5},{k:'予約します',r:'よやくします',m:'Memesan',p:5},
+{k:'運転します',r:'うんてんします',m:'Menyetir',p:5},{k:'～中',r:'～ちゅう／～じゅう',m:'Sedang/dalam ~',p:5},{k:'旅行中',r:'りょこうちゅう',m:'Sedang wisata',p:5},{k:'観光地',r:'かんこうち',m:'Tempat wisata',p:5},{k:'女性',r:'じょせい',m:'Wanita',p:5},{k:'男性',r:'だんせい',m:'Pria',p:5},
+{k:'動物',r:'どうぶつ',m:'Hewan',p:5},{k:'空気',r:'くうき',m:'Udara',p:5},{k:'料金',r:'りょうきん',m:'Biaya/tarif',p:5},{k:'無料',r:'むりょう',m:'Gratis',p:5},{k:'明るい',r:'あかるい',m:'Terang',p:5},{k:'便利',r:'べんり',m:'Praktis',p:5},
+{k:'一年中',r:'いちねんじゅう',m:'Dalam satu tahun',p:5},{k:'受付',r:'うけつけ',m:'Penerima tamu',p:5},{k:'広場',r:'ひろば',m:'Lapangan',p:5},{k:'問題',r:'もんだい',m:'Soal, masalah',p:5},{k:'同じ',r:'おなじ',m:'Sama',p:6},{k:'集まります',r:'あつまります',m:'Berkumpul',p:6},
+{k:'始まります',r:'はじまります',m:'Mulai',p:6},{k:'終わります',r:'おわります',m:'Selesai',p:6},{k:'中止します',r:'ちゅうしします',m:'Membatalkan',p:6},{k:'教えます',r:'おしえます',m:'Memberitahu',p:6},{k:'祭り',r:'まつり',m:'Perayaan',p:6},{k:'日本祭り',r:'にほんまつり',m:'Perayaan Jepang',p:6},
+{k:'会場',r:'かいじょう',m:'Ruang pertemuan',p:6},{k:'入場料',r:'にゅうじょうりょう',m:'Tarif masuk',p:6},{k:'参加者',r:'さんかしゃ',m:'Peserta',p:6},{k:'急ぎます',r:'いそぎます',m:'Buru-buru',p:6},{k:'決めます',r:'きめます',m:'Menentukan',p:6},{k:'知ります',r:'しります',m:'Kenal, tahu',p:6},
+{k:'正月',r:'しょうがつ',m:'Tahun baru',p:6},{k:'年末',r:'ねんまつ',m:'Akhir tahun',p:6},{k:'年始',r:'ねんし',m:'Awal tahun',p:6},{k:'親',r:'おや',m:'Orang tua',p:6},{k:'忙しい',r:'いそがしい',m:'Sibuk',p:6},{k:'特別',r:'とくべつ',m:'Istimewa, spesial',p:6},
+{k:'帰国',r:'きこく',m:'Pulang ke negara',p:6},{k:'喜びます',r:'よろこびます',m:'Merasa senang/gembira',p:6},{k:'幸せ',r:'しあわせ',m:'Bahagia',p:6},{k:'成長',r:'せいちょう',m:'Pertumbuhan',p:6},{k:'長生き',r:'ながいき',m:'Umur panjang',p:6},{k:'願い事',r:'ねがいこと',m:'Keinginan, harapan',p:6},
+{k:'合格',r:'ごうかく',m:'Lulus',p:6},{k:'試験',r:'しけん',m:'Ujian',p:6},{k:'大人',r:'おとな',m:'Orang dewasa',p:6},{k:'～式',r:'～しき',m:'Upacara ~',p:6},{k:'～市',r:'～し',m:'Kota~',p:6},{k:'商品',r:'しょうひん',m:'Barang dagangan',p:6},
+{k:'電気製品',r:'でんきせいひん',m:'Peralatan listrik',p:6},{k:'電子レンジ',r:'でんしレンジ',m:'Oven',p:6},{k:'～機',r:'～き',m:'Mesin~',p:6},{k:'店員',r:'てんいん',m:'Penjaga toko',p:6},{k:'調子',r:'ちょうし',m:'Keadaan, kondisi',p:6},{k:'悪い',r:'わるい',m:'Jelek',p:6},
+{k:'動きます',r:'うごきます',m:'Bergerak',p:6},{k:'考えます',r:'かんがえます',m:'Berfikir',p:6},{k:'音',r:'おと',m:'Suara',p:6},{k:'出ます',r:'でます',m:'Keluar',p:6},{k:'機能',r:'きのう',m:'Fungsi',p:6},{k:'省エネ',r:'しょうエネ',m:'Penghematan energi',p:6},
+{k:'日本製',r:'にほんせい',m:'Produk buatan Jepang',p:6},{k:'重い',r:'おもい',m:'Berat',p:6},{k:'軽い',r:'かるい',m:'Ringan',p:6},{k:'静か',r:'しずか',m:'Tenang',p:6},{k:'早く',r:'はやく',m:'Cepat',p:6},{k:'方',r:'ほう',m:'Arah',p:6},
+{k:'洗います',r:'あらいます',m:'Mencuci',p:6},{k:'満足します',r:'まんぞくします',m:'Puas, merasa puas',p:6},{k:'京都',r:'きょうと',m:'Kyoto',p:6},{k:'神社',r:'じんじゃ',m:'Kuil Shinto',p:6},{k:'お寺',r:'おてら',m:'Kuil',p:6},{k:'仏教',r:'ぶっきょう',m:'Agama Budha',p:6},
+{k:'歴史',r:'れきし',m:'Sejarah',p:7},{k:'世界',r:'せかい',m:'Dunia',p:7},{k:'中心',r:'ちゅうしん',m:'Pusat',p:7},{k:'～世紀',r:'～せいき',m:'Abad~',p:7},{k:'～的',r:'～てき',m:'Berbau~/ke~an',p:7},{k:'日本的',r:'にほんてき',m:'Berbau Jepang',p:7},
+{k:'歴史的',r:'れきしてき',m:'Bersejarah',p:7},{k:'飲食',r:'いんしょく',m:'Makan minum',p:7},{k:'禁止',r:'きんし',m:'Larangan',p:7},{k:'説明',r:'せつめい',m:'Penjelasan',p:7},{k:'道具',r:'どうぐ',m:'Peralatan',p:7},{k:'博物館',r:'はくぶつかん',m:'Museum',p:7},
+{k:'必要',r:'ひつよう',m:'Keperluan, kebutuhan',p:7},{k:'～階',r:'～かい',m:'Lantai ~',p:7},{k:'油',r:'あぶら',m:'Minyak, oli',p:7},{k:'紙',r:'かみ',m:'Kertas',p:7},{k:'温度',r:'おんど',m:'Suhu, derajat',p:7},{k:'活動',r:'かつどう',m:'Kegiatan, aktivitas',p:7},
+{k:'会議室',r:'かいぎしつ',m:'Ruang rapat',p:7},{k:'寒い',r:'さむい',m:'Dingin (suhu)',p:7},{k:'出します',r:'だします',m:'Mengeluarkan, mengirim',p:7},{k:'～度',r:'～ど',m:'~derajat',p:7},{k:'～点',r:'～てん',m:'Nilai ~',p:7},{k:'服',r:'ふく',m:'Baju, pakaian',p:7},
+{k:'自転車',r:'じてんしゃ',m:'Sepeda',p:7},{k:'自動車',r:'じどうしゃ',m:'Mobil',p:7},{k:'売ります',r:'うります',m:'Menjual',p:7},{k:'貸します',r:'かします',m:'Meminjamkan',p:7},{k:'返します',r:'かえします',m:'Mengembalikan',p:7},{k:'変わります',r:'かわります',m:'Mengganti',p:7},
+{k:'～用',r:'～よう',m:'Urusan, keperluan ~',p:7},{k:'子供用',r:'こどもよう',m:'Urusan anak',p:7},{k:'人生',r:'じんせい',m:'Kehidupan',p:7},{k:'歌手',r:'かしゅ',m:'Penyanyi',p:7},{k:'選手',r:'せんしゅ',m:'Atlit, pemain',p:7},{k:'画家',r:'がか',m:'Pelukis',p:7},
+{k:'作家',r:'さっか',m:'Pengarang',p:7},{k:'入学',r:'にゅうがく',m:'Masuk sekolah',p:7},{k:'卒業',r:'そつぎょう',m:'Lulus',p:7},{k:'病気',r:'びょうき',m:'Sakit',p:7},{k:'若い',r:'わかい',m:'Muda',p:7},{k:'生まれます',r:'うまれます',m:'Lahir',p:7},
+{k:'思い出',r:'おもいで',m:'Kenang-kenangan',p:7},{k:'生活',r:'せいかつ',m:'Kehidupan',p:7},{k:'映画',r:'えいが',m:'Film',p:7},{k:'夫',r:'おっと',m:'Suami (sendiri)',p:7},{k:'妻',r:'つま',m:'Istri (sendiri)',p:7},{k:'両親',r:'りょうしん',m:'Orang tua',p:7},
+{k:'不便',r:'ふべん',m:'Tidak praktis',p:7},{k:'選びます',r:'えらびます',m:'Memilih',p:7},{k:'寝ます',r:'ねます',m:'Tidur',p:7},{k:'サッカー場',r:'サッカーじょう',m:'Lapangan sepak bola',p:7},{k:'試合',r:'しあい',m:'Pertandingan',p:7},{k:'強い',r:'つよい',m:'Kuat',p:7},
+{k:'弱い',r:'よわい',m:'Lemah',p:7},{k:'勝ちます',r:'かちます',m:'Menang',p:8},{k:'負けます',r:'まけます',m:'Kalah',p:8},{k:'～対～',r:'～たい～',m:'~lawan~',p:8},{k:'庭',r:'にわ',m:'Halaman',p:8},{k:'公園',r:'こうえん',m:'Taman',p:8},
+{k:'病院',r:'びょういん',m:'Rumah sakit',p:8},{k:'交通',r:'こうつう',m:'Lalu lintas',p:8},{k:'通勤',r:'つうきん',m:'Perjalanan ke kantor',p:8},{k:'安全',r:'あんぜん',m:'Keselamatan',p:8},{k:'危ない',r:'あぶない',m:'Bahaya',p:8},{k:'遠い',r:'とおい',m:'Jauh',p:8},
+{k:'努めます',r:'つとめます',m:'Bekerja',p:8},{k:'～以上',r:'～いじょう',m:'~ lebih',p:8},{k:'～以下',r:'～いか',m:'~kurang',p:8},{k:'海外',r:'かいがい',m:'Luar negeri',p:8},{k:'食生活',r:'しょくせいかつ',m:'Susunan makanan',p:8},{k:'健康',r:'けんこう',m:'Kesehatan',p:8},
+{k:'家庭料理',r:'かていりょうり',m:'Masakan rumah tangga',p:8},{k:'材料',r:'ざいりょう',m:'Bahan',p:8},{k:'量',r:'りょう',m:'Jumlah, kuantitas',p:8},{k:'米',r:'こめ',m:'Beras',p:8},{k:'～食',r:'～しょく',m:'Makan ~',p:8},{k:'朝食',r:'ちょうしょく',m:'Makan pagi',p:8},
+{k:'昼食',r:'ちゅうしょく',m:'Makan siang',p:8},{k:'夕食',r:'ゆうしょく',m:'Makan malam',p:8},{k:'外食',r:'がいしょく',m:'Makan di luar',p:8},{k:'定食',r:'ていしょく',m:'Makanan dengan menu tetap',p:8},{k:'住所',r:'じゅうしょ',m:'Alamat',p:8},{k:'訪問',r:'ほうもん',m:'Kunjungan',p:8},
+{k:'経験',r:'けいけん',m:'Pengalaman',p:8},{k:'親切',r:'しんせつ',m:'Ramah',p:8},{k:'座ります',r:'すわります',m:'Duduk',p:8},{k:'立ちます',r:'たちます',m:'Berdiri',p:8},{k:'～観',r:'～かん',m:'Pandangan ~',p:8},{k:'約～',r:'やく～',m:'Kira-kira, sekitar',p:8},
+{k:'計画',r:'けいかく',m:'Rencana, program',p:8},{k:'自信',r:'じしん',m:'Percaya diri',p:8},{k:'方法',r:'ほうほう',m:'Cara',p:8},{k:'目的',r:'もくてき',m:'Tujuan',p:8},{k:'難しい',r:'むずかしい',m:'Sulit',p:8},{k:'通じます',r:'つうじます',m:'Mengalirkan, menguasai',p:8},
+{k:'習います',r:'ならいます',m:'Belajar kepada',p:8},{k:'学びます',r:'まなびます',m:'Belajar',p:8},{k:'～級',r:'～きゅう',m:'Kelas, tingkat ~',p:8},{k:'初級',r:'しょきゅう',m:'Kelas dasar',p:8},{k:'中級',r:'ちゅうきゅう',m:'Kelas menengah',p:8},{k:'上級',r:'じょうきゅう',m:'Kelas atas',p:8},
+{k:'相手',r:'あいて',m:'Pasangan, lawan',p:8},{k:'気持ち',r:'きもち',m:'Perasaan',p:8},{k:'恋人',r:'こいびと',m:'Pacar',p:8},{k:'出会い',r:'であい',m:'Pertemuan',p:8},{k:'最近',r:'さいきん',m:'Akhir-akhir ini',p:8},{k:'最高',r:'さいこう',m:'Teratas, tertinggi',p:8},
+{k:'出席',r:'しゅっせき',m:'Kehadiran',p:8},{k:'招待',r:'しょうたい',m:'Undangan',p:8},{k:'～合う',r:'～あう',m:'Cocok ~',p:9},{k:'社会人',r:'しゃかいじん',m:'Anggota masyarakat',p:9},{k:'職場',r:'しょくば',m:'Tempat kerja',p:9},{k:'給料',r:'きゅうりょう',m:'Gaji',p:9},
+{k:'人間関係',r:'にんげんかんけい',m:'Hubungan antar manusia',p:9},{k:'親友',r:'しんゆう',m:'Teman karib',p:9},{k:'恋愛',r:'れんあい',m:'Percintaan, asmara',p:9},{k:'相談',r:'そうだん',m:'Musyawarah',p:9},{k:'心',r:'こころ',m:'Hati',p:9},{k:'心配',r:'しんぱい',m:'Khawatir',p:9},
+{k:'不安',r:'ふあん',m:'Kegelisahan',p:9},{k:'お客様',r:'おきゃくさま',m:'Tamu',p:9},{k:'手続き',r:'てつづき',m:'Prosedur',p:9},{k:'飛行機',r:'ひこうき',m:'Pesawat terbang',p:9},{k:'変更',r:'へんこう',m:'Perubahan',p:9},{k:'予定',r:'よてい',m:'Rencana',p:9},
+{k:'利用',r:'りよう',m:'Penggunaan',p:9},{k:'忘れ物',r:'わすれもの',m:'Benda yang tertinggal',p:9},{k:'助けます',r:'たすけます',m:'Menolong',p:9},{k:'～航空',r:'～こうくう',m:'Penerbangan ~',p:9},{k:'～便',r:'～びん',m:'Penerbangan, pos',p:9},{k:'体力',r:'たいりょく',m:'Kekuatan',p:9},
+{k:'協力',r:'きょうりょく',m:'Kerjasama',p:9},{k:'担当',r:'たんとう',m:'Petugas',p:9},{k:'報告',r:'ほうこく',m:'Melapor',p:9},{k:'連絡',r:'れんらく',m:'Menghubungi',p:9},{k:'募集',r:'ぼしゅう',m:'Penerimaan, perekrutan',p:9},{k:'輸出',r:'ゆしゅつ',m:'Ekspor',p:9},
+{k:'輸入',r:'ゆにゅう',m:'Impor',p:9},{k:'会話',r:'かいわ',m:'Percakapan',p:9},{k:'形',r:'かたち',m:'Bentuk',p:9},{k:'漢字',r:'かんじ',m:'Kanji',p:9},{k:'答え',r:'こたえ',m:'Jawaban',p:9},{k:'質問',r:'しつもん',m:'Pertanyaan',p:9},
+{k:'正しい',r:'ただしい',m:'Benar',p:9},{k:'読解',r:'どっかい',m:'Bacaan',p:9},{k:'表現',r:'ひょうげん',m:'Pengucapan',p:9},{k:'文',r:'ぶん',m:'Kalimat',p:9},{k:'文型',r:'ぶんけい',m:'Pola kalimat',p:9},{k:'文法',r:'ぶんぽう',m:'Tata bahasa',p:9},
+{k:'もう一度',r:'もういちど',m:'Sekali lagi',p:9},{k:'例',r:'れい',m:'Contoh',p:9},{k:'練習',r:'れんしゅう',m:'Latihan',p:9},{k:'～枚',r:'～まい',m:'~lembar',p:9},{k:'今週',r:'こんしゅう',m:'Minggu ini',p:9},{k:'今度',r:'こんど',m:'Lain kali',p:9},
+{k:'横',r:'よこ',m:'Sebelah',p:9},{k:'押します',r:'おします',m:'Menekan, mendorong',p:9},{k:'引きます',r:'ひきます',m:'Menarik',p:9},{k:'温泉',r:'おんせん',m:'Pemandian air panas',p:9},{k:'来週',r:'らいしゅう',m:'Minggu depan',p:9},{k:'犬',r:'いぬ',m:'Anjing',p:9},
+{k:'夕方',r:'ゆうがた',m:'Sore',p:9},{k:'季節',r:'きせつ',m:'Musim',p:9},{k:'昨日',r:'きのう',m:'Kemarin',p:9},{k:'明日',r:'あした',m:'Besok',p:10},{k:'食堂',r:'しょくどう',m:'Kantin',p:10},{k:'銀行',r:'ぎんこう',m:'Bank',p:10},
+{k:'受付',r:'うけつけ',m:'Resepsionis',p:10},{k:'門',r:'もん',m:'Pintu gerbang',p:10},{k:'登ります',r:'のぼります',m:'Mendaki',p:10},{k:'教科書',r:'きょうかしょ',m:'Buku panduan',p:10},{k:'教室',r:'きょうしつ',m:'Ruang kelas',p:10},{k:'参加します',r:'さんかします',m:'Berpartisipasi',p:10},
+{k:'用意します',r:'よういします',m:'Menyiapkan',p:10},{k:'豚肉',r:'ぶたにく',m:'Daging babi',p:10},{k:'皿',r:'さら',m:'Piring',p:10},{k:'お湯',r:'おゆ',m:'Air panas',p:10},{k:'調理方法',r:'ちょうりほうほう',m:'Cara memasak',p:10},{k:'甘い',r:'あまい',m:'Manis',p:10},
+{k:'辛い',r:'からい',m:'Pedas',p:10},{k:'数字',r:'すうじ',m:'Angka, bilangan',p:10},{k:'机',r:'つくえ',m:'Meja',p:10},{k:'都合',r:'つごう',m:'Keadaan',p:10},{k:'用事',r:'ようじ',m:'Keperluan',p:10},{k:'氏名',r:'しめい',m:'Nama lengkap',p:10},
+{k:'理由',r:'りゆう',m:'Alasan',p:10},{k:'別に',r:'べつに',m:'Beda-beda',p:10},{k:'連絡先',r:'れんらくさき',m:'Alamat yang dapat dihubungi',p:10},{k:'吸います',r:'すいます',m:'Menghisap',p:10},{k:'取ります',r:'とります',m:'Mengambil',p:10},{k:'伝えます',r:'つたえます',m:'Menyampaikan',p:10},
+{k:'熱',r:'ねつ',m:'Demam',p:10},{k:'薬',r:'くすり',m:'Obat',p:10},{k:'医者',r:'いしゃ',m:'Dokter',p:10},{k:'～才',r:'～さい',m:'Bakat/umur ~',p:10},{k:'眠い',r:'ねむい',m:'Ngantuk',p:10},{k:'記入します',r:'きにゅうします',m:'Mengisi di kertas',p:10},
+{k:'顔',r:'かお',m:'Wajah',p:10},{k:'泣きます',r:'なきます',m:'Menangis',p:10},{k:'会計',r:'かいけい',m:'Pembayaran',p:10},{k:'電話番号',r:'でんわばんごう',m:'Nomor telepon',p:10},{k:'牛乳',r:'ぎゅうにゅう',m:'Susu sapi',p:10},{k:'禁煙',r:'きんえん',m:'Larangan merokok',p:10},
+{k:'自由',r:'じゆう',m:'Bebas',p:10},{k:'切ります',r:'きります',m:'Memotong',p:10},{k:'焼きます',r:'やきます',m:'Memanggang',p:10},{k:'旅館',r:'りょかん',m:'Penginapan',p:10},{k:'遊びます',r:'あそびます',m:'Bermain',p:10},{k:'調べます',r:'しらべます',m:'Memeriksa',p:10},
+{k:'事故',r:'じこ',m:'Kecelakaan',p:10},{k:'故障',r:'こしょう',m:'Kerusakan',p:10},{k:'指定席',r:'していせき',m:'Tempat duduk yang ditetapkan',p:10},{k:'光ります',r:'ひかります',m:'Bercahaya, bersinar',p:10},{k:'お知らせ',r:'おしらせ',m:'Pengumuman',p:10},{k:'水道',r:'すいどう',m:'Ledeng',p:10},
+{k:'工事',r:'こうじ',m:'Konstruksi',p:10},{k:'場合',r:'ばあい',m:'Kesempatan',p:10},{k:'条件',r:'じょうけん',m:'Syarat-syarat',p:10},{k:'開きます',r:'ひらきます',m:'Membuka',p:10},{k:'生産します',r:'せいさんします',m:'Memproduksi',p:11},{k:'体験',r:'たいけん',m:'Percobaan',p:11},
+{k:'国際交流',r:'こくさいこうりゅう',m:'Pertukaran budaya internasional',p:11},{k:'申し込みます',r:'もうしこみます',m:'Melamar (pekerjaan)',p:11},{k:'昨年',r:'さくねん',m:'Tahun lalu',p:11},{k:'毎年',r:'まいとし',m:'Setiap tahun',p:11},{k:'袋',r:'ふくろ',m:'Kantong plastik',p:11},{k:'店長',r:'てんちょう',m:'Manajer toko',p:11},
+{k:'全員',r:'ぜんいん',m:'Semuanya',p:11},{k:'習慣',r:'しゅうかん',m:'Kebiasaan',p:11},{k:'普通',r:'ふつう',m:'Biasa',p:11},{k:'暗い',r:'くらい',m:'Gelap',p:11},{k:'怒ります',r:'おこります',m:'Marah',p:11},{k:'入院します',r:'にゅういんします',m:'Masuk rumah sakit',p:11},
+{k:'退院します',r:'たいいんします',m:'Keluar rumah sakit',p:11},{k:'急に',r:'きゅうに',m:'Tiba-tiba',p:11},{k:'営業します',r:'えいぎょうします',m:'Buka',p:11},{k:'案内します',r:'あんないします',m:'Memandu',p:11},{k:'値段',r:'ねだん',m:'Harga',p:11},{k:'価格',r:'かかく',m:'Harga',p:11},
+{k:'消費税',r:'しょうひぜい',m:'Pajak konsumen',p:11},{k:'税別',r:'ぜいべつ',m:'Harga belum termasuk pajak',p:11},{k:'図書館',r:'としょかん',m:'Perpustakaan',p:11},{k:'開きます',r:'あきます',m:'Terbuka',p:11},{k:'閉まります',r:'しまります',m:'Tertutup',p:11},{k:'利用します',r:'りようします',m:'Menggunakan',p:11},
+{k:'窓口',r:'まどぐち',m:'Konter, loket',p:11},{k:'郵便局',r:'ゆうびんきょく',m:'Kantor pos',p:11},{k:'近所',r:'きんじょ',m:'Tetangga',p:11},{k:'自動',r:'じどう',m:'Otomatis',p:11},{k:'危険',r:'きけん',m:'Bahaya',p:11},{k:'～種類',r:'～しゅるい',m:'~macam, jenis',p:11},
+{k:'消します',r:'けします',m:'Memadamkan',p:11},{k:'捨てます',r:'すてます',m:'Membuang',p:11},{k:'分けます',r:'わけます',m:'Membagi',p:11},{k:'燃えます',r:'もえます',m:'Terbakar',p:11},{k:'設定します',r:'せっていします',m:'Mengeset, menyeting',p:11},{k:'地震',r:'じしん',m:'Gempa',p:11},
+{k:'台風',r:'たいふう',m:'Angin topan',p:11},{k:'声',r:'こえ',m:'Suara (makhluk hidup)',p:11},{k:'大切な',r:'たいせつな',m:'Penting',p:11},{k:'進みます',r:'すすみます',m:'Maju, rekomendasi',p:11},{k:'授業',r:'じゅぎょう',m:'Pelajaran',p:11},{k:'大変な',r:'たいへんな',m:'Berat (perasaan)',p:11},
+{k:'困ります',r:'こまります',m:'Susah',p:11},{k:'違います',r:'ちがいます',m:'Salah, berbeda',p:11},{k:'慣れます',r:'なれます',m:'Terbiasa',p:11},{k:'増えます',r:'ふえます',m:'Bertambah',p:11},{k:'笑います',r:'わらいます',m:'Tertawa',p:11},{k:'苦労します',r:'くろうします',m:'Bersakit-sakit (dalam usaha)',p:11},
+{k:'希望',r:'きぼう',m:'Harapan, keinginan',p:11},{k:'特に',r:'とくに',m:'Terutama',p:11},{k:'建てます',r:'たてます',m:'Mendirikan',p:11},{k:'続けます',r:'つづけます',m:'Melanjutkan',p:11},{k:'役に立ちます',r:'やくにたちます',m:'Bermanfaat',p:11}
 ];
 (function(){
   'use strict';
+
+  const STORAGE_KEY = 'kanjiQuizProgress_v1';
+  const SETTINGS_KEY = 'kanjiQuizSettings_v1';
 
   // ---------- State ----------
   let state = {
     mode: 'k2m',
     length: 20,
+    pages: [],           // selected page numbers
     questions: [],
     current: 0,
     correctCount: 0,
@@ -876,6 +996,10 @@ const KANJI_DATA = [
     answered: false,
     wrongList: []
   };
+
+  let showFurigana = true;
+  let selectedPages = new Set();
+  let selectedLength = 20;
 
   // ---------- Helpers ----------
   function shuffle(arr){
@@ -887,15 +1011,29 @@ const KANJI_DATA = [
     return a;
   }
 
-  function pickN(arr, n, excludeIndex){
-    const pool = arr.filter((_, i) => i !== excludeIndex);
+  function pickN(arr, n, excludeItem){
+    const pool = arr.filter(x => x !== excludeItem);
     return shuffle(pool).slice(0, n);
   }
 
-  function buildQuestion(item, index, direction){
-    // direction: 'k2m' (kanji->meaning) or 'm2k' (meaning->kanji)
-    const distractors = pickN(KANJI_DATA, 4, index);
+  function getAllPages(){
+    const pages = [...new Set(KANJI_DATA.map(d => d.p))].sort((a,b) => a - b);
+    return pages;
+  }
+
+  function countByPage(pageNum){
+    return KANJI_DATA.filter(d => d.p === pageNum).length;
+  }
+
+  function getFilteredPool(pages){
+    if(!pages || pages.length === 0) return KANJI_DATA.slice();
+    const pageSet = new Set(pages);
+    return KANJI_DATA.filter(d => pageSet.has(d.p));
+  }
+
+  function buildQuestion(item, direction, wholePool){
     let correctOption, optionPool, questionMain, questionSub, qType;
+    const distractors = pickN(wholePool.length >= 5 ? wholePool : KANJI_DATA, 4, item);
 
     if(direction === 'k2m'){
       qType = 'KANJI → ARTI';
@@ -923,17 +1061,93 @@ const KANJI_DATA = [
     };
   }
 
-  function generateQuestions(mode, length){
-    const source = shuffle(KANJI_DATA);
+  function generateQuestions(mode, length, pages){
+    const pool = getFilteredPool(pages);
+    const usablePool = pool.length > 0 ? pool : KANJI_DATA;
+    const source = shuffle(usablePool);
     const count = length === 'all' ? source.length : Math.min(length, source.length);
     const chosen = source.slice(0, count);
     return chosen.map((item) => {
-      const realIndex = KANJI_DATA.indexOf(item);
       let dir = mode;
       if(mode === 'mix'){
         dir = Math.random() < 0.5 ? 'k2m' : 'm2k';
       }
-      return buildQuestion(item, realIndex, dir);
+      return buildQuestion(item, dir, usablePool);
+    });
+  }
+
+  // ---------- Furigana rendering ----------
+  function renderJpWithFuri(kanjiText, readingText, extraClass){
+    const cls = 'furigana-wrap' + (extraClass ? ' ' + extraClass : '') + (showFurigana ? '' : ' hide-furi');
+    return `<span class="${cls}"><span class="furi">${escapeHtml(readingText)}</span><span class="kj">${escapeHtml(kanjiText)}</span></span>`;
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, (c) => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    }[c]));
+  }
+
+  // ---------- Persistence ----------
+  function saveSettings(){
+    try{
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+        showFurigana,
+        selectedPages: [...selectedPages],
+        selectedLength
+      }));
+    }catch(e){ /* storage unavailable */ }
+  }
+
+  function loadSettings(){
+    try{
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      if(typeof s.showFurigana === 'boolean') showFurigana = s.showFurigana;
+      if(Array.isArray(s.selectedPages)) selectedPages = new Set(s.selectedPages);
+      if(s.selectedLength) selectedLength = s.selectedLength;
+    }catch(e){ /* ignore */ }
+  }
+
+  function saveProgress(){
+    try{
+      const snapshot = {
+        mode: state.mode,
+        length: state.length,
+        pages: [...selectedPages],
+        current: state.current,
+        correctCount: state.correctCount,
+        wrongCount: state.wrongCount,
+        wrongList: state.wrongList.map(q => ({ k: q.item.k, r: q.item.r, m: q.item.m })),
+        questionKeys: state.questions.map(q => ({ k: q.item.k, r: q.item.r, m: q.item.m, dir: q.direction })),
+        savedAt: Date.now()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
+    }catch(e){ /* storage unavailable */ }
+  }
+
+  function clearProgress(){
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  }
+
+  function loadProgressRaw(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return null;
+      return JSON.parse(raw);
+    }catch(e){ return null; }
+  }
+
+  function findItem(k, r, m){
+    return KANJI_DATA.find(d => d.k === k && d.r === r && d.m === m) || { k, r, m, p: 0 };
+  }
+
+  function rebuildQuestionsFromSnapshot(snapshot){
+    return snapshot.questionKeys.map(qk => {
+      const item = findItem(qk.k, qk.r, qk.m);
+      const pool = getFilteredPool(snapshot.pages);
+      return buildQuestion(item, qk.dir, pool.length >= 5 ? pool : KANJI_DATA);
     });
   }
 
@@ -944,8 +1158,19 @@ const KANJI_DATA = [
     result: document.getElementById('screen-result')
   };
 
+  const savedBanner = document.getElementById('savedBanner');
+  const savedBannerDetail = document.getElementById('savedBannerDetail');
+  const resumeBtn = document.getElementById('resumeBtn');
+  const dismissSavedBtn = document.getElementById('dismissSavedBtn');
+
+  const pageGrid = document.getElementById('pageGrid');
+  const selectAllPagesBtn = document.getElementById('selectAllPagesBtn');
+  const clearPagesBtn = document.getElementById('clearPagesBtn');
+
   const lengthSelect = document.getElementById('lengthSelect');
   const modeCards = document.querySelectorAll('.mode-card');
+  const furiToggle = document.getElementById('furiToggle');
+  const furiToggleQuiz = document.getElementById('furiToggleQuiz');
 
   const scoreOkEl = document.getElementById('scoreOk');
   const scoreBadEl = document.getElementById('scoreBad');
@@ -979,35 +1204,110 @@ const KANJI_DATA = [
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ---------- Start screen interactions ----------
-  let selectedLength = 20;
+  // ---------- Page grid rendering ----------
+  function renderPageGrid(){
+    const pages = getAllPages();
+    pageGrid.innerHTML = '';
+    pages.forEach(p => {
+      const chip = document.createElement('div');
+      chip.className = 'page-chip' + (selectedPages.has(p) ? ' selected' : '');
+      chip.dataset.page = p;
+      chip.innerHTML = `<div class="pc-check"></div><b>${p}</b><span>${countByPage(p)} kata</span>`;
+      chip.addEventListener('click', () => {
+        if(selectedPages.has(p)) selectedPages.delete(p);
+        else selectedPages.add(p);
+        chip.classList.toggle('selected');
+        saveSettings();
+      });
+      pageGrid.appendChild(chip);
+    });
+  }
 
+  selectAllPagesBtn.addEventListener('click', () => {
+    getAllPages().forEach(p => selectedPages.add(p));
+    renderPageGrid();
+    saveSettings();
+  });
+
+  clearPagesBtn.addEventListener('click', () => {
+    selectedPages.clear();
+    renderPageGrid();
+    saveSettings();
+  });
+
+  // ---------- Furigana toggle sync ----------
+  function applyFuriToggleUI(){
+    furiToggle.checked = showFurigana;
+    furiToggleQuiz.checked = showFurigana;
+    document.querySelectorAll('.furigana-wrap').forEach(el => {
+      el.classList.toggle('hide-furi', !showFurigana);
+    });
+    document.querySelectorAll('.opt-jp').forEach(el => {
+      el.classList.toggle('hide-furi', !showFurigana);
+    });
+  }
+
+  furiToggle.addEventListener('change', () => {
+    showFurigana = furiToggle.checked;
+    applyFuriToggleUI();
+    saveSettings();
+  });
+  furiToggleQuiz.addEventListener('change', () => {
+    showFurigana = furiToggleQuiz.checked;
+    applyFuriToggleUI();
+    saveSettings();
+  });
+
+  // ---------- Start screen interactions ----------
   lengthSelect.addEventListener('click', (e) => {
     const btn = e.target.closest('button');
     if(!btn) return;
     lengthSelect.querySelectorAll('button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     selectedLength = btn.dataset.len === 'all' ? 'all' : parseInt(btn.dataset.len, 10);
+    saveSettings();
   });
 
   modeCards.forEach(card => {
     card.addEventListener('click', () => {
       const mode = card.dataset.mode;
-      startQuiz(mode, selectedLength);
+      startQuiz(mode, selectedLength, [...selectedPages]);
     });
   });
 
   // ---------- Quiz flow ----------
-  function startQuiz(mode, length){
+  function startQuiz(mode, length, pages){
     state.mode = mode;
     state.length = length;
-    state.questions = generateQuestions(mode, length);
+    state.pages = pages || [];
+    state.questions = generateQuestions(mode, length, state.pages);
     state.current = 0;
     state.correctCount = 0;
     state.wrongCount = 0;
     state.answered = false;
     state.wrongList = [];
 
+    updateScoreRow();
+    showScreen('quiz');
+    renderQuestion();
+    saveProgress();
+  }
+
+  function resumeQuiz(snapshot){
+    state.mode = snapshot.mode;
+    state.length = snapshot.length;
+    state.pages = snapshot.pages || [];
+    state.questions = rebuildQuestionsFromSnapshot(snapshot);
+    state.current = Math.min(snapshot.current, state.questions.length - 1);
+    state.correctCount = snapshot.correctCount || 0;
+    state.wrongCount = snapshot.wrongCount || 0;
+    state.answered = false;
+    state.wrongList = (snapshot.wrongList || []).map(w => {
+      const item = findItem(w.k, w.r, w.m);
+      return { item };
+    });
+
+    selectedPages = new Set(state.pages);
     updateScoreRow();
     showScreen('quiz');
     renderQuestion();
@@ -1027,9 +1327,16 @@ const KANJI_DATA = [
     progressFill.style.width = `${((state.current) / total) * 100}%`;
 
     qTypeTag.textContent = q.qType;
-    questionMainEl.className = 'question-main ' + (q.direction === 'k2m' ? 'jp' : 'id');
-    questionMainEl.textContent = q.questionMain;
-    questionSubEl.textContent = q.questionSub || '';
+
+    if(q.direction === 'k2m'){
+      questionMainEl.className = 'question-main jp';
+      questionMainEl.innerHTML = renderJpWithFuri(q.questionMain, q.questionSub);
+      questionSubEl.textContent = '';
+    } else {
+      questionMainEl.className = 'question-main id';
+      questionMainEl.textContent = q.questionMain;
+      questionSubEl.textContent = '';
+    }
 
     feedback.classList.remove('show', 'ok', 'bad');
     nextBtn.classList.remove('show');
@@ -1050,15 +1357,17 @@ const KANJI_DATA = [
       textSpan.className = 'opt-text';
       if(opt.isJp){
         const jpDiv = document.createElement('div');
-        jpDiv.className = 'opt-jp';
-        jpDiv.textContent = opt.text;
-        textSpan.appendChild(jpDiv);
+        jpDiv.className = 'opt-jp' + (showFurigana ? '' : ' hide-furi');
         if(opt.sub){
-          const subDiv = document.createElement('div');
-          subDiv.style.cssText = 'font-size:11px;color:rgba(28,28,26,0.45);font-family:JetBrains Mono, monospace;margin-top:2px;';
-          subDiv.textContent = opt.sub;
-          textSpan.appendChild(subDiv);
+          const furiDiv = document.createElement('div');
+          furiDiv.className = 'furi';
+          furiDiv.textContent = opt.sub;
+          jpDiv.appendChild(furiDiv);
         }
+        const kjDiv = document.createElement('div');
+        kjDiv.textContent = opt.text;
+        jpDiv.appendChild(kjDiv);
+        textSpan.appendChild(jpDiv);
       } else {
         textSpan.textContent = opt.text;
       }
@@ -1107,6 +1416,8 @@ const KANJI_DATA = [
     updateScoreRow();
     nextBtn.classList.add('show');
     nextBtn.textContent = (state.current + 1 >= state.questions.length) ? 'Lihat Hasil →' : 'Lanjut →';
+
+    saveProgress();
   }
 
   nextBtn.addEventListener('click', () => {
@@ -1115,6 +1426,7 @@ const KANJI_DATA = [
       finishQuiz();
     } else {
       renderQuestion();
+      saveProgress();
     }
   });
 
@@ -1162,19 +1474,55 @@ const KANJI_DATA = [
       reviewSection.style.display = 'none';
     }
 
+    clearProgress();
     showScreen('result');
   }
 
   restartSameBtn.addEventListener('click', () => {
-    startQuiz(state.mode, state.length);
+    startQuiz(state.mode, state.length, state.pages);
   });
 
   homeBtn.addEventListener('click', () => {
+    clearProgress();
     showScreen('start');
   });
 
+  // ---------- Saved progress banner ----------
+  function initSavedBanner(){
+    const snapshot = loadProgressRaw();
+    if(!snapshot || !snapshot.questionKeys || snapshot.questionKeys.length === 0){
+      savedBanner.style.display = 'none';
+      return;
+    }
+    const modeLabel = { k2m: 'Kanji→Arti', m2k: 'Arti→Kanji', mix: 'Campuran' }[snapshot.mode] || snapshot.mode;
+    const pageLabel = (snapshot.pages && snapshot.pages.length > 0)
+      ? `Lembar ${snapshot.pages.sort((a,b)=>a-b).join(', ')}`
+      : 'Semua lembar';
+    savedBannerDetail.textContent = `${modeLabel} · Soal ${snapshot.current + 1}/${snapshot.questionKeys.length} · ${pageLabel}`;
+    savedBanner.style.display = 'flex';
+
+    resumeBtn.onclick = () => {
+      resumeQuiz(snapshot);
+    };
+    dismissSavedBtn.onclick = () => {
+      clearProgress();
+      savedBanner.style.display = 'none';
+    };
+  }
+
   // ---------- Init ----------
   document.getElementById('headerStatText').textContent = `${KANJI_DATA.length} kosakata`;
+
+  loadSettings();
+  renderPageGrid();
+  applyFuriToggleUI();
+
+  lengthSelect.querySelectorAll('button').forEach(b => {
+    const val = b.dataset.len === 'all' ? 'all' : parseInt(b.dataset.len, 10);
+    b.classList.toggle('active', val === selectedLength);
+  });
+
+  initSavedBanner();
 
 })();
 
