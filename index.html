@@ -687,6 +687,40 @@ header{
   flex-shrink:0;
 }
 
+.sentence-mode-cta{
+  width:100%;
+  background: linear-gradient(135deg, #fff, var(--washi-deep));
+  border: 1.5px solid var(--gold);
+  border-radius: 14px;
+  padding: 18px 18px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap: 16px;
+  cursor:pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 0 var(--line);
+  margin-top: 14px;
+}
+.sentence-mode-cta:hover{
+  transform: translateY(-2px);
+  box-shadow: 3px 5px 0 var(--shadow);
+}
+.sentence-mode-cta:active{ transform: translateY(0px); }
+.sm-cta-icon{
+  font-family:var(--font-jp);
+  font-size: 30px;
+  font-weight:700;
+  width: 52px; height:52px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius: 10px;
+  background: var(--gold);
+  color:#fff;
+}
+.sm-cta-text h3{ font-size: 16px; font-weight:700; margin-bottom:3px;}
+.sm-cta-text p{ font-size: 12.5px; color: rgba(28,28,26,0.6); line-height:1.4;}
+
 .length-select{
   margin-top: 24px;
   display:flex;
@@ -919,6 +953,158 @@ header{
 .next-btn.show{ display:flex; animation: fadeUp 0.25s ease; }
 .next-btn:hover{ background:#000; }
 .next-btn:active{ transform: scale(0.98); }
+
+/* ===== Sentence Practice (Susun Kata & Isi Kosong) ===== */
+.sentence-quiz-card{
+  background:#fff;
+  border-radius: 20px;
+  padding: 28px 20px 26px;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 0 var(--line);
+  margin-top: 6px;
+}
+.sq-meaning{
+  font-size: 14.5px;
+  color: rgba(28,28,26,0.65);
+  line-height:1.5;
+  text-align:center;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--line);
+}
+.sq-meaning b{ color: var(--sumi); }
+
+/* Susun kata: area jawaban (drop zone) */
+.sq-arrange-area{
+  min-height: 62px;
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+  align-content:flex-start;
+  padding: 10px;
+  border: 1.5px dashed var(--line);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.sq-arrange-area.drag-over{ border-color: var(--shu); background: rgba(193,68,14,0.04); }
+.sq-arrange-area:empty::before{
+  content: "Ketuk kata di bawah untuk menyusun kalimat";
+  color: rgba(28,28,26,0.35);
+  font-size: 13px;
+  align-self:center;
+}
+
+/* Bank kata (sumber kata untuk disusun) */
+.sq-bank{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+  justify-content:center;
+}
+.sq-chip{
+  font-family:var(--font-jp);
+  font-size: 18px;
+  font-weight:700;
+  background: var(--washi-deep);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 14px;
+  cursor:pointer;
+  color: var(--sumi);
+  transition: transform 0.1s ease, border-color 0.1s ease, background 0.1s ease;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.sq-chip:hover{ border-color: var(--sumi); transform: translateY(-1px); }
+.sq-chip:active{ transform: translateY(0); }
+.sq-chip.placed{ opacity:0.3; pointer-events:none; }
+.sq-arrange-area .sq-chip{ background:#fff; border-color: var(--sumi); }
+
+.sq-chip.correct-slot{ border-color: var(--matcha); background: rgba(107,127,94,0.08); }
+.sq-chip.wrong-slot{ border-color: var(--shu); background: rgba(193,68,14,0.06); }
+
+/* Isi kosong: kalimat dengan blank + pilihan */
+.sq-fill-sentence{
+  font-family:var(--font-jp);
+  font-size: 22px;
+  font-weight:700;
+  text-align:center;
+  line-height:1.8;
+  margin-bottom: 20px;
+  color: var(--sumi);
+}
+.sq-fill-blank{
+  display:inline-block;
+  min-width: 64px;
+  border-bottom: 2.5px solid var(--shu);
+  color: var(--shu);
+  padding: 0 4px;
+}
+.sq-blank-options{
+  display:grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+.sq-blank-opt{
+  background:#fff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align:center;
+  font-family:var(--font-jp);
+  font-size: 17px;
+  font-weight:700;
+  color: var(--sumi);
+  cursor:pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.sq-blank-opt:not(:disabled):hover{ border-color: var(--sumi); transform: translateY(-1px); }
+.sq-blank-opt:disabled{ cursor:default; }
+.sq-blank-opt.correct{ border-color: var(--matcha); background: rgba(107,127,94,0.08); color:#4a5a41; }
+.sq-blank-opt.wrong{ border-color: var(--shu); background: rgba(193,68,14,0.06); color:#8f3308; }
+.sq-blank-opt.dim{ opacity:0.4; }
+
+.sq-feedback{
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height:1.6;
+  display:none;
+}
+.sq-feedback.show{ display:block; animation: fadeUp 0.25s ease; }
+.sq-feedback.ok{ background: rgba(107,127,94,0.1); color:#4a5a41; }
+.sq-feedback.bad{ background: rgba(193,68,14,0.08); color:#8f3308; }
+.sq-feedback .sqf-answer{ font-family:var(--font-jp); font-size:17px; font-weight:700; margin-top:4px; }
+
+.sq-actions{
+  display:flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+.sq-actions .btn-secondary{
+  flex-shrink:0;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 15px 16px;
+  font-family:var(--font-ui);
+  font-weight:600;
+  font-size: 14px;
+  cursor:pointer;
+}
+.sq-actions .btn-primary{
+  flex:1;
+  border-radius: 12px;
+  border:none;
+  padding: 15px;
+  font-family:var(--font-ui);
+  font-weight:700;
+  font-size: 15px;
+  cursor:pointer;
+  transition: background 0.15s ease;
+}
+.sq-actions .btn-primary:active{ transform: scale(0.98); }
 
 /* ===== Result Screen ===== */
 .result-hero{
@@ -1579,6 +1765,16 @@ footer{
       </button>
     </div>
 
+    <div class="section-label">Mode lain</div>
+    <button class="sentence-mode-cta" id="goSentenceModeBtn" type="button">
+      <div class="sm-cta-icon">文</div>
+      <div class="sm-cta-text">
+        <h3>Latihan Kalimat</h3>
+        <p>Susun kata jadi kalimat, atau isi kata yang hilang — belajar konteks pemakaian kosakata</p>
+      </div>
+      <div class="mode-arrow">→</div>
+    </button>
+
     <div class="section-label">Pilih lembar (bab)</div>
     <div class="page-grid" id="pageGrid"></div>
     <div class="page-actions">
@@ -1805,6 +2001,79 @@ footer{
     </div>
   </section>
 
+  <!-- SENTENCE MODE SELECT SCREEN -->
+  <section class="screen" id="screen-sentence-select">
+    <div class="browse-header">
+      <button class="back-btn" id="sentenceSelectBackBtn">←</button>
+      <div>
+        <h2>Latihan Kalimat</h2>
+        <p id="sentenceSelectSub">Pilih jenis latihan</p>
+      </div>
+    </div>
+
+    <div class="mode-grid" style="margin-top:20px;">
+      <button class="mode-card sm-arrange" data-smode="arrange">
+        <div class="mode-icon">並</div>
+        <div class="mode-text">
+          <h3>Susun Kata</h3>
+          <p>Susun potongan kata menjadi kalimat bahasa Jepang yang benar</p>
+        </div>
+        <div class="mode-arrow">→</div>
+      </button>
+      <button class="mode-card sm-blank" data-smode="blank">
+        <div class="mode-icon">＿</div>
+        <div class="mode-text">
+          <h3>Isi yang Kosong</h3>
+          <p>Pilih kata yang tepat untuk melengkapi kalimat</p>
+        </div>
+        <div class="mode-arrow">→</div>
+      </button>
+    </div>
+
+    <div class="section-label">Pilih lembar (bab)</div>
+    <div class="page-grid" id="sentencePageGrid"></div>
+    <div class="page-actions">
+      <button id="sentenceSelectAllPagesBtn">Pilih semua</button>
+      <button id="sentenceClearPagesBtn">Kosongkan</button>
+    </div>
+
+    <div class="section-label">Jumlah soal</div>
+    <div class="length-select" id="sentenceLengthSelect">
+      <button data-len="10" class="active">10</button>
+      <button data-len="20">20</button>
+      <button data-len="30">30</button>
+      <button data-len="all">Semua</button>
+    </div>
+  </section>
+
+  <!-- SENTENCE QUIZ SCREEN -->
+  <section class="screen" id="screen-sentence-quiz">
+    <div class="browse-header">
+      <button class="back-btn" id="sentenceQuizBackBtn">←</button>
+      <div style="flex:1;">
+        <div class="progress-row" style="margin:0;">
+          <div class="progress-track"><div class="progress-fill" id="sentenceProgressFill" style="width:0%"></div></div>
+          <div class="progress-label" id="sentenceProgressText">1 / 10</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sentence-quiz-card">
+      <div class="sq-meaning" id="sqMeaning">Arti kalimat</div>
+      <div class="sq-arrange-area" id="sqArrangeArea"></div>
+      <div class="sq-bank" id="sqBank"></div>
+      <div class="sq-blank-options" id="sqBlankOptions"></div>
+    </div>
+
+    <div class="sq-feedback" id="sqFeedback"></div>
+
+    <div class="sq-actions">
+      <button class="btn-secondary" id="sqClearBtn" type="button">Hapus semua</button>
+      <button class="btn-primary" id="sqCheckBtn" type="button">Periksa</button>
+      <button class="btn-primary" id="sqNextBtn" type="button" style="display:none;">Lanjut →</button>
+    </div>
+  </section>
+
   <!-- ADMIN SCREEN -->
   <section class="screen" id="screen-admin">
     <div class="browse-header">
@@ -1937,6 +2206,621 @@ const KANJI_DATA = [
 {k:'困ります',r:'こまります',m:'Susah',p:11},{k:'違います',r:'ちがいます',m:'Salah, berbeda',p:11},{k:'慣れます',r:'なれます',m:'Terbiasa',p:11},{k:'増えます',r:'ふえます',m:'Bertambah',p:11},{k:'笑います',r:'わらいます',m:'Tertawa',p:11},{k:'苦労します',r:'くろうします',m:'Bersakit-sakit (dalam usaha)',p:11},
 {k:'希望',r:'きぼう',m:'Harapan, keinginan',p:11},{k:'特に',r:'とくに',m:'Terutama',p:11},{k:'建てます',r:'たてます',m:'Mendirikan',p:11},{k:'続けます',r:'つづけます',m:'Melanjutkan',p:11},{k:'役に立ちます',r:'やくにたちます',m:'Bermanfaat',p:11}
 ];
+
+const SENTENCE_DATA = [
+{k:'魚',jp:'魚を食べます。',id:'Saya makan ikan.',tok:['魚','を','食べます','。'],arr:true,p:1},
+{k:'肉',jp:'肉を食べます。',id:'Saya makan daging.',tok:['肉','を','食べます','。'],arr:true,p:1},
+{k:'卵',jp:'卵を食べます。',id:'Saya makan telur.',tok:['卵','を','食べます','。'],arr:true,p:1},
+{k:'水',jp:'水を飲みます。',id:'Saya minum air.',tok:['水','を','飲みます','。'],arr:true,p:1},
+{k:'食べます',jp:'朝ご飯を食べます。',id:'Saya makan sarapan.',tok:['朝ご飯','を','食べます','。'],arr:true,p:1},
+{k:'飲みます',jp:'コーヒーを飲みます。',id:'Saya minum kopi.',tok:['コーヒー','を','飲みます','。'],arr:true,p:1},
+{k:'大きい',jp:'この魚は大きいです。',id:'Ikan ini besar.',tok:['この','魚','は','大きいです','。'],arr:true,p:1},
+{k:'小さい',jp:'この卵は小さいです。',id:'Telur ini kecil.',tok:['この','卵','は','小さいです','。'],arr:true,p:1},
+{k:'新しい',jp:'新しい本を買います。',id:'Saya membeli buku baru.',tok:['新しい本','を','買います','。'],arr:true,p:1},
+{k:'古い',jp:'これは古い本です。',id:'Ini buku lama.',tok:['これ','は','古い本です','。'],arr:true,p:1},
+{k:'～時',jp:'今、七時です。',id:'Sekarang jam tujuh.',tok:['今','、','七時です','。'],arr:false,p:1},
+{k:'～分',jp:'三十分待ちます。',id:'Saya menunggu tiga puluh menit.',tok:['三十分','待ちます','。'],arr:false,p:1},
+{k:'～半',jp:'七時半に起きます。',id:'Saya bangun jam setengah delapan.',tok:['七時半','に','起きます','。'],arr:true,p:1},
+{k:'月曜日',jp:'月曜日に学校へ行きます。',id:'Saya pergi ke sekolah hari Senin.',tok:['月曜日','に','学校','へ','行きます','。'],arr:true,p:1},
+{k:'火曜日',jp:'火曜日は忙しいです。',id:'Hari Selasa sibuk.',tok:['火曜日','は','忙しいです','。'],arr:true,p:1},
+{k:'水曜日',jp:'水曜日に会います。',id:'Kita bertemu hari Rabu.',tok:['水曜日','に','会います','。'],arr:true,p:1},
+{k:'木曜日',jp:'木曜日に買い物します。',id:'Saya berbelanja hari Kamis.',tok:['木曜日','に','買い物します','。'],arr:true,p:1},
+{k:'金曜日',jp:'金曜日は休みです。',id:'Hari Jumat libur.',tok:['金曜日','は','休みです','。'],arr:true,p:1},
+{k:'土曜日',jp:'土曜日に旅行します。',id:'Saya bepergian hari Sabtu.',tok:['土曜日','に','旅行します','。'],arr:true,p:1},
+{k:'日曜日',jp:'日曜日に休みます。',id:'Saya beristirahat hari Minggu.',tok:['日曜日','に','休みます','。'],arr:true,p:1},
+{k:'言います',jp:'「ありがとう」と言います。',id:'Saya berkata "terima kasih".',tok:['「ありがとう」','と','言います','。'],arr:true,p:1},
+{k:'話します',jp:'日本語を話します。',id:'Saya berbicara bahasa Jepang.',tok:['日本語','を','話します','。'],arr:true,p:1},
+{k:'読みます',jp:'新聞を読みます。',id:'Saya membaca koran.',tok:['新聞','を','読みます','。'],arr:true,p:1},
+{k:'見ます',jp:'テレビを見ます。',id:'Saya menonton televisi.',tok:['テレビ','を','見ます','。'],arr:true,p:1},
+{k:'聞きます',jp:'音楽を聞きます。',id:'Saya mendengarkan musik.',tok:['音楽','を','聞きます','。'],arr:true,p:1},
+{k:'書きます',jp:'手紙を書きます。',id:'Saya menulis surat.',tok:['手紙','を','書きます','。'],arr:true,p:1},
+{k:'一',jp:'りんごを一つ買います。',id:'Saya membeli satu buah apel.',tok:['りんご','を','一つ','買います','。'],arr:true,p:1},
+{k:'二',jp:'卵を二つ食べます。',id:'Saya makan dua butir telur.',tok:['卵','を','二つ','食べます','。'],arr:true,p:1},
+{k:'三',jp:'三時に会います。',id:'Kita bertemu jam tiga.',tok:['三時','に','会います','。'],arr:true,p:1},
+{k:'四',jp:'四時に帰ります。',id:'Saya pulang jam empat.',tok:['四時','に','帰ります','。'],arr:true,p:1},
+{k:'五',jp:'五時に起きます。',id:'Saya bangun jam lima.',tok:['五時','に','起きます','。'],arr:true,p:1},
+{k:'六',jp:'六時に寝ます。',id:'Saya tidur jam enam.',tok:['六時','に','寝ます','。'],arr:true,p:1},
+{k:'七',jp:'七時に食べます。',id:'Saya makan jam tujuh.',tok:['七時','に','食べます','。'],arr:true,p:1},
+{k:'八',jp:'八時に行きます。',id:'Saya pergi jam delapan.',tok:['八時','に','行きます','。'],arr:true,p:1},
+{k:'九',jp:'九時に寝ます。',id:'Saya tidur jam sembilan.',tok:['九時','に','寝ます','。'],arr:true,p:1},
+{k:'十',jp:'十時に帰ります。',id:'Saya pulang jam sepuluh.',tok:['十時','に','帰ります','。'],arr:true,p:1},
+{k:'～年',jp:'二〇二五年に行きます。',id:'Saya akan pergi tahun 2025.',tok:['二〇二五年','に','行きます','。'],arr:true,p:1},
+{k:'～月',jp:'三月に旅行します。',id:'Saya bepergian bulan Maret.',tok:['三月','に','旅行します','。'],arr:true,p:1},
+{k:'～日',jp:'五日に会います。',id:'Kita bertemu tanggal lima.',tok:['五日','に','会います','。'],arr:true,p:1},
+{k:'東',jp:'東へ行きます。',id:'Saya pergi ke arah timur.',tok:['東','へ','行きます','。'],arr:true,p:1},
+{k:'西',jp:'西に住んでいます。',id:'Saya tinggal di sebelah barat.',tok:['西','に','住ん','で','います','。'],arr:true,p:1},
+{k:'南',jp:'南は暑いです。',id:'Selatan itu panas.',tok:['南','は','暑いです','。'],arr:true,p:1},
+{k:'北',jp:'北は寒いです。',id:'Utara itu dingin.',tok:['北','は','寒いです','。'],arr:true,p:1},
+{k:'～口',jp:'入り口はどこですか。',id:'Di mana pintu masuknya?',tok:['入り口','は','どこです','か','。'],arr:true,p:1},
+{k:'東口',jp:'東口で会いましょう。',id:'Mari bertemu di pintu timur.',tok:['東口','で','会いましょう','。'],arr:true,p:1},
+{k:'西口',jp:'西口から出ます。',id:'Saya keluar dari pintu barat.',tok:['西口','から','出ます','。'],arr:true,p:1},
+{k:'南口',jp:'南口はあそこです。',id:'Pintu selatan ada di sana.',tok:['南口','は','あそこです','。'],arr:true,p:1},
+{k:'北口',jp:'北口で待ちます。',id:'Saya menunggu di pintu utara.',tok:['北口','で','待ちます','。'],arr:true,p:1},
+{k:'買います',jp:'本を買います。',id:'Saya membeli buku.',tok:['本','を','買います','。'],arr:true,p:1},
+{k:'買い物',jp:'買い物に行きます。',id:'Saya pergi berbelanja.',tok:['買い物','に','行きます','。'],arr:true,p:1},
+{k:'お金',jp:'お金がありません。',id:'Saya tidak punya uang.',tok:['お金','が','ありません','。'],arr:true,p:1},
+{k:'～円',jp:'これは五百円です。',id:'Ini lima ratus yen.',tok:['これ','は','五百円です','。'],arr:true,p:1},
+{k:'百',jp:'百まで数えます。',id:'Saya menghitung sampai seratus.',tok:['百','まで','数えます','。'],arr:true,p:1},
+{k:'千',jp:'千円あります。',id:'Saya punya seribu yen.',tok:['千円','あります','。'],arr:false,p:1},
+{k:'万',jp:'一万円貸します。',id:'Saya meminjamkan sepuluh ribu yen.',tok:['一万円','貸します','。'],arr:false,p:1},
+{k:'百円',jp:'りんごは百円です。',id:'Apel harganya seratus yen.',tok:['りんご','は','百円です','。'],arr:true,p:1},
+{k:'千円',jp:'千円貸してください。',id:'Tolong pinjamkan seribu yen.',tok:['千円','貸してください','。'],arr:false,p:2},
+{k:'一万円',jp:'一万円あります。',id:'Saya punya sepuluh ribu yen.',tok:['一万円','あります','。'],arr:false,p:2},
+{k:'行きます',jp:'学校へ行きます。',id:'Saya pergi ke sekolah.',tok:['学校','へ','行きます','。'],arr:true,p:2},
+{k:'来ます',jp:'友達が来ます。',id:'Teman saya akan datang.',tok:['友達','が','来ます','。'],arr:true,p:2},
+{k:'会います',jp:'駅で会います。',id:'Kita bertemu di stasiun.',tok:['駅','で','会います','。'],arr:true,p:2},
+{k:'休みます',jp:'今日は休みます。',id:'Hari ini saya libur.',tok:['今日','は','休みます','。'],arr:true,p:2},
+{k:'日本',jp:'日本に住んでいます。',id:'Saya tinggal di Jepang.',tok:['日本','に','住ん','で','います','。'],arr:true,p:2},
+{k:'東京',jp:'東京へ行きます。',id:'Saya pergi ke Tokyo.',tok:['東京','へ','行きます','。'],arr:true,p:2},
+{k:'私',jp:'私は学生です。',id:'Saya adalah pelajar.',tok:['私','は','学生です','。'],arr:true,p:2},
+{k:'父',jp:'父は会社員です。',id:'Ayah saya seorang karyawan.',tok:['父','は','会社員です','。'],arr:true,p:2},
+{k:'母',jp:'母は料理が上手です。',id:'Ibu saya pandai memasak.',tok:['母','は','料理','が','上手です','。'],arr:true,p:2},
+{k:'子供',jp:'子供が公園で遊びます。',id:'Anak-anak bermain di taman.',tok:['子供','が','公園','で','遊びます','。'],arr:true,p:2},
+{k:'男',jp:'あの男は先生です。',id:'Laki-laki itu adalah guru.',tok:['あの男','は','先生です','。'],arr:true,p:2},
+{k:'女',jp:'あの女は医者です。',id:'Perempuan itu adalah dokter.',tok:['あの女','は','医者です','。'],arr:true,p:2},
+{k:'人',jp:'公園に人が多いです。',id:'Ada banyak orang di taman.',tok:['公園','に','人','が','多いです','。'],arr:true,p:2},
+{k:'お父さん',jp:'お父さんは元気ですか。',id:'Apakah ayah Anda sehat?',tok:['お父さん','は','元気です','か','。'],arr:true,p:2},
+{k:'お母さん',jp:'お母さんは優しいです。',id:'Ibu Anda baik hati.',tok:['お母さん','は','優しいです','。'],arr:true,p:2},
+{k:'何人',jp:'家族は何人ですか。',id:'Keluarga Anda berapa orang?',tok:['家族','は','何人です','か','。'],arr:true,p:2},
+{k:'国',jp:'国へ帰ります。',id:'Saya pulang ke negara saya.',tok:['国','へ','帰ります','。'],arr:true,p:2},
+{k:'外国',jp:'外国に住みたいです。',id:'Saya ingin tinggal di luar negeri.',tok:['外国','に','住みたいです','。'],arr:true,p:2},
+{k:'～語',jp:'フランス語を勉強します。',id:'Saya belajar bahasa Prancis.',tok:['フランス語','を','勉強します','。'],arr:true,p:2},
+{k:'日本語',jp:'日本語を勉強します。',id:'Saya belajar bahasa Jepang.',tok:['日本語','を','勉強します','。'],arr:true,p:2},
+{k:'英語',jp:'英語を話します。',id:'Saya berbicara bahasa Inggris.',tok:['英語','を','話します','。'],arr:true,p:2},
+{k:'中国語',jp:'中国語が分かりません。',id:'Saya tidak mengerti bahasa China.',tok:['中国語','が','分かりません','。'],arr:true,p:2},
+{k:'～人',jp:'アメリカ人と話します。',id:'Saya berbicara dengan orang Amerika.',tok:['アメリカ人','と','話します','。'],arr:true,p:2},
+{k:'日本人',jp:'彼は日本人です。',id:'Dia orang Jepang.',tok:['彼','は','日本人です','。'],arr:true,p:2},
+{k:'好き',jp:'りんごが好きです。',id:'Saya suka apel.',tok:['りんご','が','好きです','。'],arr:true,p:2},
+{k:'本',jp:'本を読みます。',id:'Saya membaca buku.',tok:['本','を','読みます','。'],arr:true,p:2},
+{k:'読書',jp:'読書が好きです。',id:'Saya suka membaca.',tok:['読書','が','好きです','。'],arr:true,p:2},
+{k:'何',jp:'これは何ですか。',id:'Ini apa?',tok:['これ','は','何です','か','。'],arr:true,p:2},
+{k:'春',jp:'春は暖かいです。',id:'Musim semi itu hangat.',tok:['春','は','暖かいです','。'],arr:true,p:2},
+{k:'夏',jp:'夏は暑いです。',id:'Musim panas itu panas.',tok:['夏','は','暑いです','。'],arr:true,p:2},
+{k:'秋',jp:'秋は涼しいです。',id:'Musim gugur itu sejuk.',tok:['秋','は','涼しいです','。'],arr:true,p:2},
+{k:'冬',jp:'冬は寒いです。',id:'Musim dingin itu dingin.',tok:['冬','は','寒いです','。'],arr:true,p:2},
+{k:'今',jp:'今、何時ですか。',id:'Sekarang jam berapa?',tok:['今','、','何時です','か','。'],arr:true,p:2},
+{k:'花',jp:'花がきれいです。',id:'Bunganya indah.',tok:['花','が','きれいです','。'],arr:true,p:2},
+{k:'海',jp:'海で泳ぎます。',id:'Saya berenang di laut.',tok:['海','で','泳ぎます','。'],arr:true,p:2},
+{k:'山',jp:'山に登ります。',id:'Saya mendaki gunung.',tok:['山','に','登ります','。'],arr:true,p:2},
+{k:'川',jp:'川で遊びます。',id:'Saya bermain di sungai.',tok:['川','で','遊びます','。'],arr:true,p:2},
+{k:'今日',jp:'今日は晴れです。',id:'Hari ini cerah.',tok:['今日','は','晴れです','。'],arr:true,p:2},
+{k:'天気',jp:'今日の天気はいいです。',id:'Cuaca hari ini bagus.',tok:['今日','の','天気','は','いいです','。'],arr:true,p:2},
+{k:'晴れ',jp:'明日は晴れです。',id:'Besok cerah.',tok:['明日','は','晴れです','。'],arr:true,p:2},
+{k:'雨',jp:'雨が降っています。',id:'Sedang turun hujan.',tok:['雨','が','降っています','。'],arr:true,p:2},
+{k:'雪',jp:'雪が降ります。',id:'Salju turun.',tok:['雪','が','降ります','。'],arr:true,p:2},
+{k:'雲',jp:'空に雲があります。',id:'Ada awan di langit.',tok:['空','に','雲','が','あります','。'],arr:true,p:2},
+{k:'風',jp:'風が強いです。',id:'Anginnya kencang.',tok:['風','が','強いです','。'],arr:true,p:2},
+{k:'空',jp:'空が青いです。',id:'Langitnya biru.',tok:['空','が','青いです','。'],arr:true,p:2},
+{k:'町',jp:'小さい町に住んでいます。',id:'Saya tinggal di kota kecil.',tok:['小さい町','に','住ん','で','います','。'],arr:true,p:2},
+{k:'店',jp:'店で買います。',id:'Saya membeli di toko.',tok:['店','で','買います','。'],arr:true,p:2},
+{k:'人気',jp:'この歌は人気です。',id:'Lagu ini populer.',tok:['この','歌','は','人気です','。'],arr:true,p:2},
+{k:'多い',jp:'人が多いです。',id:'Orangnya banyak.',tok:['人','が','多いです','。'],arr:true,p:2},
+{k:'少ない',jp:'お金が少ないです。',id:'Uangnya sedikit.',tok:['お金','が','少ないです','。'],arr:true,p:2},
+{k:'高い',jp:'この本は高いです。',id:'Buku ini mahal.',tok:['この','本','は','高いです','。'],arr:true,p:2},
+{k:'安い',jp:'この店は安いです。',id:'Toko ini murah.',tok:['この','店','は','安いです','。'],arr:true,p:2},
+{k:'広い',jp:'この公園は広いです。',id:'Taman ini luas.',tok:['この','公園','は','広いです','。'],arr:true,p:2},
+{k:'道',jp:'道が分かりません。',id:'Saya tidak tahu jalannya.',tok:['道','が','分かりません','。'],arr:true,p:2},
+{k:'通り',jp:'この通りは静かです。',id:'Jalan ini sepi.',tok:['この','通り','は','静かです','。'],arr:true,p:2},
+{k:'右',jp:'右へ曲がります。',id:'Belok ke kanan.',tok:['右','へ','曲がります','。'],arr:true,p:2},
+{k:'左',jp:'左へ曲がります。',id:'Belok ke kiri.',tok:['左','へ','曲がります','。'],arr:true,p:2},
+{k:'一つ',jp:'りんごを一つください。',id:'Tolong berikan satu buah apel.',tok:['りんご','を','一つ','ください','。'],arr:true,p:2},
+{k:'二つ',jp:'卵を二つ買います。',id:'Saya membeli dua butir telur.',tok:['卵','を','二つ','買います','。'],arr:true,p:3},
+{k:'赤い',jp:'赤い花が好きです。',id:'Saya suka bunga merah.',tok:['赤い花','が','好きです','。'],arr:true,p:3},
+{k:'青い',jp:'空は青いです。',id:'Langit itu biru.',tok:['空','は','青いです','。'],arr:true,p:3},
+{k:'黒い',jp:'黒い靴を買います。',id:'Saya membeli sepatu hitam.',tok:['黒い靴','を','買います','。'],arr:true,p:3},
+{k:'白い',jp:'白い車があります。',id:'Ada mobil putih.',tok:['白い車','が','あります','。'],arr:true,p:3},
+{k:'時間',jp:'時間がありません。',id:'Saya tidak punya waktu.',tok:['時間','が','ありません','。'],arr:true,p:3},
+{k:'場所',jp:'いい場所を探します。',id:'Saya mencari tempat yang bagus.',tok:['いい場所','を','探します','。'],arr:true,p:3},
+{k:'駅',jp:'駅で待ちます。',id:'Saya menunggu di stasiun.',tok:['駅','で','待ちます','。'],arr:true,p:3},
+{k:'日',jp:'日が出ています。',id:'Mataharinya sedang terbit.',tok:['日','が','出ています','。'],arr:true,p:3},
+{k:'出かけます',jp:'朝早く出かけます。',id:'Saya pergi dari rumah pagi-pagi.',tok:['朝','早く出かけます','。'],arr:false,p:3},
+{k:'待ちます',jp:'友達を待ちます。',id:'Saya menunggu teman.',tok:['友達','を','待ちます','。'],arr:true,p:3},
+{k:'止まります',jp:'電車が止まります。',id:'Keretanya berhenti.',tok:['電車','が','止まります','。'],arr:true,p:3},
+{k:'食事',jp:'一緒に食事します。',id:'Kita makan bersama.',tok:['一緒','に','食事します','。'],arr:true,p:3},
+{k:'仕事',jp:'仕事が忙しいです。',id:'Pekerjaannya sibuk.',tok:['仕事','が','忙しいです','。'],arr:true,p:3},
+{k:'前',jp:'駅の前で会います。',id:'Kita bertemu di depan stasiun.',tok:['駅','の','前','で','会います','。'],arr:true,p:3},
+{k:'後',jp:'食事の後で寝ます。',id:'Saya tidur setelah makan.',tok:['食事','の','後','で','寝ます','。'],arr:true,p:3},
+{k:'朝',jp:'朝ご飯を食べます。',id:'Saya makan sarapan pagi.',tok:['朝ご飯','を','食べます','。'],arr:true,p:3},
+{k:'昼',jp:'昼ご飯を食べます。',id:'Saya makan siang.',tok:['昼ご飯','を','食べます','。'],arr:true,p:3},
+{k:'夜',jp:'夜、勉強します。',id:'Saya belajar di malam hari.',tok:['夜','、','勉強します','。'],arr:false,p:3},
+{k:'乗ります',jp:'電車に乗ります。',id:'Saya naik kereta.',tok:['電車','に','乗ります','。'],arr:true,p:3},
+{k:'学校',jp:'学校へ行きます。',id:'Saya pergi ke sekolah.',tok:['学校','へ','行きます','。'],arr:true,p:3},
+{k:'小学校',jp:'小学校の先生です。',id:'Saya guru SD.',tok:['小学校','の','先生です','。'],arr:true,p:3},
+{k:'中学校',jp:'中学校で勉強します。',id:'Saya belajar di SMP.',tok:['中学校','で','勉強します','。'],arr:true,p:3},
+{k:'高校',jp:'高校の学生です。',id:'Saya siswa SMA.',tok:['高校','の','学生です','。'],arr:true,p:3},
+{k:'大学',jp:'大学で勉強します。',id:'Saya belajar di universitas.',tok:['大学','で','勉強します','。'],arr:true,p:3},
+{k:'先生',jp:'先生に聞きます。',id:'Saya bertanya kepada guru.',tok:['先生','に','聞きます','。'],arr:true,p:3},
+{k:'学生',jp:'私は学生です。',id:'Saya adalah murid.',tok:['私','は','学生です','。'],arr:true,p:3},
+{k:'～年生',jp:'三年生です。',id:'Saya kelas tiga.',tok:['三年生です','。'],arr:false,p:3},
+{k:'勉強',jp:'日本語の勉強をします。',id:'Saya belajar bahasa Jepang.',tok:['日本語','の','勉強','を','します','。'],arr:true,p:3},
+{k:'文化',jp:'日本の文化が好きです。',id:'Saya suka kebudayaan Jepang.',tok:['日本','の','文化','が','好きです','。'],arr:true,p:3},
+{k:'音楽',jp:'音楽を聞きます。',id:'Saya mendengarkan musik.',tok:['音楽','を','聞きます','。'],arr:true,p:3},
+{k:'旅行',jp:'旅行に行きます。',id:'Saya pergi berwisata.',tok:['旅行','に','行きます','。'],arr:true,p:3},
+{k:'留学',jp:'日本に留学します。',id:'Saya belajar di luar negeri di Jepang.',tok:['日本','に','留学します','。'],arr:true,p:3},
+{k:'友達',jp:'友達と話します。',id:'Saya berbicara dengan teman.',tok:['友達','と','話します','。'],arr:true,p:3},
+{k:'楽しい',jp:'旅行は楽しいです。',id:'Bepergian itu menyenangkan.',tok:['旅行','は','楽しいです','。'],arr:true,p:3},
+{k:'週',jp:'来週、会います。',id:'Kita bertemu minggu depan.',tok:['来週','、','会います','。'],arr:false,p:3},
+{k:'～回',jp:'一週間に二回します。',id:'Saya melakukannya dua kali seminggu.',tok:['一週間','に','二回します','。'],arr:true,p:3},
+{k:'食べ物',jp:'好きな食べ物は何ですか。',id:'Apa makanan favoritmu?',tok:['好きな食べ物','は','何です','か','。'],arr:true,p:3},
+{k:'飲物',jp:'飲物は何がいいですか。',id:'Minuman apa yang bagus?',tok:['飲物','は','何','が','いいです','か','。'],arr:true,p:3},
+{k:'お茶',jp:'お茶を飲みます。',id:'Saya minum teh.',tok:['お茶','を','飲みます','。'],arr:true,p:3},
+{k:'お酒',jp:'お酒を飲みません。',id:'Saya tidak minum sake.',tok:['お酒','を','飲みません','。'],arr:true,p:3},
+{k:'作ります',jp:'料理を作ります。',id:'Saya membuat masakan.',tok:['料理','を','作ります','。'],arr:true,p:3},
+{k:'持っていきます',jp:'傘を持っていきます。',id:'Saya membawa payung.',tok:['傘','を','持っていきます','。'],arr:true,p:3},
+{k:'お願いします',jp:'よろしくお願いします。',id:'Mohon bantuannya.',tok:['よろしくお','願いします','。'],arr:false,p:3},
+{k:'料理',jp:'日本料理が好きです。',id:'Saya suka masakan Jepang.',tok:['日本料理','が','好きです','。'],arr:true,p:3},
+{k:'味',jp:'この料理の味はいいです。',id:'Rasa masakan ini enak.',tok:['この','料理','の','味','は','いいです','。'],arr:true,p:3},
+{k:'色',jp:'好きな色は青です。',id:'Warna favoritku biru.',tok:['好きな色','は','青です','。'],arr:true,p:3},
+{k:'野菜',jp:'野菜を食べます。',id:'Saya makan sayur.',tok:['野菜','を','食べます','。'],arr:true,p:3},
+{k:'少し',jp:'少し疲れました。',id:'Saya sedikit lelah.',tok:['少し','疲れました','。'],arr:false,p:3},
+{k:'中',jp:'かばんの中にあります。',id:'Ada di dalam tas.',tok:['かばん','の','中','に','あります','。'],arr:true,p:3},
+{k:'入っています',jp:'かばんに本が入っています。',id:'Ada buku di dalam tas.',tok:['かばん','に','本','が','入っています','。'],arr:true,p:3},
+{k:'会社',jp:'会社へ行きます。',id:'Saya pergi ke kantor.',tok:['会社','へ','行きます','。'],arr:true,p:3},
+{k:'本社',jp:'本社は東京にあります。',id:'Kantor pusat ada di Tokyo.',tok:['本社','は','東京','に','あります','。'],arr:true,p:3},
+{k:'支社',jp:'支社で働きます。',id:'Saya bekerja di kantor cabang.',tok:['支社','で','働きます','。'],arr:true,p:3},
+{k:'出張',jp:'来週、出張します。',id:'Minggu depan saya dinas luar kota.',tok:['来週','、','出張します','。'],arr:false,p:3},
+{k:'空港',jp:'空港へ行きます。',id:'Saya pergi ke bandara.',tok:['空港','へ','行きます','。'],arr:true,p:3},
+{k:'出発',jp:'九時に出発します。',id:'Saya berangkat jam sembilan.',tok:['九時','に','出発します','。'],arr:true,p:3},
+{k:'到着',jp:'十時に到着します。',id:'Saya tiba jam sepuluh.',tok:['十時','に','到着します','。'],arr:true,p:3},
+{k:'午前',jp:'午前九時に会います。',id:'Kita bertemu jam sembilan pagi.',tok:['午前九時','に','会います','。'],arr:true,p:3},
+{k:'午後',jp:'午後三時に帰ります。',id:'Saya pulang jam tiga sore.',tok:['午後三時','に','帰ります','。'],arr:true,p:3},
+{k:'自分',jp:'自分で作ります。',id:'Saya membuatnya sendiri.',tok:['自分','で','作ります','。'],arr:true,p:4},
+{k:'電話',jp:'電話をかけます。',id:'Saya menelepon.',tok:['電話','を','かけます','。'],arr:true,p:4},
+{k:'電気',jp:'電気を消します。',id:'Saya mematikan listrik.',tok:['電気','を','消します','。'],arr:true,p:4},
+{k:'電車',jp:'電車で行きます。',id:'Saya pergi naik kereta.',tok:['電車','で','行きます','。'],arr:true,p:4},
+{k:'車',jp:'車を買います。',id:'Saya membeli mobil.',tok:['車','を','買います','。'],arr:true,p:4},
+{k:'送ります',jp:'メールを送ります。',id:'Saya mengirim email.',tok:['メール','を','送ります','。'],arr:true,p:4},
+{k:'使います',jp:'パソコンを使います。',id:'Saya menggunakan komputer.',tok:['パソコン','を','使います','。'],arr:true,p:4},
+{k:'借ります',jp:'本を借ります。',id:'Saya meminjam buku.',tok:['本','を','借ります','。'],arr:true,p:4},
+{k:'体',jp:'体が大きいです。',id:'Badannya besar.',tok:['体','が','大きいです','。'],arr:true,p:4},
+{k:'頭',jp:'頭が痛いです。',id:'Kepala saya sakit.',tok:['頭','が','痛いです','。'],arr:true,p:4},
+{k:'目',jp:'目が大きいです。',id:'Matanya besar.',tok:['目','が','大きいです','。'],arr:true,p:4},
+{k:'口',jp:'口を開けます。',id:'Saya membuka mulut.',tok:['口','を','開けます','。'],arr:true,p:4},
+{k:'耳',jp:'耳が痛いです。',id:'Telinga saya sakit.',tok:['耳','が','痛いです','。'],arr:true,p:4},
+{k:'手',jp:'手を洗います。',id:'Saya mencuci tangan.',tok:['手','を','洗います','。'],arr:true,p:4},
+{k:'足',jp:'足が痛いです。',id:'Kaki saya sakit.',tok:['足','が','痛いです','。'],arr:true,p:4},
+{k:'上',jp:'机の上にあります。',id:'Ada di atas meja.',tok:['机','の','上','に','あります','。'],arr:true,p:4},
+{k:'下',jp:'机の下にあります。',id:'Ada di bawah meja.',tok:['机','の','下','に','あります','。'],arr:true,p:4},
+{k:'毎～',jp:'毎週、勉強します。',id:'Saya belajar setiap minggu.',tok:['毎週','、','勉強します','。'],arr:false,p:4},
+{k:'毎朝',jp:'毎朝走ります。',id:'Saya berlari setiap pagi.',tok:['毎朝','走ります','。'],arr:false,p:4},
+{k:'毎日',jp:'毎日勉強します。',id:'Saya belajar setiap hari.',tok:['毎日勉強します','。'],arr:false,p:4},
+{k:'週末',jp:'週末に休みます。',id:'Saya beristirahat di akhir pekan.',tok:['週末','に','休みます','。'],arr:true,p:4},
+{k:'元気',jp:'元気ですか。',id:'Apakah kamu sehat?',tok:['元気です','か','。'],arr:false,p:4},
+{k:'外',jp:'外で遊びます。',id:'Saya bermain di luar.',tok:['外','で','遊びます','。'],arr:true,p:4},
+{k:'起きます',jp:'六時に起きます。',id:'Saya bangun jam enam.',tok:['六時','に','起きます','。'],arr:true,p:4},
+{k:'歩きます',jp:'公園まで歩きます。',id:'Saya berjalan sampai taman.',tok:['公園','まで','歩きます','。'],arr:true,p:4},
+{k:'走ります',jp:'毎朝走ります。',id:'Saya berlari setiap pagi.',tok:['毎朝','走ります','。'],arr:false,p:4},
+{k:'泳ぎます',jp:'海で泳ぎます。',id:'Saya berenang di laut.',tok:['海','で','泳ぎます','。'],arr:true,p:4},
+{k:'お祝い',jp:'お祝いをします。',id:'Saya mengadakan perayaan.',tok:['お祝い','を','します','。'],arr:true,p:4},
+{k:'誕生日',jp:'誕生日はいつですか。',id:'Kapan ulang tahunmu?',tok:['誕生日','は','いつです','か','。'],arr:true,p:4},
+{k:'結婚',jp:'来年、結婚します。',id:'Saya akan menikah tahun depan.',tok:['来年','、','結婚します','。'],arr:false,p:4},
+{k:'絵',jp:'絵を描きます。',id:'Saya menggambar.',tok:['絵','を','描きます','。'],arr:true,p:4},
+{k:'写真',jp:'写真を撮ります。',id:'Saya mengambil foto.',tok:['写真','を','撮ります','。'],arr:true,p:4},
+{k:'時計',jp:'時計を買います。',id:'Saya membeli jam.',tok:['時計','を','買います','。'],arr:true,p:4},
+{k:'着ます',jp:'セーターを着ます。',id:'Saya memakai sweater.',tok:['セーター','を','着ます','。'],arr:true,p:4},
+{k:'先～',jp:'先月、旅行しました。',id:'Bulan lalu saya bepergian.',tok:['先月','、','旅行しました','。'],arr:false,p:4},
+{k:'先週',jp:'先週、会いました。',id:'Minggu lalu kita bertemu.',tok:['先週','、','会いました','。'],arr:false,p:4},
+{k:'今月',jp:'今月は忙しいです。',id:'Bulan ini sibuk.',tok:['今月','は','忙しいです','。'],arr:true,p:4},
+{k:'来年',jp:'来年、留学します。',id:'Tahun depan saya akan belajar di luar negeri.',tok:['来年','、','留学します','。'],arr:false,p:4},
+{k:'今年',jp:'今年は楽しいです。',id:'Tahun ini menyenangkan.',tok:['今年','は','楽しいです','。'],arr:true,p:4},
+{k:'去年',jp:'去年、結婚しました。',id:'Tahun lalu saya menikah.',tok:['去年','、','結婚しました','。'],arr:false,p:4},
+{k:'家',jp:'家に帰ります。',id:'Saya pulang ke rumah.',tok:['家','に','帰ります','。'],arr:true,p:4},
+{k:'思います',jp:'いいと思います。',id:'Saya pikir itu bagus.',tok:['いい','と','思います','。'],arr:true,p:4},
+{k:'自己紹介',jp:'自己紹介をします。',id:'Saya memperkenalkan diri.',tok:['自己紹介','を','します','。'],arr:true,p:4},
+{k:'名前',jp:'名前は何ですか。',id:'Siapa namamu?',tok:['名前','は','何です','か','。'],arr:true,p:4},
+{k:'意味',jp:'この言葉の意味は何ですか。',id:'Apa arti kata ini?',tok:['この','言葉','の','意味','は','何です','か','。'],arr:true,p:4},
+{k:'本屋',jp:'本屋へ行きます。',id:'Saya pergi ke toko buku.',tok:['本屋','へ','行きます','。'],arr:true,p:4},
+{k:'近く',jp:'駅の近くに住んでいます。',id:'Saya tinggal dekat stasiun.',tok:['駅','の','近く','に','住ん','で','います','。'],arr:true,p:4},
+{k:'住みます',jp:'東京に住みます。',id:'Saya tinggal di Tokyo.',tok:['東京','に','住みます','。'],arr:true,p:4},
+{k:'働きます',jp:'会社で働きます。',id:'Saya bekerja di perusahaan.',tok:['会社','で','働きます','。'],arr:true,p:4},
+{k:'～番目',jp:'三番目の子供です。',id:'Anak yang ketiga.',tok:['三番目','の','子供です','。'],arr:true,p:4},
+{k:'兄',jp:'兄がいます。',id:'Saya punya kakak laki-laki.',tok:['兄','が','います','。'],arr:true,p:4},
+{k:'兄いさん',jp:'お兄さんは優しいです。',id:'Kakak laki-lakimu baik hati.',tok:['お兄さん','は','優しいです','。'],arr:true,p:4},
+{k:'姉',jp:'姉は先生です。',id:'Kakak perempuan saya seorang guru.',tok:['姉','は','先生です','。'],arr:true,p:4},
+{k:'お姉さん',jp:'お姉さんはきれいです。',id:'Kakak perempuanmu cantik.',tok:['お姉さん','は','きれいです','。'],arr:true,p:4},
+{k:'弟',jp:'弟がいます。',id:'Saya punya adik laki-laki.',tok:['弟','が','います','。'],arr:true,p:4},
+{k:'妹',jp:'妹がいます。',id:'Saya punya adik perempuan.',tok:['妹','が','います','。'],arr:true,p:4},
+{k:'家族',jp:'家族は五人です。',id:'Keluarga saya lima orang.',tok:['家族','は','五人です','。'],arr:true,p:4},
+{k:'長い',jp:'髪が長いです。',id:'Rambutnya panjang.',tok:['髪','が','長いです','。'],arr:true,p:4},
+{k:'短い',jp:'髪が短いです。',id:'Rambutnya pendek.',tok:['髪','が','短いです','。'],arr:true,p:4},
+{k:'低い',jp:'背が低いです。',id:'Tubuhnya pendek.',tok:['背','が','低いです','。'],arr:true,p:4},
+{k:'上手',jp:'料理が上手です。',id:'Dia pandai memasak.',tok:['料理','が','上手です','。'],arr:true,p:5},
+{k:'歌',jp:'好きな歌があります。',id:'Saya punya lagu favorit.',tok:['好きな歌','が','あります','。'],arr:true,p:5},
+{k:'歌います',jp:'歌を歌います。',id:'Saya menyanyikan lagu.',tok:['歌','を','歌います','。'],arr:true,p:5},
+{k:'客',jp:'客が来ました。',id:'Tamu sudah datang.',tok:['客','が','来ました','。'],arr:true,p:5},
+{k:'注文',jp:'注文をお願いします。',id:'Saya mau pesan.',tok:['注文','を','お','願いします','。'],arr:true,p:5},
+{k:'洋食',jp:'洋食が好きです。',id:'Saya suka makanan Barat.',tok:['洋食','が','好きです','。'],arr:true,p:5},
+{k:'和食',jp:'和食を食べます。',id:'Saya makan masakan Jepang.',tok:['和食','を','食べます','。'],arr:true,p:5},
+{k:'牛肉',jp:'牛肉を買います。',id:'Saya membeli daging sapi.',tok:['牛肉','を','買います','。'],arr:true,p:5},
+{k:'地方',jp:'この地方は有名です。',id:'Daerah ini terkenal.',tok:['この','地方','は','有名です','。'],arr:true,p:5},
+{k:'有名',jp:'あの店は有名です。',id:'Toko itu terkenal.',tok:['あの店','は','有名です','。'],arr:true,p:5},
+{k:'生',jp:'生の魚を食べます。',id:'Saya makan ikan mentah.',tok:['生','の','魚','を','食べます','。'],arr:true,p:5},
+{k:'冷たい',jp:'冷たい水を飲みます。',id:'Saya minum air dingin.',tok:['冷たい水','を','飲みます','。'],arr:true,p:5},
+{k:'ご飯',jp:'ご飯を食べます。',id:'Saya makan nasi.',tok:['ご飯','を','食べます','。'],arr:true,p:5},
+{k:'塩',jp:'塩を入れます。',id:'Saya menambahkan garam.',tok:['塩','を','入れます','。'],arr:true,p:5},
+{k:'全部',jp:'全部食べました。',id:'Saya sudah makan semuanya.',tok:['全部','食べました','。'],arr:false,p:5},
+{k:'～方',jp:'作り方が分かりません。',id:'Saya tidak tahu cara membuatnya.',tok:['作り方','が','分かりません','。'],arr:true,p:5},
+{k:'食べ方',jp:'食べ方を教えてください。',id:'Tolong ajari saya cara makannya.',tok:['食べ方','を','教えてください','。'],arr:true,p:5},
+{k:'熱い',jp:'熱いお茶を飲みます。',id:'Saya minum teh panas.',tok:['熱いお茶','を','飲みます','。'],arr:true,p:5},
+{k:'苦手',jp:'野菜が苦手です。',id:'Saya tidak begitu suka sayur.',tok:['野菜','が','苦手です','。'],arr:true,p:5},
+{k:'入れます',jp:'砂糖を入れます。',id:'Saya memasukkan gula.',tok:['砂糖','を','入れます','。'],arr:true,p:5},
+{k:'木',jp:'木の下で休みます。',id:'Saya beristirahat di bawah pohon.',tok:['木','の','下','で','休みます','。'],arr:true,p:5},
+{k:'森',jp:'森を歩きます。',id:'Saya berjalan di hutan.',tok:['森','を','歩きます','。'],arr:true,p:5},
+{k:'島',jp:'小さい島があります。',id:'Ada pulau kecil.',tok:['小さい島','が','あります','。'],arr:true,p:5},
+{k:'自然',jp:'自然が好きです。',id:'Saya suka alam.',tok:['自然','が','好きです','。'],arr:true,p:5},
+{k:'船',jp:'船に乗ります。',id:'Saya naik kapal.',tok:['船','に','乗ります','。'],arr:true,p:5},
+{k:'暑い',jp:'今日は暑いです。',id:'Hari ini panas.',tok:['今日','は','暑いです','。'],arr:true,p:5},
+{k:'帰ります',jp:'家に帰ります。',id:'Saya pulang ke rumah.',tok:['家','に','帰ります','。'],arr:true,p:5},
+{k:'予約します',jp:'レストランを予約します。',id:'Saya memesan restoran.',tok:['レストラン','を','予約します','。'],arr:true,p:5},
+{k:'運転します',jp:'車を運転します。',id:'Saya menyetir mobil.',tok:['車','を','運転します','。'],arr:true,p:5},
+{k:'～中',jp:'会議中です。',id:'Sedang rapat.',tok:['会議中です','。'],arr:false,p:5},
+{k:'旅行中',jp:'今、旅行中です。',id:'Sekarang sedang bepergian.',tok:['今','、','旅行中です','。'],arr:false,p:5},
+{k:'観光地',jp:'有名な観光地です。',id:'Ini tempat wisata yang terkenal.',tok:['有名な観光地です','。'],arr:false,p:5},
+{k:'女性',jp:'あの女性は先生です。',id:'Wanita itu adalah guru.',tok:['あの女性','は','先生です','。'],arr:true,p:5},
+{k:'男性',jp:'あの男性は医者です。',id:'Pria itu adalah dokter.',tok:['あの男性','は','医者です','。'],arr:true,p:5},
+{k:'動物',jp:'動物が好きです。',id:'Saya suka hewan.',tok:['動物','が','好きです','。'],arr:true,p:5},
+{k:'空気',jp:'空気がきれいです。',id:'Udaranya bersih.',tok:['空気','が','きれいです','。'],arr:true,p:5},
+{k:'料金',jp:'料金はいくらですか。',id:'Berapa biayanya?',tok:['料金','は','いくらです','か','。'],arr:true,p:5},
+{k:'無料',jp:'これは無料です。',id:'Ini gratis.',tok:['これ','は','無料です','。'],arr:true,p:5},
+{k:'明るい',jp:'部屋が明るいです。',id:'Kamarnya terang.',tok:['部屋','が','明るいです','。'],arr:true,p:5},
+{k:'便利',jp:'この電車は便利です。',id:'Kereta ini praktis.',tok:['この','電車','は','便利です','。'],arr:true,p:5},
+{k:'一年中',jp:'一年中暑いです。',id:'Panas sepanjang tahun.',tok:['一年中','暑いです','。'],arr:false,p:5},
+{k:'受付',jp:'受付で聞きます。',id:'Saya bertanya di resepsionis.',tok:['受付','で','聞きます','。'],arr:true,p:5},
+{k:'広場',jp:'広場で会います。',id:'Kita bertemu di lapangan.',tok:['広場','で','会います','。'],arr:true,p:5},
+{k:'問題',jp:'問題がありません。',id:'Tidak ada masalah.',tok:['問題','が','ありません','。'],arr:true,p:5},
+{k:'同じ',jp:'同じ本を持っています。',id:'Saya punya buku yang sama.',tok:['同じ','本','を','持っています','。'],arr:true,p:5},
+{k:'集まります',jp:'公園に集まります。',id:'Kami berkumpul di taman.',tok:['公園','に','集まります','。'],arr:true,p:5},
+{k:'始まります',jp:'授業が始まります。',id:'Pelajaran dimulai.',tok:['授業','が','始まります','。'],arr:true,p:5},
+{k:'終わります',jp:'仕事が終わります。',id:'Pekerjaan selesai.',tok:['仕事','が','終わります','。'],arr:true,p:5},
+{k:'中止します',jp:'旅行を中止します。',id:'Saya membatalkan perjalanan.',tok:['旅行','を','中止します','。'],arr:true,p:5},
+{k:'教えます',jp:'日本語を教えます。',id:'Saya mengajar bahasa Jepang.',tok:['日本語','を','教えます','。'],arr:true,p:5},
+{k:'祭り',jp:'祭りに行きます。',id:'Saya pergi ke perayaan.',tok:['祭り','に','行きます','。'],arr:true,p:5},
+{k:'日本祭り',jp:'日本祭りに行きます。',id:'Saya pergi ke perayaan Jepang.',tok:['日本祭り','に','行きます','。'],arr:true,p:5},
+{k:'会場',jp:'会場はどこですか。',id:'Di mana ruang acaranya?',tok:['会場','は','どこです','か','。'],arr:true,p:5},
+{k:'入場料',jp:'入場料は千円です。',id:'Tarif masuknya seribu yen.',tok:['入場料','は','千円です','。'],arr:true,p:5},
+{k:'参加者',jp:'参加者が多いです。',id:'Pesertanya banyak.',tok:['参加者','が','多いです','。'],arr:true,p:5},
+{k:'急ぎます',jp:'急いでください。',id:'Tolong buru-buru.',tok:['急い','で','ください','。'],arr:true,p:5},
+{k:'決めます',jp:'時間を決めます。',id:'Saya menentukan waktu.',tok:['時間','を','決めます','。'],arr:true,p:5},
+{k:'知ります',jp:'その人を知りません。',id:'Saya tidak kenal orang itu.',tok:['その','人','を','知りません','。'],arr:true,p:5},
+{k:'正月',jp:'正月に国へ帰ります。',id:'Saya pulang ke negara saya saat tahun baru.',tok:['正月','に','国','へ','帰ります','。'],arr:true,p:5},
+{k:'年末',jp:'年末は忙しいです。',id:'Akhir tahun itu sibuk.',tok:['年末','は','忙しいです','。'],arr:true,p:5},
+{k:'年始',jp:'年始に休みます。',id:'Saya libur di awal tahun.',tok:['年始','に','休みます','。'],arr:true,p:6},
+{k:'親',jp:'親と住んでいます。',id:'Saya tinggal bersama orang tua.',tok:['親','と','住ん','で','います','。'],arr:true,p:6},
+{k:'忙しい',jp:'今週は忙しいです。',id:'Minggu ini sibuk.',tok:['今週','は','忙しいです','。'],arr:true,p:6},
+{k:'特別',jp:'特別な日です。',id:'Ini hari yang istimewa.',tok:['特別な日です','。'],arr:false,p:6},
+{k:'帰国',jp:'来月、帰国します。',id:'Bulan depan saya pulang ke negara saya.',tok:['来月','、','帰国します','。'],arr:false,p:6},
+{k:'喜びます',jp:'みんな喜びます。',id:'Semua orang senang.',tok:['みんな','喜びます','。'],arr:false,p:6},
+{k:'幸せ',jp:'とても幸せです。',id:'Saya sangat bahagia.',tok:['とても幸せです','。'],arr:false,p:6},
+{k:'成長',jp:'子供の成長を見ます。',id:'Saya melihat pertumbuhan anak.',tok:['子供','の','成長','を','見ます','。'],arr:true,p:6},
+{k:'長生き',jp:'長生きしてほしいです。',id:'Saya berharap dia berumur panjang.',tok:['長生きしてほしいです','。'],arr:false,p:6},
+{k:'願い事',jp:'願い事をします。',id:'Saya membuat harapan.',tok:['願い事','を','します','。'],arr:true,p:6},
+{k:'合格',jp:'試験に合格しました。',id:'Saya lulus ujian.',tok:['試験','に','合格しました','。'],arr:true,p:6},
+{k:'試験',jp:'明日、試験があります。',id:'Besok ada ujian.',tok:['明日','、','試験','が','あります','。'],arr:true,p:6},
+{k:'大人',jp:'大人になります。',id:'Saya menjadi dewasa.',tok:['大人','に','なります','。'],arr:true,p:6},
+{k:'～式',jp:'結婚式に行きます。',id:'Saya pergi ke upacara pernikahan.',tok:['結婚式','に','行きます','。'],arr:true,p:6},
+{k:'～市',jp:'東京市に住んでいます。',id:'Saya tinggal di kota Tokyo.',tok:['東京市','に','住ん','で','います','。'],arr:true,p:6},
+{k:'商品',jp:'新しい商品を買います。',id:'Saya membeli produk baru.',tok:['新しい商品','を','買います','。'],arr:true,p:6},
+{k:'電気製品',jp:'電気製品を売ります。',id:'Toko ini menjual peralatan listrik.',tok:['電気製品','を','売ります','。'],arr:true,p:6},
+{k:'電子レンジ',jp:'電子レンジを使います。',id:'Saya menggunakan oven microwave.',tok:['電子レンジ','を','使います','。'],arr:true,p:6},
+{k:'～機',jp:'洗濯機を買います。',id:'Saya membeli mesin cuci.',tok:['洗濯機','を','買います','。'],arr:true,p:6},
+{k:'店員',jp:'店員に聞きます。',id:'Saya bertanya kepada penjaga toko.',tok:['店員','に','聞きます','。'],arr:true,p:6},
+{k:'調子',jp:'調子はどうですか。',id:'Bagaimana kondisimu?',tok:['調子','は','どうです','か','。'],arr:true,p:6},
+{k:'悪い',jp:'天気が悪いです。',id:'Cuacanya buruk.',tok:['天気','が','悪いです','。'],arr:true,p:6},
+{k:'動きます',jp:'車が動きません。',id:'Mobilnya tidak bergerak.',tok:['車','が','動きません','。'],arr:true,p:6},
+{k:'考えます',jp:'よく考えます。',id:'Saya berpikir dengan baik.',tok:['よく','考えます','。'],arr:false,p:6},
+{k:'音',jp:'音が聞こえます。',id:'Saya mendengar suara.',tok:['音','が','聞こえます','。'],arr:true,p:6},
+{k:'出ます',jp:'家を出ます。',id:'Saya keluar dari rumah.',tok:['家','を','出ます','。'],arr:true,p:6},
+{k:'機能',jp:'新しい機能があります。',id:'Ada fungsi baru.',tok:['新しい機能','が','あります','。'],arr:true,p:6},
+{k:'省エネ',jp:'省エネの機械です。',id:'Ini mesin hemat energi.',tok:['省エネ','の','機械です','。'],arr:true,p:6},
+{k:'日本製',jp:'これは日本製です。',id:'Ini buatan Jepang.',tok:['これ','は','日本製です','。'],arr:true,p:6},
+{k:'重い',jp:'かばんが重いです。',id:'Tasnya berat.',tok:['かばん','が','重いです','。'],arr:true,p:6},
+{k:'軽い',jp:'このかばんは軽いです。',id:'Tas ini ringan.',tok:['この','かばん','は','軽いです','。'],arr:true,p:6},
+{k:'静か',jp:'図書館は静かです。',id:'Perpustakaan itu tenang.',tok:['図書館','は','静かです','。'],arr:true,p:6},
+{k:'早く',jp:'早く来てください。',id:'Tolong datang cepat.',tok:['早く来てください','。'],arr:false,p:6},
+{k:'方',jp:'こちらの方へ行きます。',id:'Saya pergi ke arah sini.',tok:['こちら','の','方','へ','行きます','。'],arr:true,p:6},
+{k:'洗います',jp:'手を洗います。',id:'Saya mencuci tangan.',tok:['手','を','洗います','。'],arr:true,p:6},
+{k:'満足します',jp:'結果に満足します。',id:'Saya puas dengan hasilnya.',tok:['結果','に','満足します','。'],arr:true,p:6},
+{k:'京都',jp:'京都へ旅行します。',id:'Saya bepergian ke Kyoto.',tok:['京都','へ','旅行します','。'],arr:true,p:6},
+{k:'神社',jp:'神社にお参りします。',id:'Saya berdoa di kuil Shinto.',tok:['神社','に','お参りします','。'],arr:true,p:6},
+{k:'お寺',jp:'お寺を見学します。',id:'Saya mengunjungi kuil.',tok:['お寺','を','見学します','。'],arr:true,p:6},
+{k:'仏教',jp:'仏教を勉強します。',id:'Saya belajar agama Buddha.',tok:['仏教','を','勉強します','。'],arr:true,p:6},
+{k:'歴史',jp:'日本の歴史が好きです。',id:'Saya suka sejarah Jepang.',tok:['日本','の','歴史','が','好きです','。'],arr:true,p:6},
+{k:'世界',jp:'世界を旅行します。',id:'Saya bepergian keliling dunia.',tok:['世界','を','旅行します','。'],arr:true,p:6},
+{k:'中心',jp:'町の中心にあります。',id:'Ada di pusat kota.',tok:['町','の','中心','に','あります','。'],arr:true,p:6},
+{k:'～世紀',jp:'二十一世紀です。',id:'Ini abad ke-21.',tok:['二十一世紀です','。'],arr:false,p:6},
+{k:'～的',jp:'個人的な意見です。',id:'Ini pendapat pribadi.',tok:['個人的な意見です','。'],arr:false,p:6},
+{k:'日本的',jp:'日本的な建物です。',id:'Ini bangunan yang berbau Jepang.',tok:['日本的な建物です','。'],arr:false,p:6},
+{k:'歴史的',jp:'歴史的な場所です。',id:'Ini tempat bersejarah.',tok:['歴史的な場所です','。'],arr:false,p:6},
+{k:'飲食',jp:'飲食は禁止です。',id:'Makan dan minum dilarang.',tok:['飲食','は','禁止です','。'],arr:true,p:6},
+{k:'禁止',jp:'写真は禁止です。',id:'Memotret dilarang.',tok:['写真','は','禁止です','。'],arr:true,p:6},
+{k:'説明',jp:'説明を聞きます。',id:'Saya mendengarkan penjelasan.',tok:['説明','を','聞きます','。'],arr:true,p:6},
+{k:'道具',jp:'道具を使います。',id:'Saya menggunakan peralatan.',tok:['道具','を','使います','。'],arr:true,p:6},
+{k:'博物館',jp:'博物館へ行きます。',id:'Saya pergi ke museum.',tok:['博物館','へ','行きます','。'],arr:true,p:6},
+{k:'必要',jp:'お金が必要です。',id:'Uang itu diperlukan.',tok:['お金','が','必要です','。'],arr:true,p:6},
+{k:'～階',jp:'三階にあります。',id:'Ada di lantai tiga.',tok:['三階','に','あります','。'],arr:true,p:6},
+{k:'油',jp:'油を入れます。',id:'Saya menambahkan minyak.',tok:['油','を','入れます','。'],arr:true,p:6},
+{k:'紙',jp:'紙に書きます。',id:'Saya menulis di kertas.',tok:['紙','に','書きます','。'],arr:true,p:6},
+{k:'温度',jp:'温度が高いです。',id:'Suhunya tinggi.',tok:['温度','が','高いです','。'],arr:true,p:6},
+{k:'活動',jp:'クラブ活動をします。',id:'Saya melakukan kegiatan klub.',tok:['クラブ活動','を','します','。'],arr:true,p:6},
+{k:'会議室',jp:'会議室で話します。',id:'Kami berbicara di ruang rapat.',tok:['会議室','で','話します','。'],arr:true,p:6},
+{k:'寒い',jp:'今日は寒いです。',id:'Hari ini dingin.',tok:['今日','は','寒いです','。'],arr:true,p:6},
+{k:'出します',jp:'手紙を出します。',id:'Saya mengirim surat.',tok:['手紙','を','出します','。'],arr:true,p:7},
+{k:'～度',jp:'今日は三十度です。',id:'Hari ini tiga puluh derajat.',tok:['今日','は','三十度です','。'],arr:true,p:7},
+{k:'～点',jp:'九十点を取りました。',id:'Saya mendapat nilai sembilan puluh.',tok:['九十点','を','取りました','。'],arr:true,p:7},
+{k:'服',jp:'新しい服を買います。',id:'Saya membeli baju baru.',tok:['新しい服','を','買います','。'],arr:true,p:7},
+{k:'自転車',jp:'自転車に乗ります。',id:'Saya naik sepeda.',tok:['自転車','に','乗ります','。'],arr:true,p:7},
+{k:'自動車',jp:'自動車を運転します。',id:'Saya menyetir mobil.',tok:['自動車','を','運転します','。'],arr:true,p:7},
+{k:'売ります',jp:'この店は野菜を売ります。',id:'Toko ini menjual sayuran.',tok:['この','店','は','野菜','を','売ります','。'],arr:true,p:7},
+{k:'貸します',jp:'本を貸します。',id:'Saya meminjamkan buku.',tok:['本','を','貸します','。'],arr:true,p:7},
+{k:'返します',jp:'本を返します。',id:'Saya mengembalikan buku.',tok:['本','を','返します','。'],arr:true,p:7},
+{k:'変わります',jp:'天気が変わります。',id:'Cuacanya berubah.',tok:['天気','が','変わります','。'],arr:true,p:7},
+{k:'～用',jp:'仕事用のパソコンです。',id:'Ini komputer untuk keperluan kerja.',tok:['仕事用','の','パソコンです','。'],arr:true,p:7},
+{k:'子供用',jp:'子供用の服です。',id:'Ini baju untuk anak-anak.',tok:['子供用','の','服です','。'],arr:true,p:7},
+{k:'人生',jp:'楽しい人生です。',id:'Ini kehidupan yang menyenangkan.',tok:['楽しい人生です','。'],arr:false,p:7},
+{k:'歌手',jp:'有名な歌手です。',id:'Dia penyanyi terkenal.',tok:['有名な歌手です','。'],arr:false,p:7},
+{k:'選手',jp:'サッカーの選手です。',id:'Dia pemain sepak bola.',tok:['サッカー','の','選手です','。'],arr:true,p:7},
+{k:'画家',jp:'有名な画家です。',id:'Dia pelukis terkenal.',tok:['有名な画家です','。'],arr:false,p:7},
+{k:'作家',jp:'人気の作家です。',id:'Dia pengarang yang populer.',tok:['人気','の','作家です','。'],arr:true,p:7},
+{k:'入学',jp:'大学に入学します。',id:'Saya masuk universitas.',tok:['大学','に','入学します','。'],arr:true,p:7},
+{k:'卒業',jp:'来年、卒業します。',id:'Tahun depan saya lulus.',tok:['来年','、','卒業します','。'],arr:false,p:7},
+{k:'病気',jp:'病気になりました。',id:'Saya jatuh sakit.',tok:['病気','に','なりました','。'],arr:true,p:7},
+{k:'若い',jp:'あの人は若いです。',id:'Orang itu masih muda.',tok:['あの人','は','若いです','。'],arr:true,p:7},
+{k:'生まれます',jp:'東京で生まれました。',id:'Saya lahir di Tokyo.',tok:['東京','で','生まれました','。'],arr:true,p:7},
+{k:'思い出',jp:'いい思い出です。',id:'Ini kenangan yang indah.',tok:['いい思い出です','。'],arr:false,p:7},
+{k:'生活',jp:'日本での生活は楽しいです。',id:'Kehidupan di Jepang menyenangkan.',tok:['日本','で','の','生活','は','楽しいです','。'],arr:true,p:7},
+{k:'映画',jp:'映画を見ます。',id:'Saya menonton film.',tok:['映画','を','見ます','。'],arr:true,p:7},
+{k:'夫',jp:'夫は会社員です。',id:'Suami saya seorang karyawan.',tok:['夫','は','会社員です','。'],arr:true,p:7},
+{k:'妻',jp:'妻は先生です。',id:'Istri saya seorang guru.',tok:['妻','は','先生です','。'],arr:true,p:7},
+{k:'両親',jp:'両親と話します。',id:'Saya berbicara dengan orang tua.',tok:['両親','と','話します','。'],arr:true,p:7},
+{k:'不便',jp:'ここは不便です。',id:'Di sini tidak praktis.',tok:['ここ','は','不便です','。'],arr:true,p:7},
+{k:'選びます',jp:'服を選びます。',id:'Saya memilih baju.',tok:['服','を','選びます','。'],arr:true,p:7},
+{k:'寝ます',jp:'十時に寝ます。',id:'Saya tidur jam sepuluh.',tok:['十時','に','寝ます','。'],arr:true,p:7},
+{k:'サッカー場',jp:'サッカー場へ行きます。',id:'Saya pergi ke lapangan sepak bola.',tok:['サッカー場','へ','行きます','。'],arr:true,p:7},
+{k:'試合',jp:'試合を見ます。',id:'Saya menonton pertandingan.',tok:['試合','を','見ます','。'],arr:true,p:7},
+{k:'強い',jp:'あのチームは強いです。',id:'Tim itu kuat.',tok:['あのチーム','は','強いです','。'],arr:true,p:7},
+{k:'弱い',jp:'このチームは弱いです。',id:'Tim ini lemah.',tok:['この','チーム','は','弱いです','。'],arr:true,p:7},
+{k:'勝ちます',jp:'試合に勝ちます。',id:'Saya memenangkan pertandingan.',tok:['試合','に','勝ちます','。'],arr:true,p:7},
+{k:'負けます',jp:'試合に負けます。',id:'Saya kalah dalam pertandingan.',tok:['試合','に','負けます','。'],arr:true,p:7},
+{k:'～対～',jp:'三対二で勝ちました。',id:'Menang dengan skor tiga lawan dua.',tok:['三対二','で','勝ちました','。'],arr:true,p:7},
+{k:'庭',jp:'庭に花があります。',id:'Ada bunga di halaman.',tok:['庭','に','花','が','あります','。'],arr:true,p:7},
+{k:'公園',jp:'公園で遊びます。',id:'Saya bermain di taman.',tok:['公園','で','遊びます','。'],arr:true,p:7},
+{k:'病院',jp:'病院へ行きます。',id:'Saya pergi ke rumah sakit.',tok:['病院','へ','行きます','。'],arr:true,p:7},
+{k:'交通',jp:'交通が便利です。',id:'Lalu lintasnya praktis.',tok:['交通','が','便利です','。'],arr:true,p:7},
+{k:'通勤',jp:'電車で通勤します。',id:'Saya pergi ke kantor naik kereta.',tok:['電車','で','通勤します','。'],arr:true,p:7},
+{k:'安全',jp:'ここは安全です。',id:'Di sini aman.',tok:['ここ','は','安全です','。'],arr:true,p:7},
+{k:'危ない',jp:'この道は危ないです。',id:'Jalan ini berbahaya.',tok:['この','道','は','危ないです','。'],arr:true,p:7},
+{k:'遠い',jp:'駅から遠いです。',id:'Jauh dari stasiun.',tok:['駅','から','遠いです','。'],arr:true,p:7},
+{k:'努めます',jp:'銀行に努めます。',id:'Saya bekerja di bank.',tok:['銀行','に','努めます','。'],arr:true,p:7},
+{k:'～以上',jp:'二十歳以上です。',id:'Usia dua puluh tahun ke atas.',tok:['二十歳以上です','。'],arr:false,p:7},
+{k:'～以下',jp:'千円以下です。',id:'Kurang dari seribu yen.',tok:['千円以下です','。'],arr:false,p:7},
+{k:'海外',jp:'海外で働きます。',id:'Saya bekerja di luar negeri.',tok:['海外','で','働きます','。'],arr:true,p:7},
+{k:'食生活',jp:'食生活を変えます。',id:'Saya mengubah pola makan.',tok:['食生活','を','変えます','。'],arr:true,p:7},
+{k:'健康',jp:'健康のために運動します。',id:'Saya berolahraga demi kesehatan.',tok:['健康','の','ため','に','運動します','。'],arr:true,p:7},
+{k:'家庭料理',jp:'家庭料理を作ります。',id:'Saya membuat masakan rumahan.',tok:['家庭料理','を','作ります','。'],arr:true,p:7},
+{k:'材料',jp:'材料を買います。',id:'Saya membeli bahan-bahan.',tok:['材料','を','買います','。'],arr:true,p:7},
+{k:'量',jp:'量が多いです。',id:'Jumlahnya banyak.',tok:['量','が','多いです','。'],arr:true,p:7},
+{k:'米',jp:'米を買います。',id:'Saya membeli beras.',tok:['米','を','買います','。'],arr:true,p:7},
+{k:'～食',jp:'一日三食食べます。',id:'Saya makan tiga kali sehari.',tok:['一日三食','食べます','。'],arr:false,p:7},
+{k:'朝食',jp:'朝食を食べます。',id:'Saya makan sarapan.',tok:['朝食','を','食べます','。'],arr:true,p:7},
+{k:'昼食',jp:'昼食を食べます。',id:'Saya makan siang.',tok:['昼食','を','食べます','。'],arr:true,p:7},
+{k:'夕食',jp:'夕食を食べます。',id:'Saya makan malam.',tok:['夕食','を','食べます','。'],arr:true,p:8},
+{k:'外食',jp:'今日は外食します。',id:'Hari ini saya makan di luar.',tok:['今日','は','外食します','。'],arr:true,p:8},
+{k:'定食',jp:'定食を注文します。',id:'Saya memesan menu set.',tok:['定食','を','注文します','。'],arr:true,p:8},
+{k:'住所',jp:'住所を教えてください。',id:'Tolong beritahu alamat Anda.',tok:['住所','を','教えてください','。'],arr:true,p:8},
+{k:'訪問',jp:'会社を訪問します。',id:'Saya mengunjungi perusahaan.',tok:['会社','を','訪問します','。'],arr:true,p:8},
+{k:'経験',jp:'いい経験になりました。',id:'Itu menjadi pengalaman yang baik.',tok:['いい経験','に','なりました','。'],arr:true,p:8},
+{k:'親切',jp:'みんな親切です。',id:'Semua orang ramah.',tok:['みんな親切です','。'],arr:false,p:8},
+{k:'座ります',jp:'椅子に座ります。',id:'Saya duduk di kursi.',tok:['椅子','に','座ります','。'],arr:true,p:8},
+{k:'立ちます',jp:'駅の前に立ちます。',id:'Saya berdiri di depan stasiun.',tok:['駅','の','前','に','立ちます','。'],arr:true,p:8},
+{k:'～観',jp:'人生観が変わりました。',id:'Pandangan hidup saya berubah.',tok:['人生観','が','変わりました','。'],arr:true,p:8},
+{k:'約～',jp:'約一時間かかります。',id:'Butuh sekitar satu jam.',tok:['約一時間','かかります','。'],arr:false,p:8},
+{k:'計画',jp:'旅行の計画を立てます。',id:'Saya membuat rencana perjalanan.',tok:['旅行','の','計画','を','立てます','。'],arr:true,p:8},
+{k:'自信',jp:'自信があります。',id:'Saya punya kepercayaan diri.',tok:['自信','が','あります','。'],arr:true,p:8},
+{k:'方法',jp:'いい方法があります。',id:'Ada cara yang bagus.',tok:['いい方法','が','あります','。'],arr:true,p:8},
+{k:'目的',jp:'旅行の目的は何ですか。',id:'Apa tujuan perjalananmu?',tok:['旅行','の','目的','は','何です','か','。'],arr:true,p:8},
+{k:'難しい',jp:'この問題は難しいです。',id:'Soal ini sulit.',tok:['この','問題','は','難しいです','。'],arr:true,p:8},
+{k:'通じます',jp:'英語が通じます。',id:'Bahasa Inggris bisa dimengerti di sini.',tok:['英語','が','通じます','。'],arr:true,p:8},
+{k:'習います',jp:'先生に習います。',id:'Saya belajar dari guru.',tok:['先生','に','習います','。'],arr:true,p:8},
+{k:'学びます',jp:'歴史を学びます。',id:'Saya mempelajari sejarah.',tok:['歴史','を','学びます','。'],arr:true,p:8},
+{k:'～級',jp:'三級を受けます。',id:'Saya mengikuti ujian tingkat tiga.',tok:['三級','を','受けます','。'],arr:true,p:8},
+{k:'初級',jp:'初級のクラスです。',id:'Ini kelas tingkat dasar.',tok:['初級','の','クラスです','。'],arr:true,p:8},
+{k:'中級',jp:'中級のクラスです。',id:'Ini kelas tingkat menengah.',tok:['中級','の','クラスです','。'],arr:true,p:8},
+{k:'上級',jp:'上級のクラスです。',id:'Ini kelas tingkat atas.',tok:['上級','の','クラスです','。'],arr:true,p:8},
+{k:'相手',jp:'話す相手がいません。',id:'Saya tidak punya lawan bicara.',tok:['話す相手','が','いません','。'],arr:true,p:8},
+{k:'気持ち',jp:'気持ちが分かります。',id:'Saya mengerti perasaanmu.',tok:['気持ち','が','分かります','。'],arr:true,p:8},
+{k:'恋人',jp:'恋人がいます。',id:'Saya punya pacar.',tok:['恋人','が','います','。'],arr:true,p:8},
+{k:'出会い',jp:'いい出会いでした。',id:'Itu pertemuan yang baik.',tok:['いい出会いでした','。'],arr:false,p:8},
+{k:'最近',jp:'最近、忙しいです。',id:'Akhir-akhir ini sibuk.',tok:['最近','、','忙しいです','。'],arr:false,p:8},
+{k:'最高',jp:'最高の一日でした。',id:'Itu hari yang paling menyenangkan.',tok:['最高','の','一日でした','。'],arr:true,p:8},
+{k:'出席',jp:'会議に出席します。',id:'Saya menghadiri rapat.',tok:['会議','に','出席します','。'],arr:true,p:8},
+{k:'招待',jp:'結婚式に招待します。',id:'Saya mengundang ke pernikahan.',tok:['結婚式','に','招待します','。'],arr:true,p:8},
+{k:'～合う',jp:'この服はよく似合います。',id:'Baju ini sangat cocok.',tok:['この','服','は','よく','似合います','。'],arr:true,p:8},
+{k:'社会人',jp:'社会人になります。',id:'Saya menjadi anggota masyarakat kerja.',tok:['社会人','に','なります','。'],arr:true,p:8},
+{k:'職場',jp:'職場は静かです。',id:'Tempat kerjanya tenang.',tok:['職場','は','静かです','。'],arr:true,p:8},
+{k:'給料',jp:'給料をもらいます。',id:'Saya menerima gaji.',tok:['給料','を','もらいます','。'],arr:true,p:8},
+{k:'人間関係',jp:'人間関係が大切です。',id:'Hubungan antar manusia itu penting.',tok:['人間関係','が','大切です','。'],arr:true,p:8},
+{k:'親友',jp:'彼は親友です。',id:'Dia teman karib saya.',tok:['彼','は','親友です','。'],arr:true,p:8},
+{k:'恋愛',jp:'恋愛の映画が好きです。',id:'Saya suka film percintaan.',tok:['恋愛','の','映画','が','好きです','。'],arr:true,p:8},
+{k:'相談',jp:'先生に相談します。',id:'Saya berkonsultasi dengan guru.',tok:['先生','に','相談します','。'],arr:true,p:8},
+{k:'心',jp:'心が痛いです。',id:'Hati saya sakit.',tok:['心','が','痛いです','。'],arr:true,p:8},
+{k:'心配',jp:'心配しないでください。',id:'Tolong jangan khawatir.',tok:['心配しない','で','ください','。'],arr:true,p:8},
+{k:'不安',jp:'不安を感じます。',id:'Saya merasa gelisah.',tok:['不安','を','感じます','。'],arr:true,p:8},
+{k:'お客様',jp:'お客様が来ました。',id:'Tamu sudah datang.',tok:['お客様','が','来ました','。'],arr:true,p:8},
+{k:'手続き',jp:'手続きをします。',id:'Saya mengurus prosedur.',tok:['手続き','を','します','。'],arr:true,p:8},
+{k:'飛行機',jp:'飛行機に乗ります。',id:'Saya naik pesawat.',tok:['飛行機','に','乗ります','。'],arr:true,p:8},
+{k:'変更',jp:'予定を変更します。',id:'Saya mengubah rencana.',tok:['予定','を','変更します','。'],arr:true,p:8},
+{k:'予定',jp:'明日の予定は何ですか。',id:'Apa rencana besok?',tok:['明日','の','予定','は','何です','か','。'],arr:true,p:8},
+{k:'利用',jp:'電車を利用します。',id:'Saya menggunakan kereta.',tok:['電車','を','利用します','。'],arr:true,p:8},
+{k:'忘れ物',jp:'忘れ物をしました。',id:'Saya meninggalkan barang.',tok:['忘れ物','を','しました','。'],arr:true,p:8},
+{k:'助けます',jp:'友達を助けます。',id:'Saya menolong teman.',tok:['友達','を','助けます','。'],arr:true,p:8},
+{k:'～航空',jp:'日本航空を利用します。',id:'Saya menggunakan maskapai Japan Airlines.',tok:['日本航空','を','利用します','。'],arr:true,p:8},
+{k:'～便',jp:'次の便に乗ります。',id:'Saya naik penerbangan berikutnya.',tok:['次','の','便','に','乗ります','。'],arr:true,p:8},
+{k:'体力',jp:'体力があります。',id:'Saya punya stamina yang baik.',tok:['体力','が','あります','。'],arr:true,p:8},
+{k:'協力',jp:'協力してください。',id:'Tolong bekerja sama.',tok:['協力してください','。'],arr:false,p:8},
+{k:'担当',jp:'私が担当します。',id:'Saya yang bertugas.',tok:['私','が','担当します','。'],arr:true,p:8},
+{k:'報告',jp:'結果を報告します。',id:'Saya melaporkan hasilnya.',tok:['結果','を','報告します','。'],arr:true,p:8},
+{k:'連絡',jp:'後で連絡します。',id:'Saya akan menghubungi nanti.',tok:['後','で','連絡します','。'],arr:true,p:8},
+{k:'募集',jp:'社員を募集します。',id:'Perusahaan merekrut karyawan.',tok:['社員','を','募集します','。'],arr:true,p:8},
+{k:'輸出',jp:'車を輸出します。',id:'Kami mengekspor mobil.',tok:['車','を','輸出します','。'],arr:true,p:8},
+{k:'輸入',jp:'野菜を輸入します。',id:'Kami mengimpor sayuran.',tok:['野菜','を','輸入します','。'],arr:true,p:8},
+{k:'会話',jp:'日本語で会話します。',id:'Saya bercakap-cakap dalam bahasa Jepang.',tok:['日本語','で','会話します','。'],arr:true,p:9},
+{k:'形',jp:'面白い形です。',id:'Ini bentuk yang unik.',tok:['面白い形です','。'],arr:false,p:9},
+{k:'漢字',jp:'漢字を勉強します。',id:'Saya belajar kanji.',tok:['漢字','を','勉強します','。'],arr:true,p:9},
+{k:'答え',jp:'答えが分かりません。',id:'Saya tidak tahu jawabannya.',tok:['答え','が','分かりません','。'],arr:true,p:9},
+{k:'質問',jp:'質問があります。',id:'Saya punya pertanyaan.',tok:['質問','が','あります','。'],arr:true,p:9},
+{k:'正しい',jp:'答えは正しいです。',id:'Jawabannya benar.',tok:['答え','は','正しいです','。'],arr:true,p:9},
+{k:'読解',jp:'読解の練習をします。',id:'Saya berlatih membaca pemahaman.',tok:['読解','の','練習','を','します','。'],arr:true,p:9},
+{k:'表現',jp:'新しい表現を習います。',id:'Saya mempelajari ungkapan baru.',tok:['新しい表現','を','習います','。'],arr:true,p:9},
+{k:'文',jp:'文を書きます。',id:'Saya menulis kalimat.',tok:['文','を','書きます','。'],arr:true,p:9},
+{k:'文型',jp:'この文型を覚えます。',id:'Saya menghafal pola kalimat ini.',tok:['この','文型','を','覚えます','。'],arr:true,p:9},
+{k:'文法',jp:'文法を勉強します。',id:'Saya belajar tata bahasa.',tok:['文法','を','勉強します','。'],arr:true,p:9},
+{k:'もう一度',jp:'もう一度言ってください。',id:'Tolong katakan sekali lagi.',tok:['もう一度','言ってください','。'],arr:false,p:9},
+{k:'例',jp:'例を見てください。',id:'Tolong lihat contohnya.',tok:['例','を','見てください','。'],arr:true,p:9},
+{k:'練習',jp:'毎日練習します。',id:'Saya berlatih setiap hari.',tok:['毎日練習します','。'],arr:false,p:9},
+{k:'～枚',jp:'紙を三枚ください。',id:'Tolong berikan tiga lembar kertas.',tok:['紙','を','三枚','ください','。'],arr:true,p:9},
+{k:'今週',jp:'今週は忙しいです。',id:'Minggu ini sibuk.',tok:['今週','は','忙しいです','。'],arr:true,p:9},
+{k:'今度',jp:'今度、行きましょう。',id:'Ayo pergi lain kali.',tok:['今度','、','行きましょう','。'],arr:false,p:9},
+{k:'横',jp:'駅の横にあります。',id:'Ada di sebelah stasiun.',tok:['駅','の','横','に','あります','。'],arr:true,p:9},
+{k:'押します',jp:'ボタンを押します。',id:'Saya menekan tombol.',tok:['ボタン','を','押します','。'],arr:true,p:9},
+{k:'引きます',jp:'ドアを引きます。',id:'Saya menarik pintu.',tok:['ドア','を','引きます','。'],arr:true,p:9},
+{k:'温泉',jp:'温泉に入ります。',id:'Saya berendam di pemandian air panas.',tok:['温泉','に','入ります','。'],arr:true,p:9},
+{k:'来週',jp:'来週、旅行します。',id:'Minggu depan saya bepergian.',tok:['来週','、','旅行します','。'],arr:false,p:9},
+{k:'犬',jp:'犬が好きです。',id:'Saya suka anjing.',tok:['犬','が','好きです','。'],arr:true,p:9},
+{k:'夕方',jp:'夕方に帰ります。',id:'Saya pulang sore hari.',tok:['夕方','に','帰ります','。'],arr:true,p:9},
+{k:'季節',jp:'好きな季節は春です。',id:'Musim favorit saya musim semi.',tok:['好きな季節','は','春です','。'],arr:true,p:9},
+{k:'昨日',jp:'昨日、旅行しました。',id:'Kemarin saya bepergian.',tok:['昨日','、','旅行しました','。'],arr:false,p:9},
+{k:'明日',jp:'明日、会いましょう。',id:'Ayo bertemu besok.',tok:['明日','、','会いましょう','。'],arr:false,p:9},
+{k:'食堂',jp:'食堂で食べます。',id:'Saya makan di kantin.',tok:['食堂','で','食べます','。'],arr:true,p:9},
+{k:'銀行',jp:'銀行へ行きます。',id:'Saya pergi ke bank.',tok:['銀行','へ','行きます','。'],arr:true,p:9},
+{k:'受付',jp:'受付で待ちます。',id:'Saya menunggu di resepsionis.',tok:['受付','で','待ちます','。'],arr:true,p:9},
+{k:'門',jp:'門の前で会います。',id:'Kita bertemu di depan gerbang.',tok:['門','の','前','で','会います','。'],arr:true,p:9},
+{k:'登ります',jp:'山に登ります。',id:'Saya mendaki gunung.',tok:['山','に','登ります','。'],arr:true,p:9},
+{k:'教科書',jp:'教科書を読みます。',id:'Saya membaca buku pelajaran.',tok:['教科書','を','読みます','。'],arr:true,p:9},
+{k:'教室',jp:'教室で勉強します。',id:'Saya belajar di ruang kelas.',tok:['教室','で','勉強します','。'],arr:true,p:9},
+{k:'参加します',jp:'パーティーに参加します。',id:'Saya berpartisipasi dalam pesta.',tok:['パーティー','に','参加します','。'],arr:true,p:9},
+{k:'用意します',jp:'晩ご飯を用意します。',id:'Saya menyiapkan makan malam.',tok:['晩ご飯','を','用意します','。'],arr:true,p:9},
+{k:'豚肉',jp:'豚肉を食べます。',id:'Saya makan daging babi.',tok:['豚肉','を','食べます','。'],arr:true,p:9},
+{k:'皿',jp:'皿を洗います。',id:'Saya mencuci piring.',tok:['皿','を','洗います','。'],arr:true,p:9},
+{k:'お湯',jp:'お湯を入れます。',id:'Saya menuang air panas.',tok:['お湯','を','入れます','。'],arr:true,p:9},
+{k:'調理方法',jp:'調理方法を教えます。',id:'Saya mengajarkan cara memasak.',tok:['調理方法','を','教えます','。'],arr:true,p:9},
+{k:'甘い',jp:'このケーキは甘いです。',id:'Kue ini manis.',tok:['この','ケーキ','は','甘いです','。'],arr:true,p:9},
+{k:'辛い',jp:'この料理は辛いです。',id:'Masakan ini pedas.',tok:['この','料理','は','辛いです','。'],arr:true,p:9},
+{k:'数字',jp:'数字を覚えます。',id:'Saya menghafal angka.',tok:['数字','を','覚えます','。'],arr:true,p:9},
+{k:'机',jp:'机の上に本があります。',id:'Ada buku di atas meja.',tok:['机','の','上','に','本','が','あります','。'],arr:true,p:9},
+{k:'都合',jp:'都合はどうですか。',id:'Bagaimana keadaanmu?',tok:['都合','は','どうです','か','。'],arr:true,p:9},
+{k:'用事',jp:'用事があります。',id:'Saya ada keperluan.',tok:['用事','が','あります','。'],arr:true,p:9},
+{k:'氏名',jp:'氏名を書きます。',id:'Saya menulis nama lengkap.',tok:['氏名','を','書きます','。'],arr:true,p:9},
+{k:'理由',jp:'理由を教えてください。',id:'Tolong beritahu alasannya.',tok:['理由','を','教えてください','。'],arr:true,p:9},
+{k:'別に',jp:'別に何もありません。',id:'Tidak ada apa-apa juga.',tok:['別','に','何','も','ありません','。'],arr:true,p:9},
+{k:'連絡先',jp:'連絡先を教えます。',id:'Saya memberitahu kontak saya.',tok:['連絡先','を','教えます','。'],arr:true,p:9},
+{k:'吸います',jp:'たばこを吸いません。',id:'Saya tidak merokok.',tok:['たばこ','を','吸いません','。'],arr:true,p:9},
+{k:'取ります',jp:'皿を取ります。',id:'Saya mengambil piring.',tok:['皿','を','取ります','。'],arr:true,p:9},
+{k:'伝えます',jp:'気持ちを伝えます。',id:'Saya menyampaikan perasaan.',tok:['気持ち','を','伝えます','。'],arr:true,p:9},
+{k:'熱',jp:'熱があります。',id:'Saya sedang demam.',tok:['熱','が','あります','。'],arr:true,p:9},
+{k:'薬',jp:'薬を飲みます。',id:'Saya minum obat.',tok:['薬','を','飲みます','。'],arr:true,p:9},
+{k:'医者',jp:'医者に行きます。',id:'Saya pergi ke dokter.',tok:['医者','に','行きます','。'],arr:true,p:9},
+{k:'～才',jp:'二十才です。',id:'Umur saya dua puluh tahun.',tok:['二十才です','。'],arr:false,p:9},
+{k:'眠い',jp:'とても眠いです。',id:'Saya sangat mengantuk.',tok:['とても','眠いです','。'],arr:false,p:9},
+{k:'記入します',jp:'名前を記入します。',id:'Saya mengisi nama di formulir.',tok:['名前','を','記入します','。'],arr:true,p:9},
+{k:'顔',jp:'顔を洗います。',id:'Saya mencuci wajah.',tok:['顔','を','洗います','。'],arr:true,p:10},
+{k:'泣きます',jp:'映画を見て泣きます。',id:'Saya menangis saat menonton film.',tok:['映画','を','見て泣きます','。'],arr:true,p:10},
+{k:'会計',jp:'会計をお願いします。',id:'Tolong bayarnya.',tok:['会計','を','お','願いします','。'],arr:true,p:10},
+{k:'電話番号',jp:'電話番号を教えます。',id:'Saya memberitahu nomor telepon.',tok:['電話番号','を','教えます','。'],arr:true,p:10},
+{k:'牛乳',jp:'牛乳を飲みます。',id:'Saya minum susu sapi.',tok:['牛乳','を','飲みます','。'],arr:true,p:10},
+{k:'禁煙',jp:'ここは禁煙です。',id:'Di sini dilarang merokok.',tok:['ここ','は','禁煙です','。'],arr:true,p:10},
+{k:'自由',jp:'自由な時間があります。',id:'Saya punya waktu bebas.',tok:['自由な時間','が','あります','。'],arr:true,p:10},
+{k:'切ります',jp:'野菜を切ります。',id:'Saya memotong sayuran.',tok:['野菜','を','切ります','。'],arr:true,p:10},
+{k:'焼きます',jp:'魚を焼きます。',id:'Saya memanggang ikan.',tok:['魚','を','焼きます','。'],arr:true,p:10},
+{k:'旅館',jp:'旅館に泊まります。',id:'Saya menginap di penginapan.',tok:['旅館','に','泊まります','。'],arr:true,p:10},
+{k:'遊びます',jp:'公園で遊びます。',id:'Saya bermain di taman.',tok:['公園','で','遊びます','。'],arr:true,p:10},
+{k:'調べます',jp:'言葉を調べます。',id:'Saya memeriksa arti kata.',tok:['言葉','を','調べます','。'],arr:true,p:10},
+{k:'事故',jp:'事故がありました。',id:'Terjadi kecelakaan.',tok:['事故','が','ありました','。'],arr:true,p:10},
+{k:'故障',jp:'車が故障しました。',id:'Mobilnya rusak.',tok:['車','が','故障しました','。'],arr:true,p:10},
+{k:'指定席',jp:'指定席を予約します。',id:'Saya memesan tempat duduk yang ditentukan.',tok:['指定席','を','予約します','。'],arr:true,p:10},
+{k:'光ります',jp:'星が光ります。',id:'Bintangnya bersinar.',tok:['星','が','光ります','。'],arr:true,p:10},
+{k:'お知らせ',jp:'お知らせを見ます。',id:'Saya melihat pengumuman.',tok:['お知らせ','を','見ます','。'],arr:true,p:10},
+{k:'水道',jp:'水道を止めます。',id:'Saya mematikan keran air.',tok:['水道','を','止めます','。'],arr:true,p:10},
+{k:'工事',jp:'工事をしています。',id:'Sedang ada konstruksi.',tok:['工事','を','しています','。'],arr:true,p:10},
+{k:'場合',jp:'雨の場合は休みます。',id:'Kalau hujan, libur.',tok:['雨','の','場合','は','休みます','。'],arr:true,p:10},
+{k:'条件',jp:'条件を確認します。',id:'Saya memeriksa syarat-syaratnya.',tok:['条件','を','確認します','。'],arr:true,p:10},
+{k:'開きます',jp:'ドアを開きます。',id:'Saya membuka pintu.',tok:['ドア','を','開きます','。'],arr:true,p:10},
+{k:'生産します',jp:'車を生産します。',id:'Kami memproduksi mobil.',tok:['車','を','生産します','。'],arr:true,p:10},
+{k:'体験',jp:'いい体験でした。',id:'Itu pengalaman yang bagus.',tok:['いい体験でした','。'],arr:false,p:10},
+{k:'国際交流',jp:'国際交流に参加します。',id:'Saya ikut pertukaran budaya internasional.',tok:['国際交流','に','参加します','。'],arr:true,p:10},
+{k:'申し込みます',jp:'会社に申し込みます。',id:'Saya melamar ke perusahaan.',tok:['会社','に','申し込みます','。'],arr:true,p:10},
+{k:'昨年',jp:'昨年、卒業しました。',id:'Tahun lalu saya lulus.',tok:['昨年','、','卒業しました','。'],arr:false,p:10},
+{k:'毎年',jp:'毎年、旅行します。',id:'Setiap tahun saya bepergian.',tok:['毎年','、','旅行します','。'],arr:false,p:10},
+{k:'袋',jp:'袋をください。',id:'Tolong berikan kantong plastik.',tok:['袋','を','ください','。'],arr:true,p:10},
+{k:'店長',jp:'店長に聞きます。',id:'Saya bertanya kepada manajer toko.',tok:['店長','に','聞きます','。'],arr:true,p:10},
+{k:'全員',jp:'全員集まります。',id:'Semua orang berkumpul.',tok:['全員','集まります','。'],arr:false,p:10},
+{k:'習慣',jp:'いい習慣です。',id:'Ini kebiasaan yang baik.',tok:['いい習慣です','。'],arr:false,p:10},
+{k:'普通',jp:'普通の日です。',id:'Ini hari yang biasa.',tok:['普通','の','日です','。'],arr:true,p:10},
+{k:'暗い',jp:'部屋が暗いです。',id:'Kamarnya gelap.',tok:['部屋','が','暗いです','。'],arr:true,p:10},
+{k:'怒ります',jp:'先生が怒ります。',id:'Gurunya marah.',tok:['先生','が','怒ります','。'],arr:true,p:10},
+{k:'入院します',jp:'病院に入院します。',id:'Saya masuk rumah sakit.',tok:['病院','に','入院します','。'],arr:true,p:10},
+{k:'退院します',jp:'明日、退院します。',id:'Besok saya keluar dari rumah sakit.',tok:['明日','、','退院します','。'],arr:false,p:10},
+{k:'急に',jp:'急に雨が降りました。',id:'Tiba-tiba hujan turun.',tok:['急','に','雨','が','降りました','。'],arr:true,p:10},
+{k:'営業します',jp:'九時から営業します。',id:'Buka mulai jam sembilan.',tok:['九時','から','営業します','。'],arr:true,p:10},
+{k:'案内します',jp:'道を案内します。',id:'Saya memandu jalan.',tok:['道','を','案内します','。'],arr:true,p:10},
+{k:'値段',jp:'値段が高いです。',id:'Harganya mahal.',tok:['値段','が','高いです','。'],arr:true,p:10},
+{k:'価格',jp:'価格を確認します。',id:'Saya memeriksa harganya.',tok:['価格','を','確認します','。'],arr:true,p:10},
+{k:'消費税',jp:'消費税がかかります。',id:'Dikenakan pajak konsumen.',tok:['消費税','が','かかります','。'],arr:true,p:10},
+{k:'税別',jp:'税別の値段です。',id:'Ini harga belum termasuk pajak.',tok:['税別','の','値段です','。'],arr:true,p:10},
+{k:'図書館',jp:'図書館で勉強します。',id:'Saya belajar di perpustakaan.',tok:['図書館','で','勉強します','。'],arr:true,p:10},
+{k:'開きます',jp:'店が九時に開きます。',id:'Tokonya buka jam sembilan.',tok:['店','が','九時','に','開きます','。'],arr:true,p:10},
+{k:'閉まります',jp:'店が七時に閉まります。',id:'Tokonya tutup jam tujuh.',tok:['店','が','七時','に','閉まります','。'],arr:true,p:10},
+{k:'利用します',jp:'バスを利用します。',id:'Saya menggunakan bus.',tok:['バス','を','利用します','。'],arr:true,p:10},
+{k:'窓口',jp:'窓口で聞きます。',id:'Saya bertanya di loket.',tok:['窓口','で','聞きます','。'],arr:true,p:10},
+{k:'郵便局',jp:'郵便局へ行きます。',id:'Saya pergi ke kantor pos.',tok:['郵便局','へ','行きます','。'],arr:true,p:10},
+{k:'近所',jp:'近所に住んでいます。',id:'Saya tinggal di dekat sini.',tok:['近所','に','住ん','で','います','。'],arr:true,p:10},
+{k:'自動',jp:'自動で開きます。',id:'Terbuka secara otomatis.',tok:['自動','で','開きます','。'],arr:true,p:10},
+{k:'危険',jp:'ここは危険です。',id:'Di sini berbahaya.',tok:['ここ','は','危険です','。'],arr:true,p:10},
+{k:'～種類',jp:'三種類あります。',id:'Ada tiga jenis.',tok:['三種類','あります','。'],arr:false,p:10},
+{k:'消します',jp:'電気を消します。',id:'Saya mematikan lampu.',tok:['電気','を','消します','。'],arr:true,p:10},
+{k:'捨てます',jp:'ゴミを捨てます。',id:'Saya membuang sampah.',tok:['ゴミ','を','捨てます','。'],arr:true,p:10},
+{k:'分けます',jp:'ゴミを分けます。',id:'Saya memisahkan sampah.',tok:['ゴミ','を','分けます','。'],arr:true,p:10},
+{k:'燃えます',jp:'紙が燃えます。',id:'Kertasnya terbakar.',tok:['紙','が','燃えます','。'],arr:true,p:10},
+{k:'設定します',jp:'時間を設定します。',id:'Saya mengatur waktu.',tok:['時間','を','設定します','。'],arr:true,p:10},
+{k:'地震',jp:'地震がありました。',id:'Terjadi gempa bumi.',tok:['地震','が','ありました','。'],arr:true,p:10},
+{k:'台風',jp:'台風が来ます。',id:'Angin topan akan datang.',tok:['台風','が','来ます','。'],arr:true,p:11},
+{k:'声',jp:'大きい声で話します。',id:'Saya berbicara dengan suara keras.',tok:['大きい声','で','話します','。'],arr:true,p:11},
+{k:'大切な',jp:'大切な友達です。',id:'Ini teman yang penting.',tok:['大切な友達です','。'],arr:false,p:11},
+{k:'進みます',jp:'仕事が進みます。',id:'Pekerjaannya maju.',tok:['仕事','が','進みます','。'],arr:true,p:11},
+{k:'授業',jp:'授業に出ます。',id:'Saya menghadiri pelajaran.',tok:['授業','に','出ます','。'],arr:true,p:11},
+{k:'大変な',jp:'大変な仕事です。',id:'Ini pekerjaan yang berat.',tok:['大変な仕事です','。'],arr:false,p:11},
+{k:'困ります',jp:'お金がなくて困ります。',id:'Saya kesulitan karena tidak punya uang.',tok:['お金','が','なくて困ります','。'],arr:true,p:11},
+{k:'違います',jp:'答えが違います。',id:'Jawabannya salah.',tok:['答え','が','違います','。'],arr:true,p:11},
+{k:'慣れます',jp:'日本の生活に慣れます。',id:'Saya terbiasa dengan kehidupan di Jepang.',tok:['日本','の','生活','に','慣れます','。'],arr:true,p:11},
+{k:'増えます',jp:'人口が増えます。',id:'Populasinya bertambah.',tok:['人口','が','増えます','。'],arr:true,p:11},
+{k:'笑います',jp:'みんなが笑います。',id:'Semua orang tertawa.',tok:['みんな','が','笑います','。'],arr:true,p:11},
+{k:'苦労します',jp:'仕事で苦労します。',id:'Saya bersusah payah dalam bekerja.',tok:['仕事','で','苦労します','。'],arr:true,p:11},
+{k:'希望',jp:'希望があります。',id:'Saya punya harapan.',tok:['希望','が','あります','。'],arr:true,p:11},
+{k:'特に',jp:'特に忙しいです。',id:'Terutama sedang sibuk.',tok:['特に','忙しいです','。'],arr:false,p:11},
+{k:'建てます',jp:'家を建てます。',id:'Saya membangun rumah.',tok:['家','を','建てます','。'],arr:true,p:11},
+{k:'続けます',jp:'勉強を続けます。',id:'Saya melanjutkan belajar.',tok:['勉強','を','続けます','。'],arr:true,p:11},
+{k:'役に立ちます',jp:'この本は役に立ちます。',id:'Buku ini bermanfaat.',tok:['この','本','は','役','に','立ちます','。'],arr:true,p:11}
+];
+
 (function(){
   'use strict';
 
@@ -2680,14 +3564,20 @@ const KANJI_DATA = [
     }
 
     clearProgress();
+    window.__lastResultSource = 'kanji';
     showScreen('result');
   }
 
   restartSameBtn.addEventListener('click', () => {
+    if(window.__lastResultSource === 'sentence'){
+      window.dispatchEvent(new CustomEvent('sentenceRestartRequested'));
+      return;
+    }
     startQuiz(state.mode, state.length, state.pages);
   });
 
   homeBtn.addEventListener('click', () => {
+    window.__lastResultSource = null;
     clearProgress();
     showScreen('start');
   });
@@ -3247,6 +4137,446 @@ const KANJI_DATA = [
   updateHeaderAdminBadge();
   verifyAdminSession();
 
+  // ================= SENTENCE PRACTICE MODE =================
+  (function(){
+    const SENTENCE_SETTINGS_KEY = 'kanjiSentenceSettings_v1';
+
+    const goSentenceModeBtn = document.getElementById('goSentenceModeBtn');
+    const sentenceSelectBackBtn = document.getElementById('sentenceSelectBackBtn');
+    const sentenceSelectSub = document.getElementById('sentenceSelectSub');
+    const sentencePageGrid = document.getElementById('sentencePageGrid');
+    const sentenceSelectAllPagesBtn = document.getElementById('sentenceSelectAllPagesBtn');
+    const sentenceClearPagesBtn = document.getElementById('sentenceClearPagesBtn');
+    const sentenceLengthSelect = document.getElementById('sentenceLengthSelect');
+    const sentenceModeCards = document.querySelectorAll('#screen-sentence-select .mode-card');
+
+    const sentenceQuizBackBtn = document.getElementById('sentenceQuizBackBtn');
+    const sentenceProgressFill = document.getElementById('sentenceProgressFill');
+    const sentenceProgressText = document.getElementById('sentenceProgressText');
+    const sqMeaning = document.getElementById('sqMeaning');
+    const sqArrangeArea = document.getElementById('sqArrangeArea');
+    const sqBank = document.getElementById('sqBank');
+    const sqBlankOptions = document.getElementById('sqBlankOptions');
+    const sqFeedback = document.getElementById('sqFeedback');
+    const sqClearBtn = document.getElementById('sqClearBtn');
+    const sqCheckBtn = document.getElementById('sqCheckBtn');
+    const sqNextBtn = document.getElementById('sqNextBtn');
+
+    let sentenceSelectedPages = new Set();
+    let sentenceSelectedLen = '10';
+
+    function getSentencePages(){
+      return [...new Set(SENTENCE_DATA.map(d => d.p))].sort((a,b) => a - b);
+    }
+    function countSentenceByPage(pageNum){
+      return SENTENCE_DATA.filter(d => d.p === pageNum).length;
+    }
+    function saveSentenceSettings(){
+      try{
+        localStorage.setItem(SENTENCE_SETTINGS_KEY, JSON.stringify({
+          pages: [...sentenceSelectedPages],
+          len: sentenceSelectedLen
+        }));
+      }catch(e){ /* ignore */ }
+    }
+    function loadSentenceSettings(){
+      try{
+        const raw = localStorage.getItem(SENTENCE_SETTINGS_KEY);
+        if(!raw) return;
+        const s = JSON.parse(raw);
+        if(Array.isArray(s.pages)) sentenceSelectedPages = new Set(s.pages);
+        if(s.len) sentenceSelectedLen = s.len;
+      }catch(e){ /* ignore */ }
+    }
+
+    function renderSentencePageGrid(){
+      const pages = getSentencePages();
+      sentencePageGrid.innerHTML = '';
+      pages.forEach(p => {
+        const chip = document.createElement('div');
+        chip.className = 'page-chip' + (sentenceSelectedPages.has(p) ? ' selected' : '');
+        chip.dataset.page = p;
+        chip.innerHTML = `<div class="pc-check"></div><b>${p}</b><span>${countSentenceByPage(p)} kalimat</span>`;
+        chip.addEventListener('click', () => {
+          if(sentenceSelectedPages.has(p)) sentenceSelectedPages.delete(p);
+          else sentenceSelectedPages.add(p);
+          chip.classList.toggle('selected');
+          saveSentenceSettings();
+        });
+        sentencePageGrid.appendChild(chip);
+      });
+    }
+
+    sentenceSelectAllPagesBtn.addEventListener('click', () => {
+      getSentencePages().forEach(p => sentenceSelectedPages.add(p));
+      renderSentencePageGrid();
+      saveSentenceSettings();
+    });
+    sentenceClearPagesBtn.addEventListener('click', () => {
+      sentenceSelectedPages.clear();
+      renderSentencePageGrid();
+      saveSentenceSettings();
+    });
+
+    sentenceLengthSelect.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sentenceLengthSelect.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        sentenceSelectedLen = btn.dataset.len;
+        saveSentenceSettings();
+      });
+    });
+
+    goSentenceModeBtn.addEventListener('click', () => {
+      loadSentenceSettings();
+      renderSentencePageGrid();
+      sentenceLengthSelect.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', b.dataset.len === sentenceSelectedLen);
+      });
+      showAppScreen('screen-sentence-select');
+    });
+    sentenceSelectBackBtn.addEventListener('click', () => {
+      showAppScreen('screen-start');
+    });
+
+    function getSentencePool(pages){
+      if(!pages || pages.size === 0) return SENTENCE_DATA.slice();
+      return SENTENCE_DATA.filter(d => pages.has(d.p));
+    }
+
+    function shuffleArr(arr){
+      const a = arr.slice();
+      for(let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // ---------- Sentence quiz state ----------
+    let sqState = {
+      mode: 'arrange',   // 'arrange' | 'blank'
+      items: [],
+      current: 0,
+      correctCount: 0,
+      wrongCount: 0,
+      // per-question runtime
+      answered: false,
+      arrangeTokens: [],   // shuffled tokens for arrange mode {text, used}
+      placedTokens: []     // ordered list of indices placed into answer area
+    };
+
+    sentenceModeCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const smode = card.dataset.smode;
+        startSentenceQuiz(smode);
+      });
+    });
+
+    function pickBlankToken(tokens){
+      // Pilih token isi (bukan partikel 1-karakter umum atau tanda baca) untuk dijadikan blank.
+      const particles = new Set(['は','を','に','で','と','も','が','から','まで','や','の','へ','か','ね','よ','。','、']);
+      const candidates = tokens
+        .map((t, i) => ({ t, i }))
+        .filter(x => !particles.has(x.t) && x.t.trim().length > 0);
+      if(candidates.length === 0) return null;
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    function buildBlankDistractors(correctToken, allItems){
+      // Ambil token acak dari kalimat lain sebagai pengecoh, hindari duplikat dan hindari partikel.
+      const particles = new Set(['は','を','に','で','と','も','が','から','まで','や','の','へ','か','ね','よ','。','、']);
+      const pool = new Set();
+      const shuffled = shuffleArr(allItems);
+      for(const item of shuffled){
+        for(const tok of item.tok){
+          if(tok === correctToken) continue;
+          if(particles.has(tok)) continue;
+          if(tok.trim().length === 0) continue;
+          pool.add(tok);
+        }
+        if(pool.size >= 12) break;
+      }
+      const poolArr = shuffleArr([...pool]);
+      return poolArr.slice(0, 3);
+    }
+
+    function startSentenceQuiz(mode){
+      const pool = getSentencePool(sentenceSelectedPages);
+      if(pool.length === 0){
+        alert('Tidak ada kalimat pada lembar yang dipilih.');
+        return;
+      }
+      let eligible = pool;
+      if(mode === 'arrange'){
+        eligible = pool.filter(d => d.arr);
+        if(eligible.length === 0) eligible = pool; // fallback kalau lembar terpilih semuanya tidak layak arrange
+      }
+      const shuffled = shuffleArr(eligible);
+      const len = sentenceSelectedLen === 'all' ? shuffled.length : Math.min(parseInt(sentenceSelectedLen, 10), shuffled.length);
+      const items = shuffled.slice(0, len);
+
+      sqState = {
+        mode,
+        items,
+        current: 0,
+        correctCount: 0,
+        wrongCount: 0,
+        answered: false,
+        arrangeTokens: [],
+        placedTokens: [],
+        blankIndex: -1,
+        blankAnswer: ''
+      };
+
+      showAppScreen('screen-sentence-quiz');
+      renderSentenceQuestion();
+    }
+
+    window.addEventListener('sentenceRestartRequested', () => {
+      startSentenceQuiz(sqState.mode);
+    });
+
+    sentenceQuizBackBtn.addEventListener('click', () => {
+      showAppScreen('screen-sentence-select');
+    });
+
+    function currentSentenceItem(){
+      return sqState.items[sqState.current];
+    }
+
+    function renderSentenceQuestion(){
+      const item = currentSentenceItem();
+      sqState.answered = false;
+      sqFeedback.className = 'sq-feedback';
+      sqFeedback.innerHTML = '';
+      sqCheckBtn.style.display = '';
+      sqNextBtn.style.display = 'none';
+      sqCheckBtn.disabled = false;
+
+      const total = sqState.items.length;
+      sentenceProgressText.textContent = `${sqState.current + 1} / ${total}`;
+      sentenceProgressFill.style.width = `${(sqState.current / total) * 100}%`;
+
+      sqMeaning.innerHTML = `Artinya: <b>${escapeHtml(item.id)}</b>`;
+
+      if(sqState.mode === 'arrange'){
+        sqArrangeArea.style.display = '';
+        sqBank.style.display = '';
+        sqBlankOptions.style.display = 'none';
+        sqClearBtn.style.display = '';
+        renderArrangeQuestion(item);
+      } else {
+        sqArrangeArea.style.display = 'none';
+        sqBank.style.display = 'none';
+        sqBlankOptions.style.display = '';
+        sqClearBtn.style.display = 'none';
+        renderBlankQuestion(item);
+      }
+    }
+
+    // ---------- Mode: Susun Kata ----------
+    function renderArrangeQuestion(item){
+      const contentTokens = item.tok.filter(t => t !== '。' && t !== '、');
+      const punct = item.tok.filter(t => t === '。' || t === '、').join('') || '。';
+
+      sqState.answerTokens = contentTokens;      // urutan benar
+      sqState.placedTokens = [];                 // index token yang sudah ditaruh, berurutan
+      const shuffled = shuffleArr(contentTokens.map((t, i) => ({ text: t, origIndex: i })));
+      sqState.arrangeTokens = shuffled.map(x => ({ ...x, used: false }));
+      sqState.punct = punct;
+
+      renderArrangeUI();
+    }
+
+    function renderArrangeUI(){
+      sqArrangeArea.innerHTML = '';
+      sqState.placedTokens.forEach(bankIdx => {
+        const tokObj = sqState.arrangeTokens[bankIdx];
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'sq-chip';
+        chip.textContent = tokObj.text;
+        chip.addEventListener('click', () => {
+          if(sqState.answered) return;
+          sqState.placedTokens = sqState.placedTokens.filter(i => i !== bankIdx);
+          sqState.arrangeTokens[bankIdx].used = false;
+          renderArrangeUI();
+        });
+        sqArrangeArea.appendChild(chip);
+      });
+
+      sqBank.innerHTML = '';
+      sqState.arrangeTokens.forEach((tokObj, idx) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'sq-chip' + (tokObj.used ? ' placed' : '');
+        chip.textContent = tokObj.text;
+        chip.disabled = tokObj.used;
+        chip.addEventListener('click', () => {
+          if(sqState.answered || tokObj.used) return;
+          tokObj.used = true;
+          sqState.placedTokens.push(idx);
+          renderArrangeUI();
+        });
+        sqBank.appendChild(chip);
+      });
+    }
+
+    sqClearBtn.addEventListener('click', () => {
+      if(sqState.answered || sqState.mode !== 'arrange') return;
+      sqState.placedTokens = [];
+      sqState.arrangeTokens.forEach(t => t.used = false);
+      renderArrangeUI();
+    });
+
+    function checkArrangeAnswer(){
+      const placedText = sqState.placedTokens.map(i => sqState.arrangeTokens[i].text);
+      const isCorrect = placedText.length === sqState.answerTokens.length &&
+        placedText.every((t, i) => t === sqState.answerTokens[i]);
+
+      sqState.answered = true;
+      sqState.arrangeTokens.forEach((t, idx) => {
+        const isPlaced = sqState.placedTokens.includes(idx);
+        // no-op, visual handled below via re-render with lock state
+      });
+
+      // Re-render area jawaban dengan warna benar/salah, kunci interaksi
+      sqArrangeArea.innerHTML = '';
+      sqState.placedTokens.forEach((bankIdx, pos) => {
+        const tokObj = sqState.arrangeTokens[bankIdx];
+        const chip = document.createElement('div');
+        chip.className = 'sq-chip placed-final ' + (isCorrect ? 'correct-slot' : (tokObj.text === sqState.answerTokens[pos] ? 'correct-slot' : 'wrong-slot'));
+        chip.textContent = tokObj.text;
+        sqArrangeArea.appendChild(chip);
+      });
+      sqBank.querySelectorAll('.sq-chip').forEach(chip => chip.disabled = true);
+
+      if(isCorrect){
+        sqState.correctCount++;
+        sqFeedback.className = 'sq-feedback show ok';
+        sqFeedback.innerHTML = `<b>✓ Benar!</b><div class="sqf-answer">${escapeHtml(sqState.answerTokens.join(''))}${escapeHtml(sqState.punct)}</div>`;
+      } else {
+        sqState.wrongCount++;
+        sqFeedback.className = 'sq-feedback show bad';
+        sqFeedback.innerHTML = `<b>✕ Belum tepat</b><div>Jawaban yang benar:</div><div class="sqf-answer">${escapeHtml(sqState.answerTokens.join(''))}${escapeHtml(sqState.punct)}</div>`;
+      }
+
+      sqCheckBtn.style.display = 'none';
+      sqNextBtn.style.display = 'flex';
+    }
+
+    // ---------- Mode: Isi yang Kosong ----------
+    function renderBlankQuestion(item){
+      const picked = pickBlankToken(item.tok);
+      if(!picked){
+        // fallback: kalau tidak ada token yang cocok jadi blank, skip ke soal berikutnya
+        goToNextSentence();
+        return;
+      }
+      sqState.blankIndex = picked.i;
+      sqState.blankAnswer = picked.t;
+
+      const sentenceHtml = item.tok.map((t, i) => {
+        if(i === picked.i) return `<span class="sq-fill-blank">＿＿＿</span>`;
+        return escapeHtml(t);
+      }).join('');
+
+      sqMeaning.innerHTML = `Artinya: <b>${escapeHtml(item.id)}</b>` +
+        `<div class="sq-fill-sentence" style="margin-top:14px;">${sentenceHtml}</div>`;
+
+      const distractors = buildBlankDistractors(picked.t, SENTENCE_DATA);
+      const options = shuffleArr([picked.t, ...distractors]);
+
+      sqBlankOptions.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sq-blank-opt';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => checkBlankAnswer(btn, opt, picked.t));
+        sqBlankOptions.appendChild(btn);
+      });
+    }
+
+    function checkBlankAnswer(btn, chosen, correct){
+      if(sqState.answered) return;
+      sqState.answered = true;
+      const isCorrect = chosen === correct;
+
+      sqBlankOptions.querySelectorAll('.sq-blank-opt').forEach(opt => {
+        opt.disabled = true;
+        if(opt.textContent === correct) opt.classList.add('correct');
+        else if(opt === btn) opt.classList.add('wrong');
+        else opt.classList.add('dim');
+      });
+
+      if(isCorrect){
+        sqState.correctCount++;
+        sqFeedback.className = 'sq-feedback show ok';
+        sqFeedback.innerHTML = `<b>✓ Benar!</b>`;
+      } else {
+        sqState.wrongCount++;
+        sqFeedback.className = 'sq-feedback show bad';
+        sqFeedback.innerHTML = `<b>✕ Belum tepat</b><div>Jawaban yang benar: <b>${escapeHtml(correct)}</b></div>`;
+      }
+
+      sqCheckBtn.style.display = 'none';
+      sqNextBtn.style.display = 'flex';
+    }
+
+    sqCheckBtn.addEventListener('click', () => {
+      if(sqState.mode !== 'arrange' || sqState.answered) return;
+      if(sqState.placedTokens.length === 0) return;
+      checkArrangeAnswer();
+    });
+
+    sqNextBtn.addEventListener('click', () => {
+      goToNextSentence();
+    });
+
+    function goToNextSentence(){
+      sqState.current++;
+      if(sqState.current >= sqState.items.length){
+        showSentenceResult();
+      } else {
+        renderSentenceQuestion();
+      }
+    }
+
+    function showSentenceResult(){
+      sentenceProgressFill.style.width = '100%';
+      const total = sqState.items.length;
+      const correct = sqState.correctCount;
+      const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+      // Reuse layar hasil kanji yang sudah ada supaya konsisten (screen-result)
+      const resultBadgeEl = document.getElementById('resultBadge');
+      const resultTitleEl = document.getElementById('resultTitle');
+      const resultSubEl = document.getElementById('resultSub');
+      const finalPctEl = document.getElementById('finalPct');
+      const statOkEl = document.getElementById('statOk');
+      const statBadEl = document.getElementById('statBad');
+      const statTotalEl = document.getElementById('statTotal');
+
+      if(resultBadgeEl) resultBadgeEl.textContent = pct >= 80 ? '合格' : '再挑戦';
+      if(resultTitleEl) resultTitleEl.textContent = pct >= 80 ? 'Bagus sekali!' : 'Terus berlatih!';
+      if(resultSubEl) resultSubEl.textContent = `Latihan Kalimat · ${sqState.mode === 'arrange' ? 'Susun Kata' : 'Isi yang Kosong'}`;
+      if(finalPctEl) finalPctEl.textContent = pct;
+      if(statOkEl) statOkEl.textContent = correct;
+      if(statBadEl) statBadEl.textContent = sqState.wrongCount;
+      if(statTotalEl) statTotalEl.textContent = total;
+
+      // Tandai bahwa hasil ini berasal dari Latihan Kalimat, dan sembunyikan bagian
+      // "review" yang khusus format kanji quiz (tidak relevan untuk mode kalimat).
+      window.__lastResultSource = 'sentence';
+      const reviewSectionEl = document.getElementById('reviewSection');
+      if(reviewSectionEl) reviewSectionEl.style.display = 'none';
+
+      showAppScreen('screen-result');
+    }
+  })();
+
 })();
 </script>
 
@@ -3311,6 +4641,8 @@ const KANJI_DATA = [
       overlay.classList.add('hidden');
     }
   }catch(e){ /* ignore, overlay stays visible */ }
+
+
 })();
 </script>
 </body>
