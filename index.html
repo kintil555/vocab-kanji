@@ -17,6 +17,11 @@
   --gold: #b8923f;
   --line: rgba(28,28,26,0.12);
   --shadow: rgba(28,28,26,0.18);
+
+  /* Font yang bisa diubah pengguna lewat pemilih font (welcome screen) */
+  --font-ui: 'Zen Kaku Gothic New', sans-serif;   /* UI umum: heading, tombol, teks biasa */
+  --font-jp: 'Shippori Mincho', serif;             /* Kanji, hiragana, teks Jepang besar */
+  --font-mono: 'JetBrains Mono', monospace;        /* Angka, label kecil, meta info */
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 html{ -webkit-tap-highlight-color: transparent; }
@@ -26,7 +31,7 @@ body{
     radial-gradient(ellipse at top left, rgba(193,68,14,0.05), transparent 55%),
     radial-gradient(ellipse at bottom right, rgba(36,67,92,0.06), transparent 55%);
   color: var(--sumi);
-  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-family: var(--font-ui);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -64,7 +69,7 @@ header{
   gap: 10px;
 }
 .brand .seal{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-weight:800;
   font-size: 26px;
   color: var(--washi);
@@ -90,14 +95,14 @@ header{
   box-shadow: 1px 2px 0 var(--shadow);
 }
 .brand h1{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 21px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
 .brand h1 span{
   display:block;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10px;
   font-weight:500;
   letter-spacing: 0.18em;
@@ -106,7 +111,7 @@ header{
   margin-top:2px;
 }
 .stat-pill{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 12px;
   font-weight: 600;
   background: var(--sumi);
@@ -178,13 +183,13 @@ header{
 }
 .back-btn:hover{ border-color: var(--sumi); background: var(--washi-deep); }
 .browse-header h2{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 19px;
   font-weight:700;
 }
 .browse-header span.sub{
   display:block;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   color: rgba(28,28,26,0.5);
   margin-top:2px;
@@ -256,7 +261,7 @@ header{
 .vocab-item.search-hit{ cursor:pointer; transition: transform 0.1s ease, border-color 0.1s ease; }
 .vocab-item.search-hit:hover{ border-color: var(--shu); transform: translateX(2px); }
 .vocab-item .vi-lembar-tag{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 9.5px;
   font-weight:700;
   color: var(--ai);
@@ -279,7 +284,7 @@ header{
   font-size: 13.5px;
 }
 .no-results .nr-kanji{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 40px;
   color: rgba(28,28,26,0.2);
   margin-bottom: 10px;
@@ -307,14 +312,14 @@ header{
 }
 .lembar-card b{
   display:block;
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 22px;
   font-weight:800;
   color: var(--shu);
 }
 .lembar-card span{
   display:block;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 9.5px;
   color: rgba(28,28,26,0.5);
   margin-top:4px;
@@ -327,13 +332,13 @@ header{
   margin-bottom: 14px;
 }
 .browse-list-header h3{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 20px;
   font-weight:800;
   color: var(--shu);
 }
 .browse-list-header .count-tag{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   color: rgba(28,28,26,0.5);
   background: var(--washi-deep);
@@ -356,7 +361,7 @@ header{
   gap: 14px;
 }
 .vocab-item .vi-num{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10px;
   color: rgba(28,28,26,0.35);
   width: 22px;
@@ -364,7 +369,7 @@ header{
   text-align:right;
 }
 .vocab-item .vi-jp{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 22px;
   font-weight:700;
   width: 100px;
@@ -373,7 +378,7 @@ header{
 }
 .vocab-item .vi-jp .vi-r{
   display:block;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   font-weight:600;
   color: var(--ai);
@@ -389,7 +394,7 @@ header{
 .q-lembar-badge{
   position:absolute;
   top:12px; right:16px;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   font-weight:700;
   color: var(--ai);
@@ -422,10 +427,10 @@ header{
 }
 .saved-banner-text{ flex:1; min-width:180px; }
 .saved-banner-text b{ display:block; font-size:13.5px; margin-bottom:2px; }
-.saved-banner-text span{ font-size: 12px; color: rgba(28,28,26,0.55); font-family:'JetBrains Mono', monospace; }
+.saved-banner-text span{ font-size: 12px; color: rgba(28,28,26,0.55); font-family:var(--font-mono); }
 .saved-banner-actions{ display:flex; gap:8px; }
 .sb-btn{
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 12.5px;
   padding: 9px 14px;
@@ -453,7 +458,7 @@ header{
   padding: 10px 6px 8px;
   text-align:center;
   cursor:pointer;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   transition: all 0.12s ease;
 }
 .page-chip b{ display:block; font-size: 16px; font-weight:700; color: var(--sumi); }
@@ -488,7 +493,7 @@ header{
 }
 .page-actions button{
   flex:1;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   font-weight:600;
   padding: 8px;
@@ -568,7 +573,7 @@ header{
 
 .furigana-wrap{ display:inline-flex; flex-direction:column; align-items:center; line-height:1.1; }
 .furigana-wrap .furi{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 0.22em;
   font-weight:600;
   color: var(--ai);
@@ -586,7 +591,7 @@ header{
 .opt-jp .furi{
   font-size: 10px;
   color: var(--ai);
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-weight:600;
   margin-bottom:2px;
   transition: opacity 0.15s ease;
@@ -600,7 +605,7 @@ header{
   position:relative;
 }
 .hero-kanji{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 96px;
   font-weight:800;
   line-height:1;
@@ -628,7 +633,7 @@ header{
 .count-badge{
   display:inline-block;
   margin-top:14px;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   color: var(--ai);
   border: 1px solid rgba(36,67,92,0.3);
@@ -661,7 +666,7 @@ header{
 }
 .mode-card:active{ transform: translateY(0px); }
 .mode-icon{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 30px;
   font-weight:700;
   width: 52px; height:52px;
@@ -690,7 +695,7 @@ header{
   flex-wrap:wrap;
 }
 .length-select button{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 12px;
   font-weight:600;
   padding: 8px 14px;
@@ -728,7 +733,7 @@ header{
   transition: width 0.35s ease;
 }
 .progress-label{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 12px;
   font-weight:600;
   color: var(--sumi);
@@ -737,7 +742,7 @@ header{
 .score-row{
   display:flex;
   gap: 14px;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   margin-bottom: 8px;
 }
@@ -761,7 +766,7 @@ header{
   content:"問";
   position:absolute;
   top:12px; left:16px;
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 13px;
   color: rgba(28,28,26,0.25);
   border:1px solid rgba(28,28,26,0.2);
@@ -770,7 +775,7 @@ header{
   display:flex;align-items:center;justify-content:center;
 }
 .q-type-tag{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10px;
   letter-spacing:0.1em;
   text-transform:uppercase;
@@ -779,7 +784,7 @@ header{
   display:block;
 }
 .question-main{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-weight: 800;
   line-height:1.15;
   word-break: keep-all;
@@ -793,7 +798,7 @@ header{
   margin-top:12px;
   font-size: 13px;
   color: rgba(28,28,26,0.45);
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
 }
 
 .options{
@@ -804,7 +809,7 @@ header{
 .option-group{ margin-top: 18px; }
 .option-group:first-child{ margin-top: 0; }
 .option-group-label{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   font-weight:700;
   letter-spacing:0.08em;
@@ -838,7 +843,7 @@ header{
   font-family: inherit;
 }
 .option .opt-letter{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   font-weight:700;
   color: rgba(28,28,26,0.4);
@@ -850,7 +855,7 @@ header{
   transition: all 0.12s ease;
 }
 .option .opt-text{ flex:1; }
-.option .opt-jp{ font-family:'Shippori Mincho', serif; font-size:20px; font-weight:700; }
+.option .opt-jp{ font-family:var(--font-jp); font-size:20px; font-weight:700; }
 .option:not(:disabled):hover{
   border-color: var(--sumi);
   transform: translateX(2px);
@@ -901,7 +906,7 @@ header{
   border:none;
   background: var(--sumi);
   color: var(--washi);
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 15px;
   cursor:pointer;
@@ -921,7 +926,7 @@ header{
   padding: 20px 10px 10px;
 }
 .result-badge{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 60px;
   font-weight:800;
   color: var(--shu);
@@ -938,7 +943,7 @@ header{
   margin-bottom: 24px;
 }
 .score-big{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 56px;
   font-weight:700;
   line-height:1;
@@ -960,7 +965,7 @@ header{
 }
 .rstat b{
   display:block;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 20px;
   margin-bottom: 3px;
 }
@@ -985,7 +990,7 @@ header{
   font-size: 13px;
 }
 .review-item .rj{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-size: 22px;
   font-weight:700;
   width:38px;
@@ -994,7 +999,7 @@ header{
   color: var(--sumi);
 }
 .review-item .rd{ flex:1; line-height:1.4; }
-.review-item .rd small{ display:block; color: rgba(28,28,26,0.5); font-family:'JetBrains Mono', monospace; font-size:11px; margin-top:2px;}
+.review-item .rd small{ display:block; color: rgba(28,28,26,0.5); font-family:var(--font-mono); font-size:11px; margin-top:2px;}
 .review-item.miss{ border-left: 3px solid var(--shu); }
 
 .action-row{
@@ -1006,7 +1011,7 @@ header{
 .action-row button{
   padding: 14px;
   border-radius: 12px;
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 14px;
   cursor:pointer;
@@ -1018,7 +1023,7 @@ header{
 .btn-secondary:hover{ background: var(--washi-deep); }
 
 .section-label{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform:uppercase;
@@ -1040,7 +1045,7 @@ footer{
   margin-top: 40px;
   font-size: 11px;
   color: rgba(28,28,26,0.35);
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
 }
 
 @media (max-width: 400px){
@@ -1090,7 +1095,7 @@ footer{
 }
 .wo-close:hover{ background: var(--washi-deep); }
 .wo-title{
-  font-family:'Shippori Mincho', serif;
+  font-family:var(--font-jp);
   font-weight:800;
   font-size: 19px;
   margin-bottom:8px;
@@ -1103,7 +1108,7 @@ footer{
   line-height:1.5;
 }
 .wo-font-label{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   font-weight:700;
   letter-spacing:0.08em;
@@ -1127,7 +1132,7 @@ footer{
 .wo-actions{ display:flex; gap:8px; }
 .wo-actions button{
   flex:1;
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 13px;
   padding: 11px;
@@ -1153,7 +1158,7 @@ footer{
   background:transparent;
   padding: 9px;
   border-radius: 100px;
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 12.5px;
   color: rgba(28,28,26,0.55);
@@ -1187,7 +1192,7 @@ footer{
   border-radius: 10px;
   border: 1.5px solid var(--line);
   background:#fff;
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 13px;
   cursor:pointer;
@@ -1234,7 +1239,7 @@ footer{
   border:none;
   background: var(--shu);
   color:#fff;
-  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-family:var(--font-ui);
   font-weight:700;
   font-size: 15px;
   cursor:pointer;
@@ -1274,7 +1279,7 @@ footer{
   margin-bottom: 6px;
 }
 .report-type-tag{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 9.5px;
   font-weight:700;
   padding: 3px 8px;
@@ -1285,7 +1290,7 @@ footer{
 .report-type-tag.bug{ background: rgba(193,68,14,0.1); color: var(--shu); }
 .report-type-tag.update_request{ background: rgba(36,67,92,0.1); color: var(--ai); }
 .report-status-tag{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 9.5px;
   font-weight:700;
   padding: 3px 8px;
@@ -1309,7 +1314,7 @@ footer{
 }
 .report-card-meta{
   margin-top:8px;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   color: rgba(28,28,26,0.4);
   display:flex;
@@ -1340,12 +1345,12 @@ footer{
   gap:8px;
   flex-wrap:wrap;
   margin-top:12px;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 10.5px;
   color: rgba(28,28,26,0.45);
 }
 .status-select{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   font-weight:700;
   padding: 6px 10px;
@@ -1372,7 +1377,7 @@ footer{
 }
 .thread-msg .tm-author{
   display:block;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 9.5px;
   font-weight:700;
   text-transform:uppercase;
@@ -1453,7 +1458,7 @@ footer{
 }
 .admin-filter-row button{
   flex-shrink:0;
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   font-weight:700;
   padding: 7px 12px;
@@ -1472,7 +1477,7 @@ footer{
   margin-top: 20px;
 }
 .admin-logout-row button{
-  font-family:'JetBrains Mono', monospace;
+  font-family:var(--font-mono);
   font-size: 11px;
   color: rgba(28,28,26,0.5);
   background:none;
@@ -3257,7 +3262,13 @@ const KANJI_DATA = [
   const startFontSelect = document.getElementById('startFontSelect');
 
   function applyFont(fontValue){
+    // Ganti font untuk seluruh tampilan: UI umum, teks kanji/hiragana, dan teks mono.
+    // Sebelumnya hanya body.style.fontFamily yang diubah, sehingga elemen kanji/hiragana
+    // yang punya rule CSS lebih spesifik (var(--font-jp)) tidak ikut berubah.
     document.body.style.fontFamily = fontValue;
+    document.documentElement.style.setProperty('--font-ui', fontValue);
+    document.documentElement.style.setProperty('--font-jp', fontValue);
+    document.documentElement.style.setProperty('--font-mono', fontValue);
     woFontSelect.value = fontValue;
     startFontSelect.value = fontValue;
   }
