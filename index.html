@@ -129,6 +129,34 @@ header{
   background: var(--shu);
 }
 
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+.report-btn{
+  position:relative;
+  width: 36px; height:36px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  font-size: 15px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: all 0.12s ease;
+}
+.report-btn:hover{ border-color: var(--shu); transform: translateY(-1px); }
+.report-btn.has-admin::after{
+  content:"";
+  position:absolute;
+  top:-2px; right:-2px;
+  width:9px; height:9px;
+  border-radius:50%;
+  background: var(--matcha);
+  border: 1.5px solid var(--washi);
+}
+
 /* ===== Browse screen ===== */
 .browse-header{
   display:flex;
@@ -1109,8 +1137,364 @@ footer{
 }
 .wo-start{ background: var(--shu); color:#fff; }
 .wo-start:hover{ background:#a3390b; }
+
+/* ===== Report / Bug screens ===== */
+.report-tabs{
+  display:flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  background: var(--washi-deep);
+  padding: 4px;
+  border-radius: 100px;
+}
+.report-tab{
+  flex:1;
+  border:none;
+  background:transparent;
+  padding: 9px;
+  border-radius: 100px;
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-weight:700;
+  font-size: 12.5px;
+  color: rgba(28,28,26,0.55);
+  cursor:pointer;
+  transition: all 0.15s ease;
+}
+.report-tab.active{
+  background:#fff;
+  color: var(--sumi);
+  box-shadow: 0 1px 3px rgba(28,28,26,0.15);
+}
+
+.report-form{
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+}
+.field-group label{
+  display:block;
+  font-size: 12.5px;
+  font-weight:700;
+  margin-bottom: 6px;
+}
+.type-toggle{
+  display:flex;
+  gap: 8px;
+}
+.type-toggle button{
+  flex:1;
+  padding: 12px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background:#fff;
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-weight:700;
+  font-size: 13px;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  transition: all 0.12s ease;
+}
+.type-toggle button .tt-icon{ font-size:18px; }
+.type-toggle button.active{
+  border-color: var(--shu);
+  background: rgba(193,68,14,0.06);
+  color: var(--shu);
+}
+.report-form input[type="text"],
+.report-form textarea{
+  width:100%;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--sumi);
+  resize: vertical;
+}
+.report-form textarea{ min-height: 110px; line-height:1.5; }
+.report-form input:focus,
+.report-form textarea:focus{
+  outline:none;
+  border-color: var(--shu);
+  box-shadow: 0 0 0 3px rgba(193,68,14,0.08);
+}
+.field-hint{
+  font-size: 11px;
+  color: rgba(28,28,26,0.45);
+  margin-top: 4px;
+}
+.submit-report-btn{
+  width:100%;
+  padding: 15px;
+  border-radius: 12px;
+  border:none;
+  background: var(--shu);
+  color:#fff;
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-weight:700;
+  font-size: 15px;
+  cursor:pointer;
+  transition: background 0.15s ease;
+}
+.submit-report-btn:hover{ background:#a3390b; }
+.submit-report-btn:disabled{ opacity:0.5; cursor:default; }
+
+.form-status{
+  font-size: 13px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  display:none;
+}
+.form-status.show{ display:block; animation: fadeUp 0.25s ease; }
+.form-status.ok{ background: rgba(107,127,94,0.1); color:#4a5a41; }
+.form-status.error{ background: rgba(193,68,14,0.08); color:#8f3308; }
+
+.report-list{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+.report-card{
+  background:#fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor:pointer;
+  transition: all 0.12s ease;
+}
+.report-card:hover{ border-color: var(--shu); transform: translateY(-1px); }
+.report-card-top{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom: 6px;
+}
+.report-type-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight:700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+.report-type-tag.bug{ background: rgba(193,68,14,0.1); color: var(--shu); }
+.report-type-tag.update_request{ background: rgba(36,67,92,0.1); color: var(--ai); }
+.report-status-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight:700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  text-transform:uppercase;
+  margin-left:auto;
+}
+.report-status-tag.open{ background: rgba(184,146,63,0.15); color: var(--gold); }
+.report-status-tag.in_progress{ background: rgba(36,67,92,0.12); color: var(--ai); }
+.report-status-tag.resolved{ background: rgba(107,127,94,0.15); color: var(--matcha); }
+.report-status-tag.closed{ background: rgba(28,28,26,0.08); color: rgba(28,28,26,0.45); }
+.report-card-title{ font-size: 14px; font-weight:700; margin-bottom:3px; }
+.report-card-desc{
+  font-size: 12.5px;
+  color: rgba(28,28,26,0.6);
+  line-height:1.4;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.report-card-meta{
+  margin-top:8px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: rgba(28,28,26,0.4);
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.empty-state{
+  text-align:center;
+  padding: 50px 20px;
+  color: rgba(28,28,26,0.45);
+}
+.empty-state .es-icon{ font-size: 40px; margin-bottom:12px; }
+.empty-state p{ font-size: 13px; line-height:1.5; }
+
+/* ---- Report detail thread ---- */
+.thread-header-card{
+  background:#fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.thread-title{ font-size: 16px; font-weight:700; margin: 6px 0 8px; }
+.thread-desc{ font-size: 13.5px; line-height:1.55; color: rgba(28,28,26,0.75); white-space:pre-wrap; }
+.thread-meta-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: rgba(28,28,26,0.45);
+}
+.status-select{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight:700;
+  padding: 6px 10px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+  margin-left:auto;
+}
+
+.thread-list{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.thread-msg{
+  max-width: 85%;
+  padding: 11px 14px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height:1.5;
+  white-space:pre-wrap;
+}
+.thread-msg .tm-author{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  margin-bottom: 4px;
+  opacity:0.6;
+}
+.thread-msg.from-admin{
+  align-self:flex-start;
+  background: var(--washi-deep);
+  border-bottom-left-radius:4px;
+}
+.thread-msg.from-reporter{
+  align-self:flex-end;
+  background: var(--ai);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+.thread-msg.from-reporter .tm-author{ opacity:0.75; }
+
+.reply-box{
+  display:flex;
+  gap: 8px;
+  align-items:flex-end;
+}
+.reply-box textarea{
+  flex:1;
+  font-family: inherit;
+  font-size: 13.5px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  resize:none;
+  min-height: 44px;
+  max-height: 120px;
+}
+.reply-box textarea:focus{ outline:none; border-color: var(--shu); }
+.reply-send-btn{
+  width: 44px; height:44px;
+  border-radius: 12px;
+  border:none;
+  background: var(--sumi);
+  color:#fff;
+  font-size: 16px;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.reply-send-btn:hover{ background:#000; }
+.reply-send-btn:disabled{ opacity:0.4; cursor:default; }
+
+/* ---- Admin login modal ---- */
+.admin-modal-overlay{
+  position:fixed; inset:0;
+  background: rgba(28,28,26,0.6);
+  z-index: 1000;
+  display:flex; align-items:center; justify-content:center;
+  padding: 20px;
+}
+.admin-modal{
+  background:#fff;
+  border-radius: 16px;
+  padding: 22px;
+  max-width: 360px;
+  width:100%;
+  text-align:center;
+}
+.admin-modal .am-icon{ font-size: 30px; margin-bottom:10px; }
+.admin-modal h3{ font-size:16px; margin-bottom:6px; }
+.admin-modal p{ font-size:12.5px; color: rgba(28,28,26,0.55); margin-bottom:16px; }
+
+/* ---- Admin filter row ---- */
+.admin-filter-row{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  margin-bottom: 16px;
+  padding-bottom:2px;
+}
+.admin-filter-row button{
+  flex-shrink:0;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight:700;
+  padding: 7px 12px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+}
+.admin-filter-row button.active{
+  background: var(--sumi);
+  color: var(--washi);
+  border-color: var(--sumi);
+}
+.admin-logout-row{
+  text-align:center;
+  margin-top: 20px;
+}
+.admin-logout-row button{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(28,28,26,0.5);
+  background:none;
+  border:none;
+  cursor:pointer;
+  text-decoration: underline;
+}
 </style>
 <body>
+
+<div class="admin-modal-overlay" id="adminModalOverlay" style="display:none;">
+  <div class="admin-modal">
+    <div class="am-icon">🔐</div>
+    <h3>Login Admin</h3>
+    <p id="adminModalMsg">Masukkan password admin untuk melanjutkan.</p>
+    <input type="password" id="adminModalPasswordInput" placeholder="Password" style="width:100%; padding:11px 13px; border-radius:10px; border:1.5px solid var(--line); font-family:inherit; font-size:14px; margin-bottom:12px;">
+    <div style="display:flex; gap:8px;">
+      <button id="adminModalCancelBtn" style="flex:1; padding:11px; border-radius:10px; border:1.5px solid var(--line); background:#fff; font-weight:700; cursor:pointer;">Batal</button>
+      <button id="adminModalSubmitBtn" style="flex:1; padding:11px; border-radius:10px; border:none; background:var(--sumi); color:#fff; font-weight:700; cursor:pointer;">Masuk</button>
+    </div>
+  </div>
+</div>
 
 <div id="welcomeOverlay">
   <div class="wo-card">
@@ -1138,7 +1522,10 @@ footer{
       <button class="seal" id="sealHomeBtn" type="button" title="Kembali ke menu utama">漢</button>
       <h1>漢字道<span>KANJI QUIZ · JLPT VOCAB</span></h1>
     </div>
-    <button class="stat-pill" id="headerStat" type="button" title="Lihat semua kosakata per lembar"><span class="dot"></span><span id="headerStatText">611 kosakata</span></button>
+    <div class="header-actions">
+      <button class="report-btn" id="reportHeaderBtn" type="button" title="Laporkan bug atau minta update">🐞</button>
+      <button class="stat-pill" id="headerStat" type="button" title="Lihat semua kosakata per lembar"><span class="dot"></span><span id="headerStatText">611 kosakata</span></button>
+    </div>
   </header>
 
   <div class="saved-banner" id="savedBanner" style="display:none;">
@@ -1325,6 +1712,116 @@ footer{
       </div>
     </div>
     <div class="vocab-list" id="vocabList"></div>
+  </section>
+
+  <!-- REPORT / BUG SCREEN -->
+  <section class="screen" id="screen-report">
+    <div class="browse-header">
+      <button class="back-btn" id="reportBackBtn">←</button>
+      <div>
+        <h2>Lapor Bug &amp; Update<span class="sub">Laporkan kesalahan atau minta perbaikan data</span></h2>
+      </div>
+    </div>
+
+    <div class="report-tabs">
+      <button class="report-tab active" id="reportTabNew" data-tab="new">Buat Laporan</button>
+      <button class="report-tab" id="reportTabMine" data-tab="mine">Laporan Saya</button>
+    </div>
+
+    <!-- New report form -->
+    <div id="reportFormPane">
+      <form class="report-form" id="reportForm">
+        <div class="field-group">
+          <label>Jenis laporan</label>
+          <div class="type-toggle">
+            <button type="button" class="active" id="typeBugBtn" data-type="bug">
+              <span class="tt-icon">🐞</span><span>Bug/Kesalahan</span>
+            </button>
+            <button type="button" id="typeUpdateBtn" data-type="update_request">
+              <span class="tt-icon">✏️</span><span>Minta Update</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="reportTitle">Judul singkat</label>
+          <input type="text" id="reportTitle" placeholder="Contoh: Kanji 歌います salah di lembar 5" maxlength="200" required>
+        </div>
+
+        <div class="field-group">
+          <label for="reportPageContext">Lembar / kanji terkait <span style="font-weight:400; color:rgba(28,28,26,0.45);">(opsional)</span></label>
+          <input type="text" id="reportPageContext" placeholder="Contoh: Lembar 5, kanji 歌います" maxlength="200">
+        </div>
+
+        <div class="field-group">
+          <label for="reportDescription">Detail</label>
+          <textarea id="reportDescription" placeholder="Jelaskan bug yang ditemukan atau update yang diinginkan..." maxlength="4000" required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="reportContact">Nama/kontak <span style="font-weight:400; color:rgba(28,28,26,0.45);">(opsional)</span></label>
+          <input type="text" id="reportContact" placeholder="Supaya bisa dibalas secara personal" maxlength="200">
+          <div class="field-hint">Laporan tetap bisa dilacak lewat tab "Laporan Saya" walau kontak dikosongkan.</div>
+        </div>
+
+        <div class="form-status" id="reportFormStatus"></div>
+
+        <button type="submit" class="submit-report-btn" id="reportSubmitBtn">Kirim Laporan</button>
+      </form>
+    </div>
+
+    <!-- My reports list -->
+    <div id="reportMinePane" style="display:none;">
+      <div class="report-list" id="myReportsList"></div>
+    </div>
+  </section>
+
+  <!-- REPORT DETAIL / THREAD SCREEN -->
+  <section class="screen" id="screen-report-detail">
+    <div class="browse-header">
+      <button class="back-btn" id="reportDetailBackBtn">←</button>
+      <div>
+        <h2 id="reportDetailHeaderTitle">Detail Laporan<span class="sub" id="reportDetailHeaderSub"></span></h2>
+      </div>
+    </div>
+
+    <div class="thread-header-card">
+      <div class="report-card-top" id="reportDetailTags"></div>
+      <div class="thread-title" id="reportDetailTitle"></div>
+      <div class="thread-desc" id="reportDetailDesc"></div>
+      <div class="thread-meta-row" id="reportDetailMetaRow"></div>
+    </div>
+
+    <div class="thread-list" id="threadList"></div>
+
+    <div class="reply-box">
+      <textarea id="replyInput" placeholder="Tulis balasan..." rows="1"></textarea>
+      <button class="reply-send-btn" id="replySendBtn" type="button">→</button>
+    </div>
+  </section>
+
+  <!-- ADMIN SCREEN -->
+  <section class="screen" id="screen-admin">
+    <div class="browse-header">
+      <button class="back-btn" id="adminBackBtn">←</button>
+      <div>
+        <h2>Admin — Semua Laporan<span class="sub" id="adminSub">0 laporan</span></h2>
+      </div>
+    </div>
+
+    <div class="admin-filter-row" id="adminFilterRow">
+      <button data-status="" class="active">Semua</button>
+      <button data-status="open">Open</button>
+      <button data-status="in_progress">Diproses</button>
+      <button data-status="resolved">Selesai</button>
+      <button data-status="closed">Ditutup</button>
+    </div>
+
+    <div class="report-list" id="adminReportsList"></div>
+
+    <div class="admin-logout-row">
+      <button id="adminLogoutBtn" type="button">Keluar dari mode admin</button>
+    </div>
   </section>
 
   <footer>手書きの心で、一字一字学ぶ — belajar satu aksara pada satu waktu</footer>
@@ -2238,6 +2735,514 @@ const KANJI_DATA = [
 
 })();
 
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  // ============================================================
+  // 漢字道 — Bug Report / Update Request / Admin module
+  // ============================================================
+  //
+  // Ganti URL di bawah ini dengan URL Cloudflare Worker Anda
+  // setelah deploy (lihat worker/README.md).
+  const REPORTS_API_BASE = 'https://kanji-quiz-reports.YOUR-SUBDOMAIN.workers.dev';
+
+  const REPORTER_ID_KEY = 'kanjiQuizReporterId_v1';
+  const ADMIN_TOKEN_KEY = 'kanjiQuizAdminToken_v1';
+
+  // ---------- Reporter identity (anonymous) ----------
+  function getReporterId(){
+    try{
+      let id = localStorage.getItem(REPORTER_ID_KEY);
+      if(!id){
+        id = 'r_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(REPORTER_ID_KEY, id);
+      }
+      return id;
+    }catch(e){
+      return 'r_anon';
+    }
+  }
+
+  // ---------- Admin token ----------
+  function getAdminToken(){
+    try{ return localStorage.getItem(ADMIN_TOKEN_KEY); }catch(e){ return null; }
+  }
+  function setAdminToken(token){
+    try{
+      if(token) localStorage.setItem(ADMIN_TOKEN_KEY, token);
+      else localStorage.removeItem(ADMIN_TOKEN_KEY);
+    }catch(e){ /* ignore */ }
+  }
+  function isAdminMode(){
+    return !!getAdminToken();
+  }
+
+  // ---------- API helper ----------
+  async function apiFetch(path, options = {}){
+    const headers = Object.assign({ 'Content-Type': 'application/json' }, options.headers || {});
+    const token = getAdminToken();
+    if(token) headers['Authorization'] = 'Bearer ' + token;
+
+    const res = await fetch(REPORTS_API_BASE + path, {
+      method: options.method || 'GET',
+      headers,
+      body: options.body ? JSON.stringify(options.body) : undefined
+    });
+
+    let data = null;
+    try{ data = await res.json(); }catch(e){ /* no body */ }
+
+    if(!res.ok){
+      const err = new Error((data && data.error) || `Request failed (${res.status})`);
+      err.status = res.status;
+      throw err;
+    }
+    return data;
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, (c) => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    }[c]));
+  }
+
+  function timeAgo(isoStr){
+    if(!isoStr) return '';
+    const then = new Date(isoStr.replace(' ', 'T') + 'Z').getTime();
+    const now = Date.now();
+    const diffSec = Math.floor((now - then) / 1000);
+    if(diffSec < 60) return 'baru saja';
+    if(diffSec < 3600) return Math.floor(diffSec/60) + ' menit lalu';
+    if(diffSec < 86400) return Math.floor(diffSec/3600) + ' jam lalu';
+    return Math.floor(diffSec/86400) + ' hari lalu';
+  }
+
+  const STATUS_LABEL = {
+    open: 'Open',
+    in_progress: 'Diproses',
+    resolved: 'Selesai',
+    closed: 'Ditutup'
+  };
+  const TYPE_LABEL = {
+    bug: 'Bug',
+    update_request: 'Update'
+  };
+
+  // ---------- DOM refs ----------
+  const reportHeaderBtn = document.getElementById('reportHeaderBtn');
+
+  const screenReport = document.getElementById('screen-report');
+  const screenReportDetail = document.getElementById('screen-report-detail');
+  const screenAdmin = document.getElementById('screen-admin');
+  const allAppScreens = document.querySelectorAll('.screen');
+
+  const reportBackBtn = document.getElementById('reportBackBtn');
+  const reportDetailBackBtn = document.getElementById('reportDetailBackBtn');
+  const adminBackBtn = document.getElementById('adminBackBtn');
+
+  const reportTabNew = document.getElementById('reportTabNew');
+  const reportTabMine = document.getElementById('reportTabMine');
+  const reportFormPane = document.getElementById('reportFormPane');
+  const reportMinePane = document.getElementById('reportMinePane');
+  const myReportsList = document.getElementById('myReportsList');
+
+  const reportForm = document.getElementById('reportForm');
+  const typeBugBtn = document.getElementById('typeBugBtn');
+  const typeUpdateBtn = document.getElementById('typeUpdateBtn');
+  const reportTitleInput = document.getElementById('reportTitle');
+  const reportPageContextInput = document.getElementById('reportPageContext');
+  const reportDescriptionInput = document.getElementById('reportDescription');
+  const reportContactInput = document.getElementById('reportContact');
+  const reportFormStatus = document.getElementById('reportFormStatus');
+  const reportSubmitBtn = document.getElementById('reportSubmitBtn');
+
+  const reportDetailHeaderTitle = document.getElementById('reportDetailHeaderTitle');
+  const reportDetailHeaderSub = document.getElementById('reportDetailHeaderSub');
+  const reportDetailTags = document.getElementById('reportDetailTags');
+  const reportDetailTitle = document.getElementById('reportDetailTitle');
+  const reportDetailDesc = document.getElementById('reportDetailDesc');
+  const reportDetailMetaRow = document.getElementById('reportDetailMetaRow');
+  const threadList = document.getElementById('threadList');
+  const replyInput = document.getElementById('replyInput');
+  const replySendBtn = document.getElementById('replySendBtn');
+
+  const adminSub = document.getElementById('adminSub');
+  const adminFilterRow = document.getElementById('adminFilterRow');
+  const adminReportsList = document.getElementById('adminReportsList');
+  const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+
+  const adminModalOverlay = document.getElementById('adminModalOverlay');
+  const adminModalMsg = document.getElementById('adminModalMsg');
+  const adminModalPasswordInput = document.getElementById('adminModalPasswordInput');
+  const adminModalCancelBtn = document.getElementById('adminModalCancelBtn');
+  const adminModalSubmitBtn = document.getElementById('adminModalSubmitBtn');
+
+  let selectedType = 'bug';
+  let currentReportId = null;
+  let adminStatusFilter = '';
+  let reportReturnTarget = 'report'; // where "back" from detail should go: 'report' or 'admin'
+
+  // ---------- Local screen switching (works alongside main app's own switcher) ----------
+  function showAppScreen(id){
+    allAppScreens.forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateHeaderAdminBadge(){
+    reportHeaderBtn.classList.toggle('has-admin', isAdminMode());
+  }
+
+  // ---------- Header button ----------
+  reportHeaderBtn.addEventListener('click', () => {
+    openReportScreen();
+  });
+
+  function openReportScreen(){
+    switchReportTab('new');
+    showAppScreen('screen-report');
+  }
+
+  reportBackBtn.addEventListener('click', () => {
+    showAppScreen('screen-start');
+  });
+
+  // ---------- Tabs ----------
+  function switchReportTab(tab){
+    reportTabNew.classList.toggle('active', tab === 'new');
+    reportTabMine.classList.toggle('active', tab === 'mine');
+    reportFormPane.style.display = tab === 'new' ? 'block' : 'none';
+    reportMinePane.style.display = tab === 'mine' ? 'block' : 'none';
+    if(tab === 'mine') loadMyReports();
+  }
+  reportTabNew.addEventListener('click', () => switchReportTab('new'));
+  reportTabMine.addEventListener('click', () => switchReportTab('mine'));
+
+  // ---------- Type toggle ----------
+  typeBugBtn.addEventListener('click', () => {
+    selectedType = 'bug';
+    typeBugBtn.classList.add('active');
+    typeUpdateBtn.classList.remove('active');
+  });
+  typeUpdateBtn.addEventListener('click', () => {
+    selectedType = 'update_request';
+    typeUpdateBtn.classList.add('active');
+    typeBugBtn.classList.remove('active');
+  });
+
+  // ---------- Submit new report ----------
+  reportForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = reportTitleInput.value.trim();
+    const description = reportDescriptionInput.value.trim();
+    if(!title || !description) return;
+
+    reportSubmitBtn.disabled = true;
+    reportSubmitBtn.textContent = 'Mengirim...';
+    reportFormStatus.classList.remove('show', 'ok', 'error');
+
+    try{
+      await apiFetch('/api/reports', {
+        method: 'POST',
+        body: {
+          type: selectedType,
+          title,
+          description,
+          pageContext: reportPageContextInput.value.trim() || null,
+          contact: reportContactInput.value.trim() || null,
+          reporterId: getReporterId()
+        }
+      });
+
+      reportFormStatus.textContent = 'Laporan terkirim! Terima kasih, kamu bisa memantau balasannya di tab "Laporan Saya".';
+      reportFormStatus.classList.add('show', 'ok');
+      reportForm.reset();
+      selectedType = 'bug';
+      typeBugBtn.classList.add('active');
+      typeUpdateBtn.classList.remove('active');
+    }catch(err){
+      reportFormStatus.textContent = 'Gagal mengirim laporan: ' + err.message + '. Pastikan koneksi internet aktif dan coba lagi.';
+      reportFormStatus.classList.add('show', 'error');
+    }finally{
+      reportSubmitBtn.disabled = false;
+      reportSubmitBtn.textContent = 'Kirim Laporan';
+    }
+  });
+
+  // ---------- My reports list ----------
+  async function loadMyReports(){
+    myReportsList.innerHTML = `<div class="empty-state"><div class="es-icon">⏳</div><p>Memuat laporan...</p></div>`;
+    try{
+      const data = await apiFetch(`/api/reports?reporter=${encodeURIComponent(getReporterId())}`);
+      renderReportList(myReportsList, data.reports, () => {
+        reportReturnTarget = 'report-mine';
+      });
+    }catch(err){
+      myReportsList.innerHTML = `<div class="empty-state"><div class="es-icon">⚠️</div><p>Gagal memuat laporan: ${escapeHtml(err.message)}</p></div>`;
+    }
+  }
+
+  function renderReportList(container, reports, onItemClick){
+    if(!reports || reports.length === 0){
+      container.innerHTML = `<div class="empty-state"><div class="es-icon">📭</div><p>Belum ada laporan di sini.</p></div>`;
+      return;
+    }
+    container.innerHTML = '';
+    reports.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'report-card';
+      card.innerHTML = `
+        <div class="report-card-top">
+          <span class="report-type-tag ${r.type}">${TYPE_LABEL[r.type] || r.type}</span>
+          <span class="report-status-tag ${r.status}">${STATUS_LABEL[r.status] || r.status}</span>
+        </div>
+        <div class="report-card-title">${escapeHtml(r.title)}</div>
+        <div class="report-card-desc">${escapeHtml(r.description)}</div>
+        <div class="report-card-meta">
+          <span>#${r.id}</span>
+          <span>${timeAgo(r.updated_at)}</span>
+          ${r.page_context ? `<span>${escapeHtml(r.page_context)}</span>` : ''}
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        if(onItemClick) onItemClick();
+        openReportDetail(r.id);
+      });
+      container.appendChild(card);
+    });
+  }
+
+  // ---------- Report detail / thread ----------
+  async function openReportDetail(id){
+    currentReportId = id;
+    threadList.innerHTML = `<div class="empty-state"><div class="es-icon">⏳</div><p>Memuat percakapan...</p></div>`;
+    reportDetailTitle.textContent = '';
+    reportDetailDesc.textContent = '';
+    reportDetailTags.innerHTML = '';
+    reportDetailMetaRow.innerHTML = '';
+    showAppScreen('screen-report-detail');
+
+    try{
+      const data = await apiFetch(`/api/reports/${id}?reporter=${encodeURIComponent(getReporterId())}`);
+      renderReportDetail(data);
+    }catch(err){
+      threadList.innerHTML = `<div class="empty-state"><div class="es-icon">⚠️</div><p>Gagal memuat: ${escapeHtml(err.message)}</p></div>`;
+    }
+  }
+
+  function renderReportDetail(data){
+    const r = data.report;
+    reportDetailHeaderTitle.innerHTML = `Detail Laporan<span class="sub" id="reportDetailHeaderSub">#${r.id}</span>`;
+    reportDetailTags.innerHTML = `
+      <span class="report-type-tag ${r.type}">${TYPE_LABEL[r.type] || r.type}</span>
+      ${isAdminMode() ? `
+        <select class="status-select" id="statusSelectInline">
+          ${Object.keys(STATUS_LABEL).map(s => `<option value="${s}" ${s === r.status ? 'selected' : ''}>${STATUS_LABEL[s]}</option>`).join('')}
+        </select>
+      ` : `<span class="report-status-tag ${r.status}" style="margin-left:auto;">${STATUS_LABEL[r.status] || r.status}</span>`}
+    `;
+    reportDetailTitle.textContent = r.title;
+    reportDetailDesc.textContent = r.description;
+
+    const metaBits = [`#${r.id}`, timeAgo(r.updated_at)];
+    if(r.page_context) metaBits.push(r.page_context);
+    if(r.contact && isAdminMode()) metaBits.push('Kontak: ' + r.contact);
+    reportDetailMetaRow.innerHTML = metaBits.map(b => `<span>${escapeHtml(b)}</span>`).join('');
+
+    if(isAdminMode()){
+      const sel = document.getElementById('statusSelectInline');
+      sel.addEventListener('change', async () => {
+        try{
+          await apiFetch(`/api/reports/${r.id}`, { method: 'PATCH', body: { status: sel.value } });
+        }catch(err){
+          alert('Gagal mengubah status: ' + err.message);
+        }
+      });
+    }
+
+    threadList.innerHTML = '';
+    if(!data.replies || data.replies.length === 0){
+      threadList.innerHTML = `<div class="empty-state" style="padding:24px 10px;"><p>Belum ada balasan. ${isAdminMode() ? 'Tulis balasan pertama di bawah.' : 'Tunggu balasan dari admin ya.'}</p></div>`;
+    } else {
+      data.replies.forEach(msg => {
+        const bubble = document.createElement('div');
+        bubble.className = 'thread-msg ' + (msg.author === 'admin' ? 'from-admin' : 'from-reporter');
+        bubble.innerHTML = `<span class="tm-author">${msg.author === 'admin' ? 'Admin' : 'Kamu'} · ${timeAgo(msg.created_at)}</span>${escapeHtml(msg.message)}`;
+        threadList.appendChild(bubble);
+      });
+    }
+  }
+
+  async function sendReply(){
+    const message = replyInput.value.trim();
+    if(!message || !currentReportId) return;
+    replySendBtn.disabled = true;
+    try{
+      await apiFetch(`/api/reports/${currentReportId}/replies`, {
+        method: 'POST',
+        body: { message, reporterId: getReporterId() }
+      });
+      replyInput.value = '';
+      const data = await apiFetch(`/api/reports/${currentReportId}?reporter=${encodeURIComponent(getReporterId())}`);
+      renderReportDetail(data);
+    }catch(err){
+      alert('Gagal mengirim balasan: ' + err.message);
+    }finally{
+      replySendBtn.disabled = false;
+    }
+  }
+  replySendBtn.addEventListener('click', sendReply);
+  replyInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendReply();
+    }
+  });
+
+  reportDetailBackBtn.addEventListener('click', () => {
+    if(reportReturnTarget === 'admin'){
+      showAppScreen('screen-admin');
+    } else if(reportReturnTarget === 'report-mine'){
+      showAppScreen('screen-report');
+      switchReportTab('mine');
+    } else {
+      showAppScreen('screen-report');
+    }
+  });
+
+  // ---------- Admin screen ----------
+  adminBackBtn.addEventListener('click', () => {
+    showAppScreen('screen-start');
+  });
+
+  adminFilterRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    adminFilterRow.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    adminStatusFilter = btn.dataset.status || '';
+    loadAdminReports();
+  });
+
+  async function loadAdminReports(){
+    adminReportsList.innerHTML = `<div class="empty-state"><div class="es-icon">⏳</div><p>Memuat semua laporan...</p></div>`;
+    try{
+      const query = adminStatusFilter ? `?status=${encodeURIComponent(adminStatusFilter)}` : '';
+      const data = await apiFetch(`/api/reports${query}`);
+      adminSub.textContent = `${data.reports.length} laporan`;
+      renderReportList(adminReportsList, data.reports, () => {
+        reportReturnTarget = 'admin';
+      });
+    }catch(err){
+      adminReportsList.innerHTML = `<div class="empty-state"><div class="es-icon">⚠️</div><p>Gagal memuat: ${escapeHtml(err.message)}</p></div>`;
+      if(err.status === 401){
+        setAdminToken(null);
+        updateHeaderAdminBadge();
+      }
+    }
+  }
+
+  function openAdminScreen(){
+    adminStatusFilter = '';
+    adminFilterRow.querySelectorAll('button').forEach((b,i) => b.classList.toggle('active', i === 0));
+    showAppScreen('screen-admin');
+    loadAdminReports();
+  }
+
+  adminLogoutBtn.addEventListener('click', () => {
+    adminLogout();
+    showAppScreen('screen-start');
+  });
+
+  // ---------- Admin login modal ----------
+  function showAdminModal(msg){
+    adminModalMsg.textContent = msg || 'Masukkan password admin untuk melanjutkan.';
+    adminModalPasswordInput.value = '';
+    adminModalOverlay.style.display = 'flex';
+    setTimeout(() => adminModalPasswordInput.focus(), 50);
+  }
+  function hideAdminModal(){
+    adminModalOverlay.style.display = 'none';
+  }
+  adminModalCancelBtn.addEventListener('click', hideAdminModal);
+  adminModalOverlay.addEventListener('click', (e) => {
+    if(e.target === adminModalOverlay) hideAdminModal();
+  });
+  adminModalSubmitBtn.addEventListener('click', async () => {
+    const pw = adminModalPasswordInput.value;
+    if(!pw) return;
+    adminModalSubmitBtn.disabled = true;
+    adminModalSubmitBtn.textContent = 'Memeriksa...';
+    try{
+      await adminLoginInternal(pw);
+      hideAdminModal();
+      openAdminScreen();
+    }catch(err){
+      adminModalMsg.textContent = 'Password salah. Coba lagi.';
+      adminModalMsg.style.color = 'var(--shu)';
+    }finally{
+      adminModalSubmitBtn.disabled = false;
+      adminModalSubmitBtn.textContent = 'Masuk';
+    }
+  });
+  adminModalPasswordInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') adminModalSubmitBtn.click();
+  });
+
+  async function adminLoginInternal(password){
+    const data = await apiFetch('/api/admin/login', { method: 'POST', body: { password } });
+    setAdminToken(data.token);
+    updateHeaderAdminBadge();
+    return data;
+  }
+
+  // ---------- Global console API ----------
+  // Ketik di console browser: adminLogin('password-anda')
+  window.adminLogin = async function(password){
+    if(!password){
+      console.log('%cPakai: adminLogin("password-anda")', 'color:#c1440e; font-weight:bold;');
+      return;
+    }
+    try{
+      await adminLoginInternal(password);
+      console.log('%c✓ Login admin berhasil. Membuka panel admin...', 'color:#6b7f5e; font-weight:bold;');
+      openAdminScreen();
+    }catch(err){
+      console.log('%c✕ Login admin gagal: ' + err.message, 'color:#c1440e; font-weight:bold;');
+    }
+  };
+
+  window.adminLogout = function(){
+    adminLogout();
+    console.log('%c✓ Keluar dari mode admin.', 'color:#24435c; font-weight:bold;');
+  };
+
+  function adminLogout(){
+    setAdminToken(null);
+    updateHeaderAdminBadge();
+  }
+
+  // ---------- Verify existing admin session on load ----------
+  async function verifyAdminSession(){
+    const token = getAdminToken();
+    if(!token) return;
+    try{
+      const data = await apiFetch('/api/admin/verify');
+      if(!data.valid) setAdminToken(null);
+    }catch(e){
+      setAdminToken(null);
+    }
+    updateHeaderAdminBadge();
+  }
+
+  // ---------- Init ----------
+  updateHeaderAdminBadge();
+  verifyAdminSession();
+
+})();
 </script>
 
 <script>
