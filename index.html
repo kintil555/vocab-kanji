@@ -3068,6 +3068,7 @@ const SENTENCE_DATA = [
   const searchResultCount = document.getElementById('searchResultCount');
   const searchResultsList = document.getElementById('searchResultsList');
   let browseReturnScreen = 'screen-start'; // simpan ID elemen screen (bukan key screens{}), supaya bisa kembali ke screen manapun termasuk yang dikelola showAppScreen (mis. screen-sentence-quiz)
+  let browseDetailReturnScreen = 'screen-browse'; // screen tujuan saat tombol back di screen-browseDetail ditekan (selalu grid lembar, terpisah dari browseReturnScreen supaya tidak saling menimpa)
 
   const lengthSelect = document.getElementById('lengthSelect');
   const modeCards = document.querySelectorAll('.mode-card');
@@ -3179,7 +3180,7 @@ const SENTENCE_DATA = [
       }
       vocabList.appendChild(div);
     });
-    browseReturnScreen = 'screen-browse';
+    browseDetailReturnScreen = 'screen-browse';
     showScreen('browseDetail');
     if(targetEl){
       setTimeout(() => {
@@ -3203,7 +3204,7 @@ const SENTENCE_DATA = [
   });
 
   browseDetailBackBtn.addEventListener('click', () => {
-    showScreen('browse');
+    showScreenById(browseDetailReturnScreen);
   });
 
   // ---------- Smart search ----------
