@@ -3067,7 +3067,7 @@ const SENTENCE_DATA = [
   const searchResultsWrap = document.getElementById('searchResultsWrap');
   const searchResultCount = document.getElementById('searchResultCount');
   const searchResultsList = document.getElementById('searchResultsList');
-  let browseReturnScreen = 'start';
+  let browseReturnScreen = 'screen-start'; // simpan ID elemen screen (bukan key screens{}), supaya bisa kembali ke screen manapun termasuk yang dikelola showAppScreen (mis. screen-sentence-quiz)
 
   const lengthSelect = document.getElementById('lengthSelect');
   const modeCards = document.querySelectorAll('.mode-card');
@@ -3101,8 +3101,12 @@ const SENTENCE_DATA = [
   const sealHomeBtn = document.getElementById('sealHomeBtn');
 
   // ---------- Screen switching ----------
+  // Catatan: ada dua "sistem" screen di app ini (screens{} lama & allAppScreens
+  // yang lebih baru dipakai fitur report/admin/sentence-mode). Supaya keduanya
+  // selalu konsisten, showScreen sekarang membersihkan .active dari SEMUA
+  // elemen .screen di halaman, bukan cuma yang ada di object screens{}.
   function showScreen(name){
-    Object.values(screens).forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     screens[name].classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -3171,7 +3175,7 @@ const SENTENCE_DATA = [
       }
       vocabList.appendChild(div);
     });
-    browseReturnScreen = 'browse';
+    browseReturnScreen = 'screen-browse';
     showScreen('browseDetail');
     if(targetEl){
       setTimeout(() => {
@@ -3181,7 +3185,7 @@ const SENTENCE_DATA = [
   }
 
   headerStat.addEventListener('click', () => {
-    browseReturnScreen = currentActiveScreenName();
+    browseReturnScreen = currentActiveScreenId();
     vocabSearchInput.value = '';
     toggleSearchMode(false);
     renderLembarGrid();
@@ -3190,7 +3194,8 @@ const SENTENCE_DATA = [
   });
 
   browseBackBtn.addEventListener('click', () => {
-    showScreen(browseReturnScreen === 'browse' ? 'start' : browseReturnScreen);
+    const targetId = browseReturnScreen === 'screen-browse' ? 'screen-start' : browseReturnScreen;
+    showScreenById(targetId);
   });
 
   browseDetailBackBtn.addEventListener('click', () => {
@@ -3288,6 +3293,25 @@ const SENTENCE_DATA = [
       if(el.classList.contains('active')) return name;
     }
     return 'start';
+  }
+
+  // Versi yang melihat SEMUA elemen .screen di halaman (bukan cuma yang ada
+  // di object screens{}), supaya screen dari fitur lain (sentence-mode,
+  // report, admin, dll) juga terdeteksi dengan benar sebagai "screen aktif".
+  function currentActiveScreenId(){
+    const activeEl = document.querySelector('.screen.active');
+    return activeEl ? activeEl.id : 'screen-start';
+  }
+
+  // Pindah ke screen manapun berdasarkan ID elemen, terlepas dari screen itu
+  // dikelola oleh showScreen() (object screens{}) atau showAppScreen()
+  // (querySelectorAll('.screen')). Selalu membersihkan .active dari semua
+  // .screen dulu supaya tidak ada dua screen yang aktif bersamaan.
+  function showScreenById(id){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById(id);
+    (target || screens.start).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // ---------- Furigana toggle sync ----------
