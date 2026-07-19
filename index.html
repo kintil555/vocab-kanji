@@ -104,10 +104,164 @@ header{
   align-items:center;
   gap:6px;
   white-space:nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  transition: transform 0.12s ease, background 0.12s ease;
 }
+.stat-pill:hover{ background:#000; transform: translateY(-1px); }
+.stat-pill:active{ transform: translateY(0); }
 .stat-pill .dot{
   width:6px;height:6px;border-radius:50%;
   background: var(--shu);
+}
+
+/* ===== Browse screen ===== */
+.browse-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 18px;
+}
+.back-btn{
+  width:38px; height:38px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background:#fff;
+  color: var(--sumi);
+  font-size: 16px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: all 0.12s ease;
+}
+.back-btn:hover{ border-color: var(--sumi); background: var(--washi-deep); }
+.browse-header h2{
+  font-family:'Shippori Mincho', serif;
+  font-size: 19px;
+  font-weight:700;
+}
+.browse-header span.sub{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: rgba(28,28,26,0.5);
+  margin-top:2px;
+  font-weight:400;
+}
+
+.lembar-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.lembar-card{
+  background:#fff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition: all 0.12s ease;
+}
+.lembar-card:hover{
+  border-color: var(--shu);
+  transform: translateY(-2px);
+  box-shadow: 2px 3px 0 var(--shadow);
+}
+.lembar-card b{
+  display:block;
+  font-family:'Shippori Mincho', serif;
+  font-size: 22px;
+  font-weight:800;
+  color: var(--shu);
+}
+.lembar-card span{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(28,28,26,0.5);
+  margin-top:4px;
+}
+
+.browse-list-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 14px;
+}
+.browse-list-header h3{
+  font-family:'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight:800;
+  color: var(--shu);
+}
+.browse-list-header .count-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(28,28,26,0.5);
+  background: var(--washi-deep);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+.vocab-list{
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+}
+.vocab-item{
+  background:#fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display:flex;
+  align-items:center;
+  gap: 14px;
+}
+.vocab-item .vi-num{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(28,28,26,0.35);
+  width: 22px;
+  flex-shrink:0;
+  text-align:right;
+}
+.vocab-item .vi-jp{
+  font-family:'Shippori Mincho', serif;
+  font-size: 22px;
+  font-weight:700;
+  width: 100px;
+  flex-shrink:0;
+  line-height:1.15;
+}
+.vocab-item .vi-jp .vi-r{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight:600;
+  color: var(--ai);
+  margin-bottom:2px;
+}
+.vocab-item .vi-m{
+  flex:1;
+  font-size: 13.5px;
+  color: var(--sumi);
+}
+
+/* ===== Quiz lembar badge ===== */
+.q-lembar-badge{
+  position:absolute;
+  top:12px; right:16px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight:700;
+  color: var(--ai);
+  border: 1px solid rgba(36,67,92,0.3);
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(36,67,92,0.05);
 }
 
 /* ===== Screens ===== */
@@ -854,7 +1008,7 @@ footer{
 <div id="welcomeOverlay">
   <div class="wo-card">
     <button class="wo-close" id="woClose" aria-label="Tutup">✕</button>
-    <div class="wo-title">bjir mau belajar jepang nih, btw ini buatan Rifai Ramdhani</div>
+    <div class="wo-title">bjir mau belajar jepang nih</div>
     <div class="wo-body">Selamat datang di 漢字道. Pilih font tampilan yang paling nyaman buat kamu di bawah ini, terus langsung gas belajar kanji.</div>
     <label class="wo-font-label" for="woFontSelect">Font Tampilan</label>
     <select class="wo-font-select" id="woFontSelect">
@@ -877,7 +1031,7 @@ footer{
       <div class="seal">漢</div>
       <h1>漢字道<span>KANJI QUIZ · JLPT VOCAB</span></h1>
     </div>
-    <div class="stat-pill" id="headerStat"><span class="dot"></span><span id="headerStatText">611 kosakata</span></div>
+    <button class="stat-pill" id="headerStat" type="button" title="Lihat semua kosakata per lembar"><span class="dot"></span><span id="headerStatText">611 kosakata</span></button>
   </header>
 
   <div class="saved-banner" id="savedBanner" style="display:none;">
@@ -987,6 +1141,7 @@ footer{
     </div>
 
     <div class="question-card">
+      <span class="q-lembar-badge" id="qLembarBadge">Lembar 1</span>
       <span class="q-type-tag" id="qTypeTag">KANJI → ARTI</span>
       <div class="question-main jp" id="questionMain">魚</div>
       <div class="question-sub" id="questionSub"></div>
@@ -1026,6 +1181,28 @@ footer{
       <button class="btn-secondary" id="restartSameBtn">Ulangi Mode</button>
       <button class="btn-primary" id="homeBtn">Menu Utama</button>
     </div>
+  </section>
+
+  <!-- BROWSE SCREEN (list of lembar) -->
+  <section class="screen" id="screen-browse">
+    <div class="browse-header">
+      <button class="back-btn" id="browseBackBtn">←</button>
+      <div>
+        <h2>Semua Kosakata<span class="sub" id="browseSub">611 kata · 11 lembar</span></h2>
+      </div>
+    </div>
+    <div class="lembar-grid" id="lembarGrid"></div>
+  </section>
+
+  <!-- BROWSE DETAIL SCREEN (list of vocab in one lembar) -->
+  <section class="screen" id="screen-browse-detail">
+    <div class="browse-header">
+      <button class="back-btn" id="browseDetailBackBtn">←</button>
+      <div>
+        <h2 id="browseDetailTitle">Lembar 1<span class="sub" id="browseDetailSub">56 kata</span></h2>
+      </div>
+    </div>
+    <div class="vocab-list" id="vocabList"></div>
   </section>
 
   <footer>手書きの心で、一字一字学ぶ — belajar satu aksara pada satu waktu</footer>
@@ -1353,7 +1530,9 @@ const KANJI_DATA = [
   const screens = {
     start: document.getElementById('screen-start'),
     quiz: document.getElementById('screen-quiz'),
-    result: document.getElementById('screen-result')
+    result: document.getElementById('screen-result'),
+    browse: document.getElementById('screen-browse'),
+    browseDetail: document.getElementById('screen-browse-detail')
   };
 
   const savedBanner = document.getElementById('savedBanner');
@@ -1364,6 +1543,17 @@ const KANJI_DATA = [
   const pageGrid = document.getElementById('pageGrid');
   const selectAllPagesBtn = document.getElementById('selectAllPagesBtn');
   const clearPagesBtn = document.getElementById('clearPagesBtn');
+
+  const headerStat = document.getElementById('headerStat');
+  const lembarGrid = document.getElementById('lembarGrid');
+  const browseSub = document.getElementById('browseSub');
+  const browseBackBtn = document.getElementById('browseBackBtn');
+  const browseDetailBackBtn = document.getElementById('browseDetailBackBtn');
+  const browseDetailTitle = document.getElementById('browseDetailTitle');
+  const browseDetailSub = document.getElementById('browseDetailSub');
+  const vocabList = document.getElementById('vocabList');
+  const qLembarBadge = document.getElementById('qLembarBadge');
+  let browseReturnScreen = 'start';
 
   const lengthSelect = document.getElementById('lengthSelect');
   const modeCards = document.querySelectorAll('.mode-card');
@@ -1432,6 +1622,59 @@ const KANJI_DATA = [
     renderPageGrid();
     saveSettings();
   });
+
+  // ---------- Browse per-lembar screens ----------
+  function renderLembarGrid(){
+    const pages = getAllPages();
+    browseSub.textContent = `${KANJI_DATA.length} kata · ${pages.length} lembar`;
+    lembarGrid.innerHTML = '';
+    pages.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'lembar-card';
+      card.innerHTML = `<b>${p}</b><span>${countByPage(p)} kata</span>`;
+      card.addEventListener('click', () => openLembarDetail(p));
+      lembarGrid.appendChild(card);
+    });
+  }
+
+  function openLembarDetail(pageNum){
+    const items = KANJI_DATA.filter(d => d.p === pageNum);
+    browseDetailTitle.innerHTML = `Lembar ${pageNum}<span class="sub" id="browseDetailSub">${items.length} kata</span>`;
+    vocabList.innerHTML = '';
+    items.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'vocab-item';
+      div.innerHTML = `
+        <span class="vi-num">${i + 1}</span>
+        <span class="vi-jp"><span class="vi-r">${escapeHtml(item.r)}</span>${escapeHtml(item.k)}</span>
+        <span class="vi-m">${escapeHtml(item.m)}</span>
+      `;
+      vocabList.appendChild(div);
+    });
+    browseReturnScreen = 'browse';
+    showScreen('browseDetail');
+  }
+
+  headerStat.addEventListener('click', () => {
+    browseReturnScreen = currentActiveScreenName();
+    renderLembarGrid();
+    showScreen('browse');
+  });
+
+  browseBackBtn.addEventListener('click', () => {
+    showScreen(browseReturnScreen === 'browse' ? 'start' : browseReturnScreen);
+  });
+
+  browseDetailBackBtn.addEventListener('click', () => {
+    showScreen('browse');
+  });
+
+  function currentActiveScreenName(){
+    for(const [name, el] of Object.entries(screens)){
+      if(el.classList.contains('active')) return name;
+    }
+    return 'start';
+  }
 
   // ---------- Furigana toggle sync ----------
   function applyFuriToggleUI(){
@@ -1527,6 +1770,7 @@ const KANJI_DATA = [
     progressFill.style.width = `${((state.current) / total) * 100}%`;
 
     qTypeTag.textContent = q.qType;
+    qLembarBadge.textContent = `Lembar ${q.item.p}`;
 
     if(q.direction === 'k2m'){
       questionMainEl.className = 'question-main jp';
